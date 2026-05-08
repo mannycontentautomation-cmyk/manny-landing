@@ -15,7 +15,7 @@ Pre-launch. Lista de espera abierta en https://manny.tools.
 
 ## Cómo funciona
 
-El núcleo es el contexto del cliente. La agencia sube el brief, las notas de la reunión, las decisiones tomadas, los lineamientos de marca. Esa información es lo que Manny procesa para generar piezas específicas — no contenido genérico.
+El núcleo es el contexto del cliente. La agencia sube el brief, las notas de la reunión, las decisiones tomadas, los lineamientos de marca. Esa información es lo que Manny procesa para generar piezas específicas, no contenido genérico.
 
 El flujo:
 
@@ -26,12 +26,12 @@ El flujo:
 
 ## Cómo aprende
 
-Lo que funciona pasa a ser contexto de futuras campañas. El brief vivo de cada cliente se enriquece con cada pieza aprobada — la próxima propuesta llega con más fidelidad a la marca. La agencia no tiene que volver a explicar el contexto cada vez: el contexto se acumula y mejora con el uso.
+Lo que funciona pasa a ser contexto de futuras campañas. El brief vivo de cada cliente se enriquece con cada pieza aprobada, y la próxima propuesta llega con más fidelidad a la marca. La agencia no tiene que volver a explicar el contexto cada vez: el contexto se acumula y mejora con el uso.
 
 ## Posicionamiento
 
 - **El control es de la agencia.** Manny propone, la agencia decide. La AI es el motor que aporta velocidad y consistencia, no el protagonista que reemplaza el criterio creativo.
-- **La AI es invisible.** El sujeto siempre es Manny y el equipo, no "la AI". Manny no se vende como "potenciado por inteligencia artificial" — se vende como el sistema que hace que la información del cliente deje de perderse.
+- **La AI es invisible.** El sujeto siempre es Manny y el equipo, no "la AI". Manny no se vende como "potenciado por inteligencia artificial". Se vende como el sistema que hace que la información del cliente deje de perderse.
 - **El contexto vive en un solo lugar** y viaja de principio a fin del pipeline (no se pierde entre Notion, Drive, WhatsApp, Canva y la cabeza del dueño).
 - **El equipo creativo diseña el template una vez.** Manny reproduce para cada cliente, sin que el diseñador tenga que cambiar su flujo de Figma.
 
