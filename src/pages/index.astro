@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Nav from '../components/Nav.astro';
+import Hero from '../components/Hero.astro';
+import HowItWorks from '../components/HowItWorks.astro';
+import Highlight from '../components/Highlight.astro';
+import CTAFooter from '../components/CTAFooter.astro';
+---
+
+<BaseLayout>
+  <div class="page grid-bg">
+    <Nav />
+    <main>
+      <Hero />
+      <HowItWorks />
+      <Highlight />
+    </main>
+  </div>
+  <CTAFooter />
+</BaseLayout>
+
+<style>
+  .page {
+    background-color: var(--background);
+  }
+</style>

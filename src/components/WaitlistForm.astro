@@ -1,0 +1,201 @@
+---
+type Variant = 'primary' | 'dark';
+
+interface Props {
+  variant?: Variant;
+  cta?: string;
+  placeholder?: string;
+  formId?: string;
+}
+
+const {
+  variant = 'primary',
+  cta = 'Sumarme a la beta',
+  placeholder = 'tu@email.com',
+  formId = 'waitlist',
+} = Astro.props;
+---
+
+<form
+  class:list={['waitlist', variant === 'dark' ? 'is-dark' : 'is-light']}
+  data-form-id={formId}
+  novalidate
+>
+  <input
+    type="email"
+    name="email"
+    placeholder={placeholder}
+    required
+    autocomplete="email"
+    aria-label="Tu email"
+  />
+  <button type="submit">
+    <span class="btn-label">{cta}</span>
+  </button>
+
+  <p class="status" data-status="idle" aria-live="polite"></p>
+</form>
+
+<style>
+  .waitlist {
+    position: relative;
+    display: flex;
+    gap: var(--space-2);
+    padding: 6px;
+    border-radius: var(--radius-pill);
+    max-width: 460px;
+    width: 100%;
+  }
+
+  .waitlist.is-light {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    box-shadow: 0 1px 2px rgba(25, 23, 29, 0.04);
+  }
+
+  .waitlist.is-dark {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+  }
+
+  .waitlist input {
+    flex: 1;
+    min-width: 0;
+    border: none;
+    background: transparent;
+    outline: none;
+    font-size: 15px;
+    padding: 0 var(--space-5);
+    font-family: inherit;
+    color: var(--foreground);
+  }
+
+  .waitlist.is-dark input {
+    color: #EFEFEC;
+  }
+
+  .waitlist input::placeholder {
+    color: var(--neutral-500);
+  }
+
+  .waitlist.is-dark input::placeholder {
+    color: rgba(239, 239, 236, 0.5);
+  }
+
+  .waitlist button {
+    background: var(--primary);
+    color: #FFFFFF;
+    border: none;
+    border-radius: var(--radius-pill);
+    padding: 12px 22px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background-color var(--duration-normal) var(--ease-default);
+  }
+
+  .waitlist button:hover {
+    background: var(--primary-hover);
+  }
+
+  .waitlist button:active {
+    background: var(--primary-active);
+  }
+
+  .waitlist button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+
+  .status {
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 6px;
+    right: 6px;
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--neutral-600);
+    min-height: 1em;
+    pointer-events: none;
+  }
+
+  .waitlist.is-dark .status {
+    color: rgba(239, 239, 236, 0.7);
+  }
+
+  .status[data-status="error"] {
+    color: #B91C1C;
+  }
+
+  .waitlist.is-dark .status[data-status="error"] {
+    color: #FCA5A5;
+  }
+
+  .status[data-status="success"] {
+    color: var(--primary);
+  }
+
+  .waitlist.is-dark .status[data-status="success"] {
+    color: var(--primary-on-dark);
+  }
+
+  @media (max-width: 480px) {
+    .waitlist {
+      flex-direction: column;
+      padding: 12px;
+      border-radius: 16px;
+    }
+    .waitlist input {
+      padding: 10px var(--space-3);
+    }
+    .waitlist button {
+      width: 100%;
+    }
+  }
+</style>
+
+<script>
+  // TODO: conectar a endpoint real (Resend / Supabase / Mailchimp).
+  // Por ahora valida el email, simula el submit y muestra success.
+  const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  document.querySelectorAll<HTMLFormElement>('form.waitlist').forEach((form) => {
+    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const input = form.querySelector<HTMLInputElement>('input[type="email"]');
+    const status = form.querySelector<HTMLElement>('.status');
+    if (!button || !input || !status) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = (input.value || '').trim();
+
+      if (!EMAIL_RE.test(email)) {
+        status.dataset.status = 'error';
+        status.textContent = 'Email inválido. Probá de nuevo.';
+        input.focus();
+        return;
+      }
+
+      button.disabled = true;
+      status.dataset.status = 'idle';
+      status.textContent = 'Sumándote…';
+
+      try {
+        // Placeholder. Reemplazar con fetch al endpoint real.
+        await new Promise((r) => setTimeout(r, 600));
+        status.dataset.status = 'success';
+        status.textContent = '¡Sumado! Te avisamos cuando llegue tu turno.';
+        input.value = '';
+      } catch (_err) {
+        status.dataset.status = 'error';
+        status.textContent = 'Algo salió mal. Probá de nuevo.';
+      } finally {
+        button.disabled = false;
+      }
+    });
+  });
+</script>

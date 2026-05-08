@@ -1,0 +1,32 @@
+---
+import MannyMark from './MannyMark.astro';
+import Wordmark from './Wordmark.astro';
+---
+
+<nav class="nav" aria-label="Principal">
+  <div class="section-wrap nav-inner">
+    <a href="/" class="nav-brand" aria-label="Manny, inicio">
+      <MannyMark color="blue" size={40} />
+      <Wordmark color="blue" height={32} />
+    </a>
+  </div>
+</nav>
+
+<style>
+  .nav {
+    padding-block: var(--space-8);
+  }
+
+  .nav-inner {
+    display: flex;
+    align-items: center;
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+</style>

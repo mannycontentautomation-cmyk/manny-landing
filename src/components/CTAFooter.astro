@@ -1,0 +1,175 @@
+---
+import MannyMark from './MannyMark.astro';
+import Wordmark from './Wordmark.astro';
+import WaitlistForm from './WaitlistForm.astro';
+
+// Footer links — placeholders. Reemplazar por las URLs reales cuando existan.
+const footerLinks = [
+  { label: 'Privacidad', href: '#' },
+  { label: 'Términos',   href: '#' },
+  { label: 'Contacto',   href: '#' },
+];
+const year = new Date().getFullYear();
+---
+
+<section class="cta-block" id="beta-final">
+  <div class="cta-section">
+    <div class="section-wrap cta-grid">
+      <h2 class="cta-h2">
+        Te avisamos <span class="italic-accent-light">cuando esté lista.</span>
+      </h2>
+
+      <div class="cta-form-col">
+        <p class="cta-sub">
+          Estamos terminando los últimos detalles. Dejá tu mail y te
+          escribimos en cuanto puedas entrar.
+        </p>
+        <WaitlistForm variant="dark" cta="Sumarme a la lista" formId="cta-waitlist" />
+      </div>
+    </div>
+  </div>
+
+  <footer class="black-footer">
+    <div class="section-wrap black-footer-inner">
+      <a href="/" class="footer-brand" aria-label="Manny, inicio">
+        <MannyMark color="white" size={28} />
+        <Wordmark color="white" height={22} />
+      </a>
+
+      <span class="footer-spacer" aria-hidden="true"></span>
+
+      <ul class="footer-links">
+        {footerLinks.map((l) => (
+          <li><a href={l.href}>{l.label}</a></li>
+        ))}
+      </ul>
+
+      <span class="footer-copy">© {year} Manny.</span>
+    </div>
+  </footer>
+</section>
+
+<style>
+  .cta-block {
+    background: var(--block-dark);
+    color: #EFEFEC;
+  }
+
+  .cta-section {
+    padding-top: var(--space-30);
+    padding-bottom: var(--space-24);
+  }
+
+  @media (min-width: 1024px) {
+    .cta-section {
+      padding-top: var(--space-35);
+      padding-bottom: var(--space-30);
+    }
+  }
+
+  .cta-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+    align-items: start;
+  }
+
+  @media (min-width: 1024px) {
+    .cta-grid {
+      grid-template-columns: 1.4fr 1fr;
+      gap: var(--space-20);
+      align-items: center;
+    }
+  }
+
+  .cta-h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    line-height: var(--leading-h2);
+    letter-spacing: var(--tracking-h2);
+    font-weight: 500;
+    color: #FFFFFF;
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .cta-form-col {
+    font-family: var(--font-body);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .cta-sub {
+    font-size: 17px;
+    line-height: 1.5;
+    color: rgba(239, 239, 236, 0.7);
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  .black-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .black-footer-inner {
+    padding-top: var(--space-6);
+    padding-bottom: var(--space-10);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-5);
+    font-family: var(--font-body);
+    font-size: 13px;
+    color: rgba(239, 239, 236, 0.7);
+  }
+
+  @media (min-width: 768px) {
+    .black-footer-inner {
+      flex-direction: row;
+      align-items: center;
+      gap: var(--space-6);
+    }
+  }
+
+  .footer-brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+
+  .footer-spacer {
+    display: none;
+  }
+
+  @media (min-width: 768px) {
+    .footer-spacer {
+      display: block;
+      flex: 1;
+    }
+  }
+
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+  }
+
+  .footer-links a {
+    text-decoration: none;
+    transition: color var(--duration-normal) var(--ease-default);
+  }
+
+  .footer-links a:hover {
+    color: #FFFFFF;
+  }
+
+  .footer-copy {
+    color: rgba(239, 239, 236, 0.7);
+  }
+</style>

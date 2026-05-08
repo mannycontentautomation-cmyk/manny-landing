@@ -1,0 +1,103 @@
+---
+---
+
+<section class="hero" id="producto">
+  <div class="section-wrap">
+    <p class="eyebrow hero-eyebrow">Lista de espera abierta</p>
+
+    <h1 class="hero-h1">
+      De la reunión a las piezas,<br />
+      <span class="italic-accent">en un solo flujo.</span>
+    </h1>
+
+    <p class="lead hero-lead">
+      Hoy producís contenido saltando entre cinco herramientas que no se
+      hablan. Manny conecta el brief, el calendario y las piezas en un
+      solo flujo. El contexto de cada cliente no se pierde en el camino.
+    </p>
+
+    <a href="#beta-final" class="hero-link">
+      Sumate a la lista
+      <span class="hero-link-arrow" aria-hidden="true">→</span>
+    </a>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: var(--space-20);
+    padding-bottom: var(--space-16);
+  }
+
+  @media (min-width: 1024px) {
+    .hero {
+      padding-top: var(--space-24);
+      padding-bottom: var(--space-20);
+    }
+  }
+
+  .hero-eyebrow {
+    margin-bottom: var(--space-8);
+  }
+
+  @media (min-width: 1024px) {
+    .hero-eyebrow {
+      margin-bottom: var(--space-10);
+    }
+  }
+
+  .hero-h1 {
+    /* Slightly tighter max font than display-h1 so 2 lines fit in container */
+    font-family: var(--font-display);
+    font-size: clamp(44px, 8vw, 120px);
+    line-height: var(--leading-tight);
+    letter-spacing: var(--tracking-display);
+    font-weight: 500;
+    color: var(--foreground);
+    text-wrap: pretty;
+    margin: 0 0 var(--space-10);
+  }
+
+  @media (min-width: 1024px) {
+    .hero-h1 {
+      margin-bottom: var(--space-12);
+    }
+  }
+
+  .hero-lead {
+    margin: 0 0 var(--space-10);
+    max-width: 880px;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-lead {
+      margin-bottom: var(--space-12);
+    }
+  }
+
+  .hero-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--primary);
+    text-decoration: underline;
+    text-underline-offset: 4px;
+    text-decoration-thickness: 1px;
+    transition: color var(--duration-normal) var(--ease-default);
+  }
+
+  .hero-link:hover {
+    color: var(--primary-hover);
+  }
+
+  .hero-link-arrow {
+    transition: transform var(--duration-normal) var(--ease-default);
+  }
+
+  .hero-link:hover .hero-link-arrow {
+    transform: translateX(2px);
+  }
+</style>

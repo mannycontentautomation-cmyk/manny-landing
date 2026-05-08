@@ -1,0 +1,21 @@
+---
+type Color = 'blue' | 'black' | 'white';
+
+interface Props {
+  color?: Color;
+  height?: number;
+  alt?: string;
+}
+
+const { color = 'blue', height = 28, alt = 'Manny!' } = Astro.props;
+const width = (height * 200) / 60;
+---
+
+<img
+  src={`/assets/manny-word-${color}.svg`}
+  alt={alt}
+  width={width}
+  height={height}
+  loading="eager"
+  decoding="async"
+/>

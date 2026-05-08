@@ -1,0 +1,21 @@
+---
+type Color = 'blue' | 'white';
+
+interface Props {
+  color?: Color;
+  size?: number;
+}
+
+const { color = 'blue', size = 40 } = Astro.props;
+const height = size * (126.3 / 127.86);
+---
+
+<img
+  src={`/assets/manny-mark-${color}.svg`}
+  alt=""
+  aria-hidden="true"
+  width={size}
+  height={height}
+  loading="eager"
+  decoding="async"
+/>
