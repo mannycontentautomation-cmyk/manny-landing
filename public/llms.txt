@@ -1,6 +1,6 @@
 # Manny
 
-> Manny es el pipeline de producción para agencias creativas, estudios de contenido y equipos de comunicación in-house. Subís el brief, las notas y el contexto del cliente; Manny procesa esa información y la usa para generar piezas específicas para cada marca. Lo que funciona pasa a ser contexto de futuras campañas. La agencia siempre conserva el control de cada decisión.
+> Manny es el pipeline de producción para agencias creativas estudios de contenido y equipos de comunicación in-house. Subís el brief, las notas y el contexto del cliente; Manny procesa esa información y la usa para generar piezas específicas para cada marca. Lo que funciona pasa a ser contexto de futuras campañas. La agencia siempre conserva el control de cada decisión.
 
 ## Estado
 
