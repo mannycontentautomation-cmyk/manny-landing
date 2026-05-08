@@ -138,6 +138,9 @@ svg {
   --gutter-tablet: 48px;
   --gutter-desktop: 80px;
 
+  /* Nav height = padding-block (32 + 32) + logo (40) — used to size the hero to viewport */
+  --nav-height: 104px;
+
   --radius: 8px;
   --radius-pill: 999px;
 }

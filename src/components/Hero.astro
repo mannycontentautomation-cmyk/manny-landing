@@ -6,8 +6,8 @@
     <p class="eyebrow hero-eyebrow">Lista de espera abierta</p>
 
     <h1 class="hero-h1">
-      De la reunión a las piezas,<br />
-      <span class="italic-accent">en un solo flujo.</span>
+      Ordenamos la información,<br />
+      <span class="italic-accent">tu equipo hace lo suyo.</span>
     </h1>
 
     <p class="lead hero-lead">
@@ -31,8 +31,12 @@
 
   @media (min-width: 1024px) {
     .hero {
-      padding-top: var(--space-24);
-      padding-bottom: var(--space-20);
+      min-height: calc(100vh - var(--nav-height));
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 0;
+      padding-bottom: 0;
     }
   }
 
