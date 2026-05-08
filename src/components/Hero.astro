@@ -82,19 +82,29 @@
   .hero-link {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
+    gap: 10px;
     font-family: var(--font-body);
     font-size: 17px;
     font-weight: 500;
-    color: var(--primary);
-    text-decoration: underline;
-    text-underline-offset: 4px;
-    text-decoration-thickness: 1px;
-    transition: color var(--duration-normal) var(--ease-default);
+    color: var(--primary-foreground);
+    background-color: var(--primary);
+    padding: 14px 28px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    transition:
+      background-color var(--duration-normal) var(--ease-default),
+      transform var(--duration-normal) var(--ease-default);
+    width: max-content;
   }
 
   .hero-link:hover {
-    color: var(--primary-hover);
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+  }
+
+  .hero-link:active {
+    background-color: var(--primary-active);
+    transform: translateY(0);
   }
 
   .hero-link-arrow {
@@ -102,6 +112,6 @@
   }
 
   .hero-link:hover .hero-link-arrow {
-    transform: translateX(2px);
+    transform: translateX(3px);
   }
 </style>

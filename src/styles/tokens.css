@@ -71,7 +71,7 @@ svg {
 
   /* --- Typography ------------------------------------------------------ */
   --font-display: "Instrument Serif", "Funnel Display", Georgia, serif;
-  --font-body: "Inter", system-ui, -apple-system, sans-serif;
+  --font-body: "Instrument Sans", system-ui, -apple-system, sans-serif;
 
   --font-weight-regular: 400;
   --font-weight-medium: 500;
