@@ -1,0 +1,48 @@
+# Manny
+
+> Manny es el pipeline de producción para agencias creativas, estudios de contenido y equipos de comunicación in-house. Subís el brief, las notas y el contexto del cliente; Manny procesa esa información y la usa para generar piezas específicas para cada marca. Lo que funciona pasa a ser contexto de futuras campañas. La agencia siempre conserva el control de cada decisión.
+
+## Estado
+
+Pre-launch. Lista de espera abierta en https://manny.tools.
+
+## Para quién es
+
+- Agencias creativas que coordinan la producción de varios clientes en paralelo.
+- Estudios de contenido y diseño con pipeline fragmentado entre cinco o más herramientas.
+- Equipos de comunicación in-house de marcas medianas o grandes.
+- Emprendedores que coordinan su propia marca y proveedores creativos.
+
+## Cómo funciona
+
+El núcleo es el contexto del cliente. La agencia sube el brief, las notas de la reunión, las decisiones tomadas, los lineamientos de marca. Esa información es lo que Manny procesa para generar piezas específicas — no contenido genérico.
+
+El flujo:
+
+1. Cargás el brief y las notas. Manny arma un brief vivo a partir de eso.
+2. Manny propone direcciones a partir del brief. La agencia elige y edita: la decisión nunca queda del lado de Manny.
+3. Calendarizás: armás la grilla con las piezas conectadas al brief.
+4. Diseñás el template de la campaña una vez. Manny se hace cargo de la producción repetitiva. La agencia aprueba pieza por pieza con un link.
+
+## Cómo aprende
+
+Lo que funciona pasa a ser contexto de futuras campañas. El brief vivo de cada cliente se enriquece con cada pieza aprobada — la próxima propuesta llega con más fidelidad a la marca. La agencia no tiene que volver a explicar el contexto cada vez: el contexto se acumula y mejora con el uso.
+
+## Posicionamiento
+
+- **El control es de la agencia.** Manny propone, la agencia decide. La AI es el motor que aporta velocidad y consistencia, no el protagonista que reemplaza el criterio creativo.
+- **La AI es invisible.** El sujeto siempre es Manny y el equipo, no "la AI". Manny no se vende como "potenciado por inteligencia artificial" — se vende como el sistema que hace que la información del cliente deje de perderse.
+- **El contexto vive en un solo lugar** y viaja de principio a fin del pipeline (no se pierde entre Notion, Drive, WhatsApp, Canva y la cabeza del dueño).
+- **El equipo creativo diseña el template una vez.** Manny reproduce para cada cliente, sin que el diseñador tenga que cambiar su flujo de Figma.
+
+## Glosario interno
+
+- **Pieza**: una unidad de contenido publicable (post, story, reel, banner). Manny no usa "lote" ni "batch" en comunicación externa.
+- **Brief vivo**: el documento de contexto del cliente que se actualiza con cada pieza aprobada y mejora la fidelidad de futuras propuestas.
+- **Agencia creativa** (no "agencia de marketing"): Manny no cubre paid media ni performance.
+
+## Links
+
+- Sitio: https://manny.tools
+- Aplicación: https://app.manny.tools
+- LinkedIn: https://www.linkedin.com/company/somosmanny

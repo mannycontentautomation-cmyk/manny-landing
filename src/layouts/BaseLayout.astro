@@ -10,10 +10,36 @@ interface Props {
 const {
   title = 'Manny · El pipeline de producción para equipos creativos',
   description = 'Propuesta, brief, calendario y producción de piezas. En un solo flujo, con el contexto de cada cliente viajando de principio a fin. Pensado para agencias creativas, estudios y equipos in-house.',
-  ogImage = '/og-image.png',
+  ogImage = '/assets/og-image.png',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const siteURL = Astro.site!.toString().replace(/\/$/, '');
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'Organization',
+      '@id': `${siteURL}/#organization`,
+      name: 'Manny',
+      url: siteURL,
+      logo: `${siteURL}/logo.png`,
+      description:
+        'Pipeline de producción para agencias creativas. La agencia sube el brief y el contexto del cliente; Manny procesa esa información para generar piezas específicas. El control de cada decisión es siempre de la agencia.',
+      sameAs: ['https://www.linkedin.com/company/somosmanny'],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteURL}/#website`,
+      url: siteURL,
+      name: 'Manny',
+      description,
+      inLanguage: 'es-AR',
+      publisher: { '@id': `${siteURL}/#organization` },
+    },
+  ],
+};
 ---
 
 <!doctype html>
@@ -22,6 +48,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#4427FF" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
@@ -30,6 +57,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <link rel="canonical" href={canonicalURL} />
 
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Manny" />
     <meta property="og:url" content={canonicalURL} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
@@ -40,6 +68,8 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={new URL(ogImage, Astro.site)} />
+
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />

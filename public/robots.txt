@@ -1,0 +1,6 @@
+# robots.txt for manny.tools
+
+User-agent: *
+Allow: /
+
+Sitemap: https://manny.tools/sitemap-index.xml
