@@ -7,7 +7,7 @@ Marketing landing for **Manny** (manny.tools) — single page, scroll-down, **ed
 - **Astro 5** (static SSG, no SSR) + **TypeScript strict**
 - **Tailwind CSS v3** via `@astrojs/tailwind` (token mapping in `tailwind.config.ts`, but actual styles live in component `<style>` blocks — Tailwind utilities are minimal)
 - Fonts: **Instrument Serif** (display, with italics) + **Inter** (body), loaded via Google Fonts `<link>` in `BaseLayout.astro`
-- Deploy target: Vercel apex domain `manny.tools` (DNS already configured)
+- **Deployed live** at `https://manny.tools` (Vercel apex, DNS via Porkbun → CNAME to Vercel hash). Sister project `manny-platform` serves `app.manny.tools`. See `MEMORY/project_deployment.md` for the full topology and DNS records.
 
 ## Commands
 
@@ -26,17 +26,24 @@ src/
 ├── styles/tokens.css          ← design tokens, layout primitives, typography helpers
 └── components/
     ├── Nav.astro              ← logo + wordmark only (no nav links)
-    ├── Hero.astro             ← eyebrow + H1 (2 lines) + lead + "Sumate a la lista →"
-    ├── HowItWorks.astro       ← 4 numbered steps with italic violet numerals
+    ├── Hero.astro             ← eyebrow + H1 + lead + "Sumate a la lista →"; centered in viewport on desktop
+    ├── HowItWorks.astro       ← 4 numbered steps with italic violet numerals; steps 01 + 04 close the auto-improvement loop
     ├── Highlight.astro        ← centered pull quote ("El cuello de botella...")
-    ├── CTAFooter.astro        ← dark block: H2 + WaitlistForm + footer integrado
+    ├── CTAFooter.astro        ← dark block: H2 + WaitlistForm + footer integrado (LinkedIn icon, no Privacy/Terms/Contact)
     ├── WaitlistForm.astro     ← email pill, light/dark variants, vanilla JS submit
     ├── Wordmark.astro         ← SVG-based "manny!" wordmark (color prop)
     └── MannyMark.astro        ← SVG-based mark (color prop)
 
 public/
-├── favicon.svg
-└── assets/                    ← manny-mark-{blue,white}.svg + manny-word-{blue,white,black}.svg
+├── favicon-32.png             ← 32×32 brand favicon (mascota Manny)
+├── apple-touch-icon.png       ← 180×180 for iOS home / "add to home screen"
+├── logo.png                   ← 2025×2025 source for icon variants and JSON-LD logo
+├── robots.txt                 ← Allow all + sitemap reference
+├── llms.txt                   ← GEO context file (positioning, audience, pillars, glossary)
+└── assets/
+    ├── og-image.png           ← 1200×630 social card
+    ├── manny-mark-{blue,white}.svg
+    └── manny-word-{blue,white,black}.svg
 ```
 
 Section order in `index.astro`: **Nav → Hero → HowItWorks → Highlight → CTAFooter**.
@@ -44,6 +51,8 @@ Section order in `index.astro`: **Nav → Hero → HowItWorks → Highlight → 
 ## Layout patterns
 
 - **`.section-wrap` is the canonical container.** `max-width: 1280px`, `padding-inline: 24px (mobile) / 48px (tablet) / 80px (desktop)`. Use it inside every section so widths align across Nav, Hero, body sections, and CTAFooter inner content. The dark CTAFooter wraps both the CTA grid and the BlackFooter inner with `.section-wrap`.
+
+- **Hero fills the viewport on desktop.** At ≥1024px, `.hero` is `min-height: calc(100vh - var(--nav-height))` with `flex-direction: column` + `justify-content: center` so the eyebrow/H1/lead/link block is vertically centered and the next section appears on scroll. Mobile keeps the regular padding flow (no forced 100vh — looks ugly with the browser bar). `--nav-height: 104px` is defined in tokens.css.
 
 - **Editorial typography helpers in `tokens.css`:**
   - `.display-h1` / `.hero-h1`: Instrument Serif, big clamp, `line-height: 0.92`
@@ -78,19 +87,48 @@ The landing copy MUST respect these:
    - "campaña" not "estrategia"
    - "Manny se hace cargo de la producción repetitiva" — the canonical framing for what Manny does, NOT "Manny produce las piezas" (which sounds AI-generative)
 
+6. **Watch for Argentine regional connotations.** Some neutral-Spanish phrasing carries unintended weight in rioplatense. Examples flagged:
+   - "Manny pone orden" → "poner orden" reads as authority/discipline ("te voy a poner orden"). Avoid framings where Manny disciplines the user.
+   - When in doubt, validate the phrase doesn't drift into authority/condescension when read with rioplatense ear.
+
+7. **First person plural ("ordenamos", "nosotros") is a valid subject** alongside "Manny". Juan picked *"Ordenamos la información, tu equipo hace lo suyo"* over *"Manny ordena…"* — feels closer, less institutional. Doesn't break the "AI invisible" rule because the subject is still humans, not "la AI".
+
+8. **The four positioning pillars** (per `Docs/Comunicacion/03_MENSAJES_CLAVE.md` and Juan's confirmation):
+   - **Brief / contexto del cliente as the core**: agencies upload notes, briefs, brand guidelines. That's what Manny processes. Not generic content.
+   - **The agency keeps control of every decision.** Manny *proposes*, the agency *decides* and *edits*. Avoid "Manny propone tres direcciones" (the specific number isn't always true) — use "Manny propone direcciones".
+   - **AI is invisible / the support, not the protagonist.** "Nos apoyamos en la AI para agregar valor, pero el control es de la agencia."
+   - **Auto-improvement loop**: every approved piece feeds back into the brief vivo, and the next proposal gets more faithful. Steps 01 and 04 of HowItWorks now close this loop visibly.
+
 ## Current phase
 
 **Pre-launch / waitlist phase.** The landing CTAs are all "Sumarme a la lista", "Avisame", "Te avisamos cuando esté lista". `brief.md` V1 originally had `CTA → app.manny.tools/login` (in-app signup) but that's outdated. Don't restore that wording without explicit signal from Juan.
 
 The dark CTAFooter block (`#beta-final`) has the WaitlistForm. The Hero has a discreet `Sumate a la lista →` link that anchor-scrolls to that block. There is NO form above the fold by design.
 
+## SEO / GEO setup
+
+The landing has a baseline configured for both traditional search and LLM-driven discovery (Generative Engine Optimization):
+
+- **Sitemap**: auto-generated by `@astrojs/sitemap` → `/sitemap-index.xml` + `/sitemap-0.xml` at build time.
+- **`public/robots.txt`**: `User-agent: *` + `Allow: /` + sitemap reference. Doesn't disallow any AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended) — the goal is to BE cited, not blocked.
+- **`public/llms.txt`**: structured markdown for LLMs per [llmstxt.org](https://llmstxt.org/) spec. Encodes the 4 pillars, audience, flow, glossary. Edit this when product positioning shifts. LLMs with web search read it in real time on each user query — no re-indexing cost.
+- **JSON-LD** in `BaseLayout.astro`: `Organization` + `WebSite` graph with logo, sameAs (LinkedIn), description. Keep `description` aligned with `llms.txt` for consistency.
+- **`og-image.png`** at `/assets/og-image.png` (1200×630). `BaseLayout.astro` defaults `ogImage = '/assets/og-image.png'`.
+- **Meta**: `theme-color: #4427FF`, `og:site_name`, canonical, Twitter card.
+
+When editing copy that affects positioning (Hero H1, HowItWorks steps, Highlight), keep `llms.txt` in sync — both are read by LLMs and inconsistency degrades citation quality.
+
 ## Pending TODOs
 
-- **WaitlistForm endpoint** [BLOCKER for launch]: currently `preventDefault` + 600ms simulated success. Wire to a real provider (Resend / Supabase / Mailchimp). See `// TODO:` comment in [WaitlistForm.astro](src/components/WaitlistForm.astro#L120).
+- **WaitlistForm endpoint** [BLOCKER for waitlist actually working]: currently `preventDefault` + 600ms simulated success. Wire to a real provider (Resend / Supabase / Mailchimp). See `// TODO:` comment in [WaitlistForm.astro](src/components/WaitlistForm.astro#L120).
 
-- **og-image.png** [needed for social sharing]: needs to be generated at `public/og-image.png` (1200×630). `BaseLayout.astro` already references `/og-image.png` in OG meta tags.
+- **Submit sitemap to search engines**: register `manny.tools` in [Google Search Console](https://search.google.com/search-console) and [Bing Webmaster Tools](https://www.bing.com/webmasters), submit `https://manny.tools/sitemap-index.xml`. Bing matters specifically — ChatGPT search is powered by Bing. ~5 min each.
 
-- **Footer links**: `Privacidad`, `Términos`, `Contacto` in [CTAFooter.astro](src/components/CTAFooter.astro#L7-L11) currently point to `#`. Replace with real URLs when those pages exist.
+- **GEO backlog** (from agent audit, low priority until pilots exist):
+  - One-line extractive sentence in `llms.txt` ("Manny es \[categoría\] para \[audiencia\] que \[problema\]") — LLMs prefer citing single self-contained lines.
+  - Surface what kind of "piezas" Manny outputs (post / story / reel / banner) somewhere on the home — today it only lives in the `llms.txt` glossary.
+  - Named differentiation vs competitors (Jasper, Canva, Notion AI, ChatGPT) once positioning is sharp enough.
+  - Evidence/proof: pilot agency names, screenshots, case study — once pilots exist.
 
 - **Astro upgrade**: currently 5.18.1; 6.x is available (`npx @astrojs/upgrade`). Not urgent.
 
@@ -109,6 +147,7 @@ grep -rEn '\b(tú|tienes|puedes|haces|debes)\b' src/ --include='*.astro'
 
 # Em-dash check (none in user-visible copy; OK in code comments)
 grep -rn "—" src/components/ src/pages/ src/layouts/ --include='*.astro'
+grep -n "—" public/llms.txt   # llms.txt is also user-visible to LLMs — keep clean
 
 # Prohibited phrases (should be empty)
 grep -rEinE '(potenciado por ai|todo en uno|solución integral|transformá tu agencia|el futuro de las agencias|innovador|disruptivo|fácil de usar)' src/ --include='*.astro'
