@@ -43,7 +43,7 @@ manny.tools`;
           <table role="presentation" cellpadding="0" cellspacing="0" border="0" width="520" style="max-width:520px;width:100%;">
             <tr>
               <td style="padding-bottom:32px;">
-                <p style="margin:0;font-size:13px;letter-spacing:0.18em;text-transform:uppercase;color:#848484;">Manny</p>
+                <img src="https://manny.tools/apple-touch-icon.png" width="40" height="40" alt="Manny" style="display:block;width:40px;height:40px;border:0;outline:none;text-decoration:none;" />
               </td>
             </tr>
             <tr>
