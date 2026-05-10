@@ -159,8 +159,6 @@ const {
 </style>
 
 <script>
-  // TODO: conectar a endpoint real (Resend / Supabase / Mailchimp).
-  // Por ahora valida el email, simula el submit y muestra success.
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   document.querySelectorAll<HTMLFormElement>('form.waitlist').forEach((form) => {
@@ -168,6 +166,8 @@ const {
     const input = form.querySelector<HTMLInputElement>('input[type="email"]');
     const status = form.querySelector<HTMLElement>('.status');
     if (!button || !input || !status) return;
+
+    const formId = form.dataset.formId || 'waitlist';
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
@@ -185,14 +185,37 @@ const {
       status.textContent = 'Sumándote…';
 
       try {
-        // Placeholder. Reemplazar con fetch al endpoint real.
-        await new Promise((r) => setTimeout(r, 600));
+        const res = await fetch('/api/waitlist', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, source: formId }),
+        });
+
+        const data = (await res.json().catch(() => ({}))) as {
+          ok?: boolean;
+          alreadySignedUp?: boolean;
+          error?: string;
+        };
+
+        if (!res.ok || !data.ok) {
+          if (data.error === 'invalid_email') {
+            status.dataset.status = 'error';
+            status.textContent = 'Email inválido. Probá de nuevo.';
+          } else {
+            status.dataset.status = 'error';
+            status.textContent = 'Algo salió mal. Probá de nuevo en un rato.';
+          }
+          return;
+        }
+
         status.dataset.status = 'success';
-        status.textContent = '¡Sumado! Te avisamos cuando llegue tu turno.';
+        status.textContent = data.alreadySignedUp
+          ? 'Ya estabas en la lista. Te avisamos cuando llegue tu turno.'
+          : '¡Sumado! Revisá tu mail para confirmar.';
         input.value = '';
       } catch (_err) {
         status.dataset.status = 'error';
-        status.textContent = 'Algo salió mal. Probá de nuevo.';
+        status.textContent = 'Algo salió mal. Probá de nuevo en un rato.';
       } finally {
         button.disabled = false;
       }

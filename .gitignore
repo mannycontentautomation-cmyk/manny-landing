@@ -30,3 +30,5 @@ out/
 
 # Astro generated types
 .astro/
+.vercel
+.env*.local
