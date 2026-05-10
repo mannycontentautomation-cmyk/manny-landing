@@ -44,6 +44,9 @@ public/
     ├── og-image.png           ← 1200×630 social card
     ├── manny-mark-{blue,white}.svg
     └── manny-word-{blue,white,black}.svg
+
+api/
+└── waitlist.ts                ← Vercel function: POST email → Supabase insert + Resend contact + confirmation email
 ```
 
 Section order in `index.astro`: **Nav → Hero → HowItWorks → Highlight → CTAFooter**.
@@ -118,9 +121,18 @@ The landing has a baseline configured for both traditional search and LLM-driven
 
 When editing copy that affects positioning (Hero H1, HowItWorks steps, Highlight), keep `llms.txt` in sync — both are read by LLMs and inconsistency degrades citation quality.
 
-## Pending TODOs
+## Waitlist backend
 
-- **WaitlistForm endpoint** [BLOCKER for waitlist actually working]: currently `preventDefault` + 600ms simulated success. Wire to a real provider (Resend / Supabase / Mailchimp). See `// TODO:` comment in [WaitlistForm.astro](src/components/WaitlistForm.astro#L120).
+The form is wired to a real backend (since 2026-05-10):
+
+- **Endpoint**: [api/waitlist.ts](api/waitlist.ts) — Vercel function at `/api/waitlist`. Receives `{ email, source }`, validates, inserts in Supabase with `service_role`, upserts the contact in Resend, and sends a branded confirmation email.
+- **Storage**: Supabase project `manny-landing` (ref `nfijzwwdqttuhusvxpui`, region `sa-east-1`), table `public.waitlist` with RLS enabled, no policies (service_role bypasses). Schema: `id uuid`, `email text unique`, `source text`, `user_agent text`, `created_at timestamptz`.
+- **Email provider**: Resend, domain `manny.tools` verified. Single Audience (new Resend API model — no `audienceId` needed). Confirmation email template lives inline in `api/waitlist.ts:19-79` (HTML + plaintext fallback, inline styles for email-client compat).
+- **Env vars** (Production + Preview in Vercel): `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API` (note: not `_KEY`), `RESEND_FROM_EMAIL` (= `Manny <hola@manny.tools>`).
+- **Duplicate handling**: relies on the unique constraint on `email`. On `23505` (Postgres unique violation) the endpoint returns `{ ok: true, alreadySignedUp: true }` and the form shows "Ya estabas en la lista..." instead of resending the confirmation.
+- **Architecture choice**: Vercel function suelta en `/api/*.ts`, NOT an Astro endpoint. Keeps Astro as pure SSG. Vercel auto-detects the folder alongside the static build.
+
+## Pending TODOs
 
 - **Submit sitemap to search engines**: register `manny.tools` in [Google Search Console](https://search.google.com/search-console) and [Bing Webmaster Tools](https://www.bing.com/webmasters), submit `https://manny.tools/sitemap-index.xml`. Bing matters specifically — ChatGPT search is powered by Bing. ~5 min each.
 
@@ -137,7 +149,7 @@ When editing copy that affects positioning (Hero H1, HowItWorks steps, Highlight
 - Lighthouse Mobile target: Performance ≥ 95, A11y ≥ 95, Best Practices ≥ 95, SEO ≥ 95 (`brief.md` §9).
 - Min font size: 13px absolute. No `text-xs` (12px), no `font-size: 11px`.
 - No animation libraries; CSS-only motion. `prefers-reduced-motion` respected globally in tokens.css.
-- Cero JS por defecto (Astro static). El único JS es el handler del WaitlistForm (`<script>` en el componente).
+- Cero JS por defecto (Astro static). El único JS cliente es el handler del WaitlistForm (`<script>` en el componente) que hace `POST /api/waitlist`. El endpoint corre como Vercel function (Node), no toca Astro.
 
 ## Common QA commands
 
