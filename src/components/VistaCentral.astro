@@ -1,6 +1,8 @@
 ---
 // Bloque A: la vista central. Promesa + mockup de la vista de Inicio
 // (el mapa de cuentas: la torre de control literal).
+// La fila de Vinoteca Peralta está viva: su chip rota por el ciclo real de
+// una cuenta. Una sola fila animada, las otras quietas: es vida, no ruido.
 const CUENTAS = [
   {
     cliente: 'Café Aurora',
@@ -11,8 +13,7 @@ const CUENTAS = [
   {
     cliente: 'Vinoteca Peralta',
     detalle: 'Lanzamiento tienda online · calendario de julio',
-    estado: 'Espera aprobación',
-    tone: 'warn',
+    cycle: true,
   },
   {
     cliente: 'Librería del Sur',
@@ -27,6 +28,13 @@ const CUENTAS = [
     tone: 'ok',
   },
 ];
+
+const CICLO = [
+  { estado: 'Propuesta enviada', tone: 'neutral' },
+  { estado: 'Espera aprobación', tone: 'warn' },
+  { estado: 'Aprobado', tone: 'ok' },
+  { estado: 'En producción', tone: 'info' },
+];
 ---
 
 <section class="benefit">
@@ -35,14 +43,14 @@ const CUENTAS = [
       Todo, <span class="italic-accent">de un vistazo.</span>
     </h2>
     <p class="lead benefit-lead">
-      Ves el estado de cada cliente sin reconstruirlo de memoria: sabés
-      qué se propuso, qué espera aprobación, qué está en producción.
+      Ves el estado de cada cliente sin reconstruirlo de memoria.
     </p>
 
     <div
       class="mockup"
       role="img"
-      aria-label="Vista de Inicio de Manny: todas las cuentas de la agencia con el estado de cada una"
+      aria-label="Vista de Inicio de Manny: todas las cuentas de la agencia con el estado de cada una; el estado de una cuenta avanza solo, de propuesta enviada a producción"
+      data-animate
     >
       <div class="mockup-head">
         <span class="mockup-title">Inicio</span>
@@ -52,15 +60,31 @@ const CUENTAS = [
       <ul class="mockup-rows">
         {CUENTAS.map((c) => (
           <li class="mockup-row">
-            <span class="row-avatar" data-tone={c.tone}></span>
+            <span class="row-avatar"></span>
             <span class="row-main">
               <span class="row-client">{c.cliente}</span>
               <span class="row-detail">{c.detalle}</span>
             </span>
-            <span class="row-chip" data-tone={c.tone}>
-              <span class="chip-dot"></span>
-              {c.estado}
-            </span>
+            {c.cycle ? (
+              <span class="row-chip chip-cycle">
+                {CICLO.map((s, i) => (
+                  <span
+                    class="cycle-item"
+                    data-tone={s.tone}
+                    data-default={i === 0 ? '' : undefined}
+                    style={`--i: ${i}`}
+                  >
+                    <span class="chip-dot"></span>
+                    {s.estado}
+                  </span>
+                ))}
+              </span>
+            ) : (
+              <span class="row-chip" data-tone={c.tone}>
+                <span class="chip-dot"></span>
+                {c.estado}
+              </span>
+            )}
           </li>
         ))}
       </ul>
@@ -200,6 +224,61 @@ const CUENTAS = [
   .row-chip[data-tone='info'] .chip-dot { background-color: var(--primary); }
   .row-chip[data-tone='warn'] .chip-dot { background-color: #D97706; }
   .row-chip[data-tone='ok'] .chip-dot { background-color: #059669; }
+
+  /* --- Chip vivo: el ciclo de vida de una cuenta ----------------------- */
+  /* Los 4 estados apilados en la misma celda de grid: el chip reserva el
+     ancho del label más largo y el crossfade no mueve la fila (cero shift). */
+
+  .chip-cycle {
+    display: inline-grid;
+  }
+
+  .cycle-item {
+    grid-area: 1 / 1;
+    justify-self: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    opacity: 0;
+  }
+
+  /* Estado por defecto: visible sin JS, antes del viewport y con
+     reduced-motion. El ciclo arranca recién cuando el mockup entra en vista. */
+  .cycle-item[data-default] {
+    opacity: 1;
+  }
+
+  .cycle-item[data-tone='info'] .chip-dot { background-color: var(--primary); }
+  .cycle-item[data-tone='warn'] .chip-dot { background-color: #D97706; }
+  .cycle-item[data-tone='ok'] .chip-dot { background-color: #059669; }
+
+  .mockup.in-view .cycle-item {
+    animation: chip-cycle 12s linear infinite;
+    animation-delay: calc(var(--i) * 3s);
+    animation-fill-mode: backwards;
+  }
+
+  /* La página se siente tocable: el loop se pausa mientras mirás de cerca */
+  .mockup.in-view:hover .cycle-item {
+    animation-play-state: paused;
+  }
+
+  @keyframes chip-cycle {
+    0% { opacity: 0; }
+    3% { opacity: 1; }
+    25% { opacity: 1; }
+    28% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  /* El reduced-motion global (0.01ms) convertiría el loop en estrobo:
+     acá se apaga la animación y queda el estado por defecto. */
+  @media (prefers-reduced-motion: reduce) {
+    .mockup.in-view .cycle-item {
+      animation: none;
+    }
+  }
 
   @media (max-width: 639px) {
     .row-detail {

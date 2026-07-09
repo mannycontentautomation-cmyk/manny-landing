@@ -23,6 +23,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Sticky nav: anchor targets need clearance so the nav doesn't cover them */
+[id] {
+  scroll-margin-top: calc(var(--nav-height) + 24px);
+}
+
 body {
   font-family: var(--font-body);
   font-size: var(--text-body);
@@ -138,8 +143,9 @@ svg {
   --gutter-tablet: 48px;
   --gutter-desktop: 80px;
 
-  /* Nav height = padding-block (32 + 32) + logo (40) — used to size the hero to viewport */
-  --nav-height: 104px;
+  /* Nav height = padding-block (16 + 16) + logo (40). The nav is sticky;
+     this var sizes the hero to viewport and the scroll-margin of anchors. */
+  --nav-height: 72px;
 
   --radius: 8px;
   --radius-pill: 999px;

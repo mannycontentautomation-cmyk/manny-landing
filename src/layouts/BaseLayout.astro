@@ -80,5 +80,40 @@ const jsonLd = {
   </head>
   <body>
     <slot />
+    <script>
+      // Único JS de animación de la página. Las coreografías de los mockups
+      // arrancan cuando el bloque entra al viewport (nunca en el paint
+      // inicial) o al click en el elemento marcado con data-approve.
+      // Sin JS, los mockups quedan en su estado estático completo:
+      // .armed (oculta los desenlaces) solo se agrega desde acá.
+      const choreos = document.querySelectorAll('[data-choreo]');
+      choreos.forEach((el) => el.classList.add('armed'));
+
+      const play = (el: Element) => el.classList.add('played');
+
+      const io = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (!entry.isIntersecting) continue;
+            const el = entry.target;
+            el.classList.add('in-view');
+            if (el.hasAttribute('data-choreo')) {
+              window.setTimeout(() => play(el), 6000);
+            }
+            io.unobserve(el);
+          }
+        },
+        { threshold: 0.4 }
+      );
+
+      document.querySelectorAll('[data-animate], [data-choreo]').forEach((el) => io.observe(el));
+
+      document.querySelectorAll('[data-approve]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const choreo = btn.closest('[data-choreo]');
+          if (choreo) play(choreo);
+        });
+      });
+    </script>
   </body>
 </html>

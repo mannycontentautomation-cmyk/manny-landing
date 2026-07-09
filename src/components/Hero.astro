@@ -3,6 +3,8 @@
 
 <section class="hero" id="producto">
   <div class="section-wrap">
+    <p class="eyebrow hero-eyebrow">La torre de control de tu agencia</p>
+
     <h1 class="hero-h1">
       Ordenamos la información,<br />
       <span class="italic-accent">tu equipo hace lo suyo.</span>
@@ -11,8 +13,7 @@
     <p class="lead hero-lead">
       El trabajo de cada cliente vive disperso en cinco herramientas que
       no se hablan. Manny lo ordena en un solo lugar: perfil, calendario,
-      aprobaciones y pedidos a diseño. Así de fácil: todas tus cuentas,
-      bajo control.
+      aprobaciones y pedidos a diseño. Todas tus cuentas, bajo control.
     </p>
 
     <a href="#beta-final" class="hero-link">
@@ -36,6 +37,18 @@
       justify-content: center;
       padding-top: 0;
       padding-bottom: 0;
+    }
+  }
+
+  /* La categoría vive en el descriptor del nav a partir de 900px; en mobile
+     el descriptor se oculta, así que acá entra como eyebrow. Nunca los dos. */
+  .hero-eyebrow {
+    margin-bottom: var(--space-6);
+  }
+
+  @media (min-width: 900px) {
+    .hero-eyebrow {
+      display: none;
     }
   }
 

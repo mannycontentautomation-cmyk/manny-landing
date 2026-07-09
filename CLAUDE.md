@@ -27,12 +27,12 @@ src/
 ├── layouts/BaseLayout.astro   ← <head>, fonts, meta SEO, lang="es-AR"
 ├── styles/tokens.css          ← design tokens, layout primitives, typography helpers
 └── components/
-    ├── Nav.astro              ← brand + descriptor "La torre de control de tu agencia" (≥900px) + status chip "Lista de espera abierta" (anchor to #beta-final); wordmark hidden <480px
-    ├── Hero.astro             ← H1 + subhead v3 + CTA pill "Sumate a la lista →"; centered in viewport on desktop; no eyebrow (status moved to Nav chip)
-    ├── Highlight.astro        ← el reframe: pull quote ("El cuello de botella...") at --text-h2-cta size, alone
-    ├── VistaCentral.astro     ← Bloque A "Todo, de un vistazo." + HTML mockup of the Inicio view (account map with status chips)
+    ├── Nav.astro              ← STICKY (backdrop blur) so the status chip "Lista de espera abierta" (only conversion trigger) rides the whole page; brand + descriptor "La torre de control de tu agencia" (≥900px); wordmark hidden <480px
+    ├── Hero.astro             ← category eyebrow (mobile only, <900px; mirror of the nav descriptor) + H1 + subhead v3 + CTA pill "Sumate a la lista →"; centered in viewport on desktop
+    ├── Highlight.astro        ← el reframe: pull quote ("El cuello de botella...") at --text-h2-cta size, alone. Deliberately static: never animate it
+    ├── VistaCentral.astro     ← Bloque A "Todo, de un vistazo." + HTML mockup of the Inicio view. ALIVE: the Vinoteca Peralta chip cycles through the account lifecycle (propuesta → espera → aprobado → producción), 12s CSS loop, pauses on hover, only one animated row on purpose
     ├── ContextoOmnicanal.astro← Bloques B + C side by side: "El contexto no se pierde." / "Una campaña. Todos los canales."
-    ├── RelacionCliente.astro  ← "El feedback de tus clientes..." + HTML mockup of the client approval screen (white-label: header is the agency's, never "Manny")
+    ├── RelacionCliente.astro  ← "El feedback de tus clientes..." + HTML mockup of the client approval screen (white-label: header is the agency's, never "Manny"). ALIVE with hybrid trigger: "Aprobar" is the only clickable element (idle pulse affordance); on click or ~6s after entering viewport, the sequence runs: pressed → chip "Aprobada" + registro "lunes 13 · 14:32" → Valeria's comment slides in. Runs once, stays
     ├── Disenador.astro        ← "Todo listo para producir? El pedido lo arma Manny." + HTML mockup of the design order (assignee Marcos, freelance)
     ├── Principio.astro        ← cierre de confianza: "Las decisiones son de tu equipo. Manny las ordena."
     ├── CTAFooter.astro        ← dark block: H2 + WaitlistForm + footer integrado (LinkedIn icon, no Privacy/Terms/Contact)
@@ -63,7 +63,9 @@ Section order in `index.astro`: **Nav → Hero → Highlight (reframe) → Vista
 
 - **`.section-wrap` is the canonical container.** `max-width: 1280px`, `padding-inline: 24px (mobile) / 48px (tablet) / 80px (desktop)`. Use it inside every section so widths align across Nav, Hero, body sections, and CTAFooter inner content. The dark CTAFooter wraps both the CTA grid and the BlackFooter inner with `.section-wrap`.
 
-- **Hero fills the viewport on desktop.** At ≥1024px, `.hero` is `min-height: calc(100vh - var(--nav-height))` with `flex-direction: column` + `justify-content: center` so the eyebrow/H1/lead/link block is vertically centered and the next section appears on scroll. Mobile keeps the regular padding flow (no forced 100vh — looks ugly with the browser bar). `--nav-height: 104px` is defined in tokens.css.
+- **Hero fills the viewport on desktop.** At ≥1024px, `.hero` is `min-height: calc(100vh - var(--nav-height))` with `flex-direction: column` + `justify-content: center` so the eyebrow/H1/lead/link block is vertically centered and the next section appears on scroll. Mobile keeps the regular padding flow (no forced 100vh — looks ugly with the browser bar). `--nav-height: 72px` is defined in tokens.css (slimmed when the nav went sticky); anchor targets get `[id] { scroll-margin-top }` clearance in tokens.css so the sticky nav never covers them.
+
+- **Animation principle: animate the product, not the page.** Movement lives INSIDE the mockups (the "torre de control viva"); Highlight and Principio stay still on purpose, the still/alive contrast is what makes the alive parts read. The only animation JS on the page is one IntersectionObserver script in `BaseLayout.astro` (~25 lines): it adds `.armed` to `[data-choreo]` mockups on load (hides the choreography's payoff states; no JS = full static mockup), `.in-view` when a `[data-animate]`/`[data-choreo]` block enters the viewport (loops start only when someone is watching), and `.played` on click of `[data-approve]` or 6s after in-view. All animation is transform/opacity with reserved widths (grid-area stacking): zero layout shift, zero Lighthouse cost. ⚠️ The global reduced-motion rule in tokens.css forces `animation-duration: 0.01ms`, which turns infinite loops into strobe: every looped animation MUST ship its own `@media (prefers-reduced-motion: reduce) { animation: none }` showing a sensible static state (see chip-cycle and approve-pulse).
 
 - **Editorial typography helpers in `tokens.css`:**
   - `.display-h1` / `.hero-h1`: Instrument Serif, big clamp, `line-height: 0.92`
