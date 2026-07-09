@@ -7,7 +7,15 @@ import Wordmark from './Wordmark.astro';
   <div class="section-wrap nav-inner">
     <a href="/" class="nav-brand" aria-label="Manny, inicio">
       <MannyMark color="blue" size={40} />
-      <Wordmark color="blue" height={32} />
+      <span class="nav-word">
+        <Wordmark color="blue" height={32} />
+      </span>
+    </a>
+    <span class="nav-descriptor">La torre de control de tu agencia</span>
+    <span class="nav-spacer" aria-hidden="true"></span>
+    <a href="#beta-final" class="nav-status">
+      <span class="nav-status-dot" aria-hidden="true"></span>
+      Lista de espera abierta
     </a>
   </div>
 </nav>
@@ -20,6 +28,7 @@ import Wordmark from './Wordmark.astro';
   .nav-inner {
     display: flex;
     align-items: center;
+    gap: var(--space-4);
   }
 
   .nav-brand {
@@ -28,5 +37,65 @@ import Wordmark from './Wordmark.astro';
     gap: 12px;
     text-decoration: none;
     flex-shrink: 0;
+  }
+
+  /* En pantallas muy angostas el wordmark + chip no entran juntos:
+     queda la mascota sola a la izquierda y el chip completo a la derecha. */
+  .nav-word {
+    display: none;
+  }
+
+  @media (min-width: 480px) {
+    .nav-word {
+      display: block;
+    }
+  }
+
+  .nav-descriptor {
+    display: none;
+    font-family: var(--font-body);
+    font-size: var(--text-body-small);
+    color: var(--neutral-600);
+    padding-left: var(--space-4);
+    border-left: 1px solid var(--neutral-300);
+    white-space: nowrap;
+  }
+
+  @media (min-width: 900px) {
+    .nav-descriptor {
+      display: block;
+    }
+  }
+
+  .nav-spacer {
+    flex: 1;
+  }
+
+  .nav-status {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--foreground);
+    text-decoration: none;
+    border: 1px solid var(--neutral-300);
+    border-radius: var(--radius-pill);
+    padding: 8px 16px;
+    background-color: var(--background);
+    white-space: nowrap;
+    transition: border-color var(--duration-normal) var(--ease-default);
+  }
+
+  .nav-status:hover {
+    border-color: var(--neutral-600);
+  }
+
+  .nav-status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--primary);
   }
 </style>

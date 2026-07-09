@@ -2,6 +2,8 @@
 
 Marketing landing for **Manny** (manny.tools) — single page, scroll-down, **editorial typographic direction**.
 
+> **Branch `landing-v3` (2026-07-09):** implements the copy v3 replanteo ("torre de control", benefit blocks with promise headers) from `manny-docs/Docs/Comunicacion/12_LANDING_COPY_V3.md`. Developed by Lion (Juan handed off the landing to focus on the platform). `main` still serves the previous version; Juan merges this branch when he decides to deploy. When merged, the v3 doc drops its ⚠️ and becomes the record of what's live.
+
 ## Stack
 
 - **Astro 5** (static SSG, no SSR) + **TypeScript strict**
@@ -25,10 +27,14 @@ src/
 ├── layouts/BaseLayout.astro   ← <head>, fonts, meta SEO, lang="es-AR"
 ├── styles/tokens.css          ← design tokens, layout primitives, typography helpers
 └── components/
-    ├── Nav.astro              ← logo + wordmark only (no nav links)
-    ├── Hero.astro             ← eyebrow + H1 + lead + "Sumate a la lista →"; centered in viewport on desktop
-    ├── HowItWorks.astro       ← 4 numbered steps with italic violet numerals; steps 01 + 04 close the auto-improvement loop
-    ├── Highlight.astro        ← centered pull quote ("El cuello de botella...")
+    ├── Nav.astro              ← brand + descriptor "La torre de control de tu agencia" (≥900px) + status chip "Lista de espera abierta" (anchor to #beta-final); wordmark hidden <480px
+    ├── Hero.astro             ← H1 + subhead v3 + CTA pill "Sumate a la lista →"; centered in viewport on desktop; no eyebrow (status moved to Nav chip)
+    ├── Highlight.astro        ← el reframe: pull quote ("El cuello de botella...") at --text-h2-cta size, alone
+    ├── VistaCentral.astro     ← Bloque A "Todo, de un vistazo." + HTML mockup of the Inicio view (account map with status chips)
+    ├── ContextoOmnicanal.astro← Bloques B + C side by side: "El contexto no se pierde." / "Una campaña. Todos los canales."
+    ├── RelacionCliente.astro  ← "El feedback de tus clientes..." + HTML mockup of the client approval screen (white-label: header is the agency's, never "Manny")
+    ├── Disenador.astro        ← "Todo listo para producir? El pedido lo arma Manny." + HTML mockup of the design order (assignee Marcos, freelance)
+    ├── Principio.astro        ← cierre de confianza: "Las decisiones son de tu equipo. Manny las ordena."
     ├── CTAFooter.astro        ← dark block: H2 + WaitlistForm + footer integrado (LinkedIn icon, no Privacy/Terms/Contact)
     ├── WaitlistForm.astro     ← email pill, light/dark variants, vanilla JS submit
     ├── Wordmark.astro         ← SVG-based "manny!" wordmark (color prop)
@@ -49,7 +55,9 @@ api/
 └── waitlist.ts                ← Vercel function: POST email → Supabase insert + Resend contact + confirmation email
 ```
 
-Section order in `index.astro`: **Nav → Hero → HowItWorks → Highlight → CTAFooter**.
+Section order in `index.astro`: **Nav → Hero → Highlight (reframe) → VistaCentral → ContextoOmnicanal → RelacionCliente → Disenador → Principio → CTAFooter**. This is the v3 spine: benefit blocks with promise headers; the old "proceso en 4 tiempos" (HowItWorks) was removed on purpose — don't bring it back.
+
+**Product mockups are HTML/CSS built into the components** (VistaCentral, RelacionCliente, Disenador), styled low-fi after the etapa-1 wireframe (`manny-platform/Docs/mockups/wireframe-etapa-1.dc.html`). The real product doesn't exist yet (rebuild pending), so no screenshots: when it ships, swap mockups for real captures without touching structure. Mockup text follows the same voice rules (voseo, 13px min); client names are fictional (Café Aurora, Vinoteca Peralta, Librería del Sur, Vivero Alsina).
 
 ## Layout patterns
 
@@ -100,7 +108,7 @@ The landing copy MUST respect these:
    - **Brief / contexto del cliente as the core**: agencies upload notes, briefs, brand guidelines. That's what Manny processes. Not generic content.
    - **The agency keeps control of every decision.** Manny *proposes*, the agency *decides* and *edits*. Avoid "Manny propone tres direcciones" (the specific number isn't always true) — use "Manny propone direcciones".
    - **AI is invisible / the support, not the protagonist.** "Nos apoyamos en la AI para agregar valor, pero el control es de la agencia."
-   - **Auto-improvement loop**: every approved piece feeds back into the brief vivo, and the next proposal gets more faithful. Steps 01 and 04 of HowItWorks now close this loop visibly.
+   - **Auto-improvement loop**: every approved piece feeds back into the perfil (ex "brief vivo"), and the next proposal gets more faithful. In v3 this lives in Bloque B ("se afina con cada pieza aprobada").
 
 ## Current phase
 

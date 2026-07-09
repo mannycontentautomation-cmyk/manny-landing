@@ -1,0 +1,75 @@
+---
+// Bloques B y C: el contexto que no se pierde + una campaña, todos los canales.
+// Dos promesas de texto, lado a lado en desktop.
+// Línea roja del bloque C: omnicanalidad de producción y contexto, nunca de
+// publicación. Jamás "publicá", "programá" ni "conectá tus redes".
+---
+
+<section class="pair">
+  <div class="section-wrap pair-grid">
+    <div class="pair-item">
+      <h2 class="display-h3 pair-h">
+        El contexto <span class="italic-accent">no se pierde.</span>
+      </h2>
+      <p class="pair-body">
+        El perfil de cada marca vive en un solo lugar y se afina con cada
+        pieza aprobada. Tu equipo arranca cada día con toda la información
+        que necesita.
+      </p>
+    </div>
+
+    <div class="pair-item">
+      <h2 class="display-h3 pair-h">
+        Una campaña. <span class="italic-accent">Todos los canales.</span>
+      </h2>
+      <p class="pair-body">
+        La pensás una vez. Manny la baja a cada canal con su formato y su
+        tono: el post de Instagram, el artículo de LinkedIn, el mail. Todo
+        bajo el mismo contexto.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .pair {
+    padding-block: var(--space-16);
+  }
+
+  @media (min-width: 1024px) {
+    .pair {
+      padding-block: var(--space-24);
+    }
+  }
+
+  .pair-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+  }
+
+  @media (min-width: 768px) {
+    .pair-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-16);
+    }
+  }
+
+  .pair-item {
+    border-top: 1px solid var(--hairline);
+    padding-top: var(--space-8);
+  }
+
+  .pair-h {
+    margin: 0 0 var(--space-5);
+  }
+
+  .pair-body {
+    font-size: var(--text-body-large);
+    line-height: var(--leading-body-tight);
+    color: var(--neutral-800);
+    margin: 0;
+    max-width: 480px;
+    text-wrap: pretty;
+  }
+</style>

@@ -1,0 +1,209 @@
+---
+// Bloque A: la vista central. Promesa + mockup de la vista de Inicio
+// (el mapa de cuentas: la torre de control literal).
+const CUENTAS = [
+  {
+    cliente: 'Café Aurora',
+    detalle: 'Campaña de otoño · 12 piezas',
+    estado: 'En producción',
+    tone: 'info',
+  },
+  {
+    cliente: 'Vinoteca Peralta',
+    detalle: 'Lanzamiento tienda online · calendario de julio',
+    estado: 'Espera aprobación',
+    tone: 'warn',
+  },
+  {
+    cliente: 'Librería del Sur',
+    detalle: 'Contenido mensual · concepto nuevo',
+    estado: 'Propuesta enviada',
+    tone: 'neutral',
+  },
+  {
+    cliente: 'Vivero Alsina',
+    detalle: 'Calendario de julio · 9 piezas',
+    estado: 'Aprobado',
+    tone: 'ok',
+  },
+];
+---
+
+<section class="benefit">
+  <div class="section-wrap">
+    <h2 class="display-h2 benefit-h2">
+      Todo, <span class="italic-accent">de un vistazo.</span>
+    </h2>
+    <p class="lead benefit-lead">
+      Ves el estado de cada cliente sin reconstruirlo de memoria: sabés
+      qué se propuso, qué espera aprobación, qué está en producción.
+    </p>
+
+    <div
+      class="mockup"
+      role="img"
+      aria-label="Vista de Inicio de Manny: todas las cuentas de la agencia con el estado de cada una"
+    >
+      <div class="mockup-head">
+        <span class="mockup-title">Inicio</span>
+        <span class="mockup-meta">Todas tus cuentas</span>
+        <span class="mockup-action">+ Nuevo</span>
+      </div>
+      <ul class="mockup-rows">
+        {CUENTAS.map((c) => (
+          <li class="mockup-row">
+            <span class="row-avatar" data-tone={c.tone}></span>
+            <span class="row-main">
+              <span class="row-client">{c.cliente}</span>
+              <span class="row-detail">{c.detalle}</span>
+            </span>
+            <span class="row-chip" data-tone={c.tone}>
+              <span class="chip-dot"></span>
+              {c.estado}
+            </span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </div>
+</section>
+
+<style>
+  .benefit {
+    padding-block: var(--space-16);
+  }
+
+  @media (min-width: 1024px) {
+    .benefit {
+      padding-block: var(--space-24);
+    }
+  }
+
+  .benefit-h2 {
+    margin: 0 0 var(--space-6);
+  }
+
+  .benefit-lead {
+    margin: 0 0 var(--space-12);
+    max-width: 720px;
+    color: var(--neutral-800);
+  }
+
+  /* --- Mockup: vista de Inicio ---------------------------------------- */
+
+  .mockup {
+    background-color: var(--background);
+    border: 1px solid var(--neutral-300);
+    border-radius: 12px;
+    overflow: hidden;
+    font-family: var(--font-body);
+    max-width: 960px;
+  }
+
+  .mockup-head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--space-6);
+    border-bottom: 1px solid var(--neutral-200);
+  }
+
+  .mockup-title {
+    font-size: var(--text-body-large);
+    font-weight: 700;
+    color: var(--foreground);
+  }
+
+  .mockup-meta {
+    font-size: 13px;
+    color: var(--neutral-600);
+  }
+
+  .mockup-action {
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--primary-foreground);
+    background-color: var(--primary);
+    border-radius: var(--radius-pill);
+    padding: 6px 14px;
+  }
+
+  .mockup-rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mockup-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-6);
+  }
+
+  .mockup-row + .mockup-row {
+    border-top: 1px solid var(--neutral-200);
+  }
+
+  .row-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--neutral-200);
+    flex-shrink: 0;
+  }
+
+  .row-main {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .row-client {
+    font-size: var(--text-body-small);
+    font-weight: 500;
+    color: var(--foreground);
+  }
+
+  .row-detail {
+    font-size: 13px;
+    color: var(--neutral-600);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .row-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--neutral-800);
+    border: 1px solid var(--neutral-300);
+    border-radius: var(--radius-pill);
+    padding: 4px 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .chip-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--neutral-500);
+  }
+
+  .row-chip[data-tone='info'] .chip-dot { background-color: var(--primary); }
+  .row-chip[data-tone='warn'] .chip-dot { background-color: #D97706; }
+  .row-chip[data-tone='ok'] .chip-dot { background-color: #059669; }
+
+  @media (max-width: 639px) {
+    .row-detail {
+      display: none;
+    }
+  }
+</style>
