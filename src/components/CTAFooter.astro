@@ -15,7 +15,7 @@ const year = new Date().getFullYear();
     <MannyMark color="blue" size={56} />
   </span>
   <span class="peek-bubble" data-peek-bubble aria-hidden="true">
-    No veo las horas de poder ayudarte!
+    ¡No veo la hora de poder ayudarte!
   </span>
 
   <div class="cta-section">
@@ -86,7 +86,7 @@ const year = new Date().getFullYear();
   .peek-bubble {
     position: absolute;
     top: 0;
-    right: calc(clamp(24px, 10vw, 140px) + 68px);
+    right: calc(clamp(24px, 10vw, 140px) + 20px);
     background-color: var(--background);
     color: var(--foreground);
     border: 1px solid var(--neutral-300);
@@ -100,7 +100,7 @@ const year = new Date().getFullYear();
     box-shadow: 0 2px 8px rgba(25, 23, 29, 0.08);
     pointer-events: none;
     opacity: 0;
-    transform: translateY(calc(-100% - 2px));
+    transform: translateY(calc(-100% - 24px));
     transition:
       opacity 300ms var(--ease-default),
       transform 300ms var(--ease-default);
@@ -108,7 +108,7 @@ const year = new Date().getFullYear();
 
   .peek-bubble.show {
     opacity: 1;
-    transform: translateY(calc(-100% - 10px));
+    transform: translateY(calc(-100% - 32px));
   }
 
   @media (max-width: 480px) {
