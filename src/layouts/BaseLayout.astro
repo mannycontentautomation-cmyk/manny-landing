@@ -124,6 +124,23 @@ const jsonLd = {
         });
       });
 
+      // El globo de la mascota: aparece la primera vez que el visitante
+      // llega al fondo de la página, y queda.
+      const bubble = document.querySelector('[data-peek-bubble]');
+      if (bubble) {
+        const showAtBottom = () => {
+          const atBottom =
+            window.innerHeight + window.scrollY >=
+            document.documentElement.scrollHeight - 8;
+          if (atBottom) {
+            bubble.classList.add('show');
+            window.removeEventListener('scroll', showAtBottom);
+          }
+        };
+        window.addEventListener('scroll', showAtBottom, { passive: true });
+        showAtBottom();
+      }
+
       // Atribución de CTA: los links que anclan al form marcan por dónde
       // llegó el visitante; el submit del waitlist lo suma al `source`.
       document.querySelectorAll('[data-cta]').forEach((link) => {
