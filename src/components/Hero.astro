@@ -16,10 +16,34 @@
       aprobaciones y pedidos a diseño. Todas tus cuentas, bajo control.
     </p>
 
-    <a href="#beta-final" class="hero-link">
+    <a href="#beta-final" class="hero-link" data-cta="hero">
       Sumate a la lista
       <span class="hero-link-arrow" aria-hidden="true">→</span>
     </a>
+
+    <!-- El idioma visual del producto asomando: ambiente, no argumento.
+         Último en la jerarquía del hero (otra escala, otra tipografía,
+         otro contraste que el H1). El chip del medio rota de estado. -->
+    <div class="hero-strip" aria-hidden="true" data-animate>
+      <span class="strip-chip">
+        <span class="strip-dot"></span>
+        Propuesta enviada
+      </span>
+      <span class="strip-chip strip-cycle">
+        <span class="strip-state" data-default style="--i: 0">
+          <span class="strip-dot" data-tone="warn"></span>
+          Espera aprobación
+        </span>
+        <span class="strip-state" style="--i: 1">
+          <span class="strip-dot" data-tone="ok"></span>
+          Aprobado
+        </span>
+      </span>
+      <span class="strip-chip">
+        <span class="strip-dot" data-tone="info"></span>
+        En producción
+      </span>
+    </div>
   </div>
 </section>
 
@@ -115,5 +139,81 @@
 
   .hero-link:hover .hero-link-arrow {
     transform: translateX(3px);
+  }
+
+  /* --- Franja de estados: la torre de control asomando ------------------ */
+
+  .hero-strip {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: var(--space-10);
+  }
+
+  .strip-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--neutral-600);
+    border: 1px solid var(--neutral-300);
+    border-radius: var(--radius-pill);
+    padding: 4px 12px;
+    white-space: nowrap;
+  }
+
+  .strip-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--neutral-500);
+  }
+
+  .strip-dot[data-tone='warn'] { background-color: #D97706; }
+  .strip-dot[data-tone='ok'] { background-color: #059669; }
+  .strip-dot[data-tone='info'] { background-color: var(--primary); }
+
+  /* Los 2 estados del chip del medio apilados en la misma celda:
+     ancho reservado por el label más largo, crossfade sin layout shift. */
+  .strip-cycle {
+    display: inline-grid;
+  }
+
+  .strip-state {
+    grid-area: 1 / 1;
+    justify-self: center;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+    opacity: 0;
+  }
+
+  .strip-state[data-default] {
+    opacity: 1;
+  }
+
+  .hero-strip.in-view .strip-state {
+    animation: strip-cycle 8s linear infinite;
+    animation-delay: calc(var(--i) * 4s);
+    animation-fill-mode: backwards;
+  }
+
+  @keyframes strip-cycle {
+    0% { opacity: 0; }
+    6% { opacity: 1; }
+    44% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 0; }
+  }
+
+  /* El reduced-motion global (0.01ms) haría estrobo con el loop: se apaga
+     acá y queda el estado por defecto. */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-strip.in-view .strip-state {
+      animation: none;
+    }
   }
 </style>

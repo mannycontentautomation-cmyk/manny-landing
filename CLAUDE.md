@@ -28,15 +28,15 @@ src/
 ├── styles/tokens.css          ← design tokens, layout primitives, typography helpers
 └── components/
     ├── Nav.astro              ← STICKY (backdrop blur) so the status chip "Lista de espera abierta" (only conversion trigger) rides the whole page; brand + descriptor "La torre de control de tu agencia" (≥900px); wordmark hidden <480px
-    ├── Hero.astro             ← category eyebrow (mobile only, <900px; mirror of the nav descriptor) + H1 + subhead v3 + CTA pill "Sumate a la lista →"; centered in viewport on desktop
+    ├── Hero.astro             ← category eyebrow (mobile only, <900px; mirror of the nav descriptor) + H1 + subhead v3 + CTA pill "Sumate a la lista →" + status strip (3 muted chips below the CTA, middle one crossfades espera↔aprobado: ambient product language, aria-hidden, last in hero hierarchy); centered in viewport on desktop
     ├── Highlight.astro        ← el reframe: pull quote ("El cuello de botella...") at --text-h2-cta size, alone. Deliberately static: never animate it
     ├── VistaCentral.astro     ← Bloque A "Todo, de un vistazo." + HTML mockup of the Inicio view. ALIVE: the Vinoteca Peralta chip cycles through the account lifecycle (propuesta → espera → aprobado → producción), 12s CSS loop, pauses on hover, only one animated row on purpose
     ├── ContextoOmnicanal.astro← Bloques B + C side by side: "El contexto no se pierde." / "Una campaña. Todos los canales."
     ├── RelacionCliente.astro  ← "El feedback de tus clientes..." + HTML mockup of the client approval screen (white-label: header is the agency's, never "Manny"). ALIVE with hybrid trigger: "Aprobar" is the only clickable element (idle pulse affordance); on click or ~6s after entering viewport, the sequence runs: pressed → chip "Aprobada" + registro "lunes 13 · 14:32" → Valeria's comment slides in. Runs once, stays
-    ├── Disenador.astro        ← "Todo listo para producir? El pedido lo arma Manny." + HTML mockup of the design order (assignee Marcos, freelance)
-    ├── Principio.astro        ← cierre de confianza: "Las decisiones son de tu equipo. Manny las ordena."
-    ├── CTAFooter.astro        ← dark block: H2 + WaitlistForm + footer integrado (LinkedIn icon, no Privacy/Terms/Contact)
-    ├── WaitlistForm.astro     ← email pill, light/dark variants, vanilla JS submit
+    ├── Disenador.astro        ← "Todo listo para producir? El pedido lo arma Manny." + HTML mockup of the design order (assignee Marcos, freelance). ALIVE: the 4 ✓ pop in sequence on viewport entry + single pulse of "Enviar pedido →"
+    ├── Principio.astro        ← cierre de confianza: "Las decisiones son de tu equipo. Manny las ordena." Deliberately static
+    ├── CTAFooter.astro        ← dark block: H2 + WaitlistForm + footer integrado (LinkedIn icon, no Privacy/Terms/Contact). The mascot peeks over the top edge (`.peek`: cropped MannyMark, decorative, the single brand guiño of the page)
+    ├── WaitlistForm.astro     ← email pill, light/dark variants, vanilla JS submit. `source` = `formId:via` where via ∈ hero|nav|direct (which CTA the visitor clicked last, via sessionStorage `manny-cta` set in BaseLayout)
     ├── Wordmark.astro         ← SVG-based "manny!" wordmark (color prop)
     └── MannyMark.astro        ← SVG-based mark (color prop)
 
@@ -143,6 +143,8 @@ The form is wired to a real backend (since 2026-05-10):
 - **Architecture choice**: Vercel function suelta en `/api/*.ts`, NOT an Astro endpoint. Keeps Astro as pure SSG. Vercel auto-detects the folder alongside the static build.
 
 ## Pending TODOs
+
+- **Enable Vercel Web Analytics** in the Vercel dashboard (project manny-landing → Analytics). The snippet (`/_vercel/insights/script.js`, PROD-only) already ships in `BaseLayout.astro`; without the dashboard toggle it 404s silently. Once live, read submits by `source` (`cta-waitlist:hero|nav|direct`) in Supabase to see which CTA converts.
 
 - **Submit sitemap to search engines**: register `manny.tools` in [Google Search Console](https://search.google.com/search-console) and [Bing Webmaster Tools](https://www.bing.com/webmasters), submit `https://manny.tools/sitemap-index.xml`. Bing matters specifically — ChatGPT search is powered by Bing. ~5 min each.
 

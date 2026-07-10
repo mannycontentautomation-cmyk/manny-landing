@@ -184,11 +184,20 @@ const {
       status.dataset.status = 'idle';
       status.textContent = 'Sumándote…';
 
+      // El CTA por el que llegó el visitante (hero / nav) lo guarda el
+      // script de BaseLayout en sessionStorage; sin click previo, "direct".
+      let via = 'direct';
+      try {
+        via = sessionStorage.getItem('manny-cta') || 'direct';
+      } catch {
+        /* sessionStorage bloqueado */
+      }
+
       try {
         const res = await fetch('/api/waitlist', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, source: formId }),
+          body: JSON.stringify({ email, source: `${formId}:${via}` }),
         });
 
         const data = (await res.json().catch(() => ({}))) as {
