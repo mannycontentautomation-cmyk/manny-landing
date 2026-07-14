@@ -1,0 +1,135 @@
+---
+// Fila de dolores (referencia NordLayer, tercer segmento): 4 columnas
+// sobre el mismo fondo oscuro, sin título de sección: cuelga de
+// "El desafío". Título = dolor en segunda persona; cuerpo = pivote a la
+// resolución. Los 4 dolores espejan los 4 bullets del hero (dolor ↔
+// promesa, la misma simetría que usa la referencia).
+// Íconos: SVG de línea inline, un solo color (--primary-on-dark).
+---
+
+<section class="dolores">
+  <div class="section-wrap">
+    <ul class="dolores-grid">
+      <li class="dolor">
+        <svg class="dolor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polygon points="12 2 2 7 12 12 22 7 12 2" />
+          <polyline points="2 12 12 17 22 12" />
+          <polyline points="2 17 12 22 22 17" />
+        </svg>
+        <h3 class="dolor-titulo">Tu trabajo está repartido en demasiadas herramientas</h3>
+        <p class="dolor-cuerpo">
+          Manny junta el proceso completo en una sola plataforma.
+        </p>
+      </li>
+
+      <li class="dolor">
+        <svg class="dolor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <polyline points="23 4 23 10 17 10" />
+          <polyline points="1 20 1 14 7 14" />
+          <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+        </svg>
+        <h3 class="dolor-titulo">La información estratégica de la marca está dispersa entre varios documentos y tu cabeza</h3>
+        <p class="dolor-cuerpo">
+          El perfil de cada cliente guarda identidad, tono y estrategia.
+          Se carga una vez y se afina con cada aprobación.
+        </p>
+      </li>
+
+      <li class="dolor">
+        <svg class="dolor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+          <path d="M14 11a5 5 0 0 0-7.54.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+        </svg>
+        <h3 class="dolor-titulo">El feedback llega por un mensaje, un mail y una llamada al mismo tiempo</h3>
+        <p class="dolor-cuerpo">
+          Audios, chats y capturas se vuelven un solo link donde tu
+          cliente mira, comenta y aprueba, todo queda registrado.
+        </p>
+      </li>
+
+      <li class="dolor">
+        <svg class="dolor-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M4 7h13" />
+          <polyline points="14 3.5 17.5 7 14 10.5" />
+          <path d="M20 17H7" />
+          <polyline points="10 13.5 6.5 17 10 20.5" />
+        </svg>
+        <h3 class="dolor-titulo">Los pedidos a producción están siempre incompletos</h3>
+        <p class="dolor-cuerpo">
+          Del calendario aprobado, Manny arma los pedidos completos:
+          textos, formatos, referencias y contexto. El diseñador arranca
+          sin necesidad de preguntar más.
+        </p>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<style>
+  .dolores {
+    background-color: var(--block-dark);
+    color: #EFEFEC;
+    padding-block: var(--space-8) var(--space-24);
+  }
+
+  @media (min-width: 1024px) {
+    .dolores {
+      padding-block: var(--space-10) var(--space-30);
+    }
+  }
+
+  .dolores-grid {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-10);
+  }
+
+  @media (min-width: 640px) {
+    .dolores-grid {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12) var(--space-10);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .dolores-grid {
+      grid-template-columns: repeat(4, 1fr);
+      gap: var(--space-8);
+    }
+  }
+
+  .dolor {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .dolor-icon {
+    width: 30px;
+    height: 30px;
+    color: var(--primary-on-dark);
+    margin-bottom: var(--space-6);
+  }
+
+  .dolor-titulo {
+    font-family: var(--font-body);
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.35;
+    color: #FFFFFF;
+    margin: 0 0 var(--space-3);
+    text-wrap: balance;
+  }
+
+  .dolor-cuerpo {
+    font-family: var(--font-body);
+    font-size: var(--text-body-small);
+    line-height: 1.55;
+    color: rgba(239, 239, 236, 0.65);
+    margin: 0;
+    text-wrap: pretty;
+  }
+</style>
