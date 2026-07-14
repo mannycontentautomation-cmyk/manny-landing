@@ -57,7 +57,9 @@ api/
 └── waitlist.ts                ← Vercel function: POST email → Supabase insert + Resend contact + confirmation email
 ```
 
-Section order in `index.astro`: **Nav → Hero → Highlight (reframe) → VistaCentral → ContextoOmnicanal → RelacionCliente → Disenador → Principio → CTAFooter**. This is the v3 spine: benefit blocks with promise headers; the old "proceso en 4 tiempos" (HowItWorks) was removed on purpose — don't bring it back.
+Section order in `index.astro` (v4, in progress): **Nav → Hero → Desafio → ContextoOmnicanal → RelacionCliente → Disenador → Principio → CTAFooter**. The old "proceso en 4 tiempos" (HowItWorks) was removed on purpose — don't bring it back. `Highlight.astro` and `VistaCentral.astro` are out of the flow (absorbed by Desafio: the reframe is its H2 and the big dashboard replaced "Todo, de un vistazo"); the files remain in the repo until the v4 pass finishes, then delete if nothing reclaims them.
+
+**Desafio.astro** (v4 screen 2, NordLayer "The Challenge" pattern): dark section, centered eyebrow "El desafío" + reframe H2 + subhead, then the platform showcase: a window-chrome mockup (traffic lights, sidebar nav, account map) with 4 satellite UI fragments orbiting it (Equipo panel peeking behind on the left ≥1024px, "+ Nueva campaña" dark pill, "Nueva aprobación de Valeria" light pill, and the client-view dark widget "Café Aurora · 2 aprobadas · 1 comentario"). Satellites are aria-hidden; the showcase has one role="img" description. Overlaps between satellites and window content are intentional (composition, not data table).
 
 **Product mockups are HTML/CSS built into the components** (VistaCentral, RelacionCliente, Disenador), styled low-fi after the etapa-1 wireframe (`manny-platform/Docs/mockups/wireframe-etapa-1.dc.html`). The real product doesn't exist yet (rebuild pending), so no screenshots: when it ships, swap mockups for real captures without touching structure. Mockup text follows the same voice rules (voseo, 13px min); client names are fictional (Café Aurora, Vinoteca Peralta, Librería del Sur, Vivero Alsina).
 

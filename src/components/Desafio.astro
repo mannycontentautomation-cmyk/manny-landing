@@ -1,0 +1,585 @@
+---
+// Sección 2 (referencia NordLayer "The Challenge"): reframe + reveal.
+// Eyebrow + H2 centrado (el reframe en su nueva casa) + subhead, y abajo
+// la plataforma en grande con marco de ventana y 4 fragmentos de UI
+// satelitales orbitando: amplitud de producto sin listar features.
+// Absorbe a Highlight y VistaCentral de la v3.
+const NAV_ITEMS = [
+  { label: 'Inicio', active: true },
+  { label: 'Clientes', active: false },
+  { label: 'Campañas', active: false },
+  { label: 'Tickets', active: false },
+  { label: 'Equipo', active: false },
+];
+
+const CUENTAS = [
+  {
+    cliente: 'Café Aurora',
+    detalle: 'Campaña de otoño · 12 piezas',
+    estado: 'En producción',
+    tone: 'info',
+  },
+  {
+    cliente: 'Vinoteca Peralta',
+    detalle: 'Lanzamiento tienda online',
+    estado: 'Espera aprobación',
+    tone: 'warn',
+  },
+  {
+    cliente: 'Librería del Sur',
+    detalle: 'Contenido mensual',
+    estado: 'Propuesta enviada',
+    tone: 'neutral',
+  },
+  {
+    cliente: 'Vivero Alsina',
+    detalle: 'Calendario de julio · 9 piezas',
+    estado: 'Aprobado',
+    tone: 'ok',
+  },
+];
+
+const EQUIPO = [
+  { nombre: 'Sofi', rol: 'admin' },
+  { nombre: 'Nico', rol: 'diseño' },
+  { nombre: 'Marcos', rol: 'freelance' },
+];
+---
+
+<section class="desafio">
+  <div class="section-wrap">
+    <header class="desafio-head">
+      <p class="desafio-eyebrow">El desafío</p>
+      <h2 class="desafio-h2">
+        El cuello de botella no es la creatividad.<br />
+        <span class="italic-accent-light">Es la coordinación.</span>
+      </h2>
+      <p class="desafio-sub">
+        Manny centraliza la relación con tus clientes, el perfil de cada
+        marca, la planificación y el contenido, el feedback y los pedidos
+        a diseño en una sola plataforma. Visibilidad de punta a punta.
+      </p>
+    </header>
+
+    <div
+      class="showcase"
+      role="img"
+      aria-label="La plataforma Manny completa: el mapa de cuentas con su navegación y, alrededor, el panel de equipo, una campaña nueva por crear, una aprobación recién llegada y la vista del cliente con sus piezas aprobadas"
+    >
+      <!-- Satélite: panel Equipo asomando por la izquierda -->
+      <div class="sat sat-equipo" aria-hidden="true">
+        <span class="se-title">Equipo</span>
+        <ul class="se-rows">
+          {EQUIPO.map((m) => (
+            <li class="se-row">
+              <span class="se-avatar"></span>
+              <span class="se-nombre">{m.nombre}</span>
+              <span class="se-rol">{m.rol}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <!-- La ventana principal -->
+      <div class="window">
+        <div class="win-bar" aria-hidden="true">
+          <span class="win-dot" data-c="r"></span>
+          <span class="win-dot" data-c="y"></span>
+          <span class="win-dot" data-c="g"></span>
+        </div>
+        <div class="win-body">
+          <aside class="win-side" aria-hidden="true">
+            <ul class="side-items">
+              {NAV_ITEMS.map((item) => (
+                <li class:list={['side-item', { active: item.active }]}>{item.label}</li>
+              ))}
+            </ul>
+          </aside>
+          <div class="win-main">
+            <div class="wm-head">
+              <span class="wm-title">Inicio</span>
+              <span class="wm-meta">Todas tus cuentas</span>
+            </div>
+            <ul class="wm-rows">
+              {CUENTAS.map((c) => (
+                <li class="wm-row">
+                  <span class="wm-avatar"></span>
+                  <span class="wm-main-col">
+                    <span class="wm-client">{c.cliente}</span>
+                    <span class="wm-detail">{c.detalle}</span>
+                  </span>
+                  <span class="wm-chip" data-tone={c.tone}>
+                    <span class="wm-dot"></span>
+                    {c.estado}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Satélite: acción rápida -->
+      <div class="sat sat-pill" aria-hidden="true">
+        <span class="sp-plus">+</span>
+        Nueva campaña
+      </div>
+
+      <!-- Satélite: notificación (la historia del hero continúa) -->
+      <div class="sat sat-notif" aria-hidden="true">
+        <span class="sn-dot"></span>
+        Nueva aprobación de Valeria
+      </div>
+
+      <!-- Satélite: la vista del cliente -->
+      <div class="sat sat-cliente" aria-hidden="true">
+        <span class="sc-brand">Café Aurora</span>
+        <span class="sc-sub">Tu contenido de julio</span>
+        <span class="sc-stats">
+          <span class="sc-ok">2 aprobadas</span>
+          <span class="sc-sep">·</span>
+          1 comentario
+        </span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .desafio {
+    background-color: var(--block-dark);
+    color: #EFEFEC;
+    padding-block: var(--space-20) var(--space-24);
+  }
+
+  @media (min-width: 1024px) {
+    .desafio {
+      padding-block: var(--space-24) var(--space-30);
+    }
+  }
+
+  .desafio-head {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-5);
+    margin-bottom: var(--space-14);
+  }
+
+  @media (min-width: 1024px) {
+    .desafio-head {
+      margin-bottom: var(--space-16);
+    }
+  }
+
+  .desafio-eyebrow {
+    font-family: var(--font-body);
+    font-size: var(--text-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--primary-on-dark);
+    margin: 0;
+  }
+
+  .desafio-h2 {
+    font-family: var(--font-display);
+    font-size: clamp(34px, 4.6vw, 62px);
+    line-height: var(--leading-h2);
+    letter-spacing: var(--tracking-h2);
+    font-weight: 500;
+    color: #FFFFFF;
+    text-wrap: balance;
+    margin: 0;
+    max-width: 900px;
+  }
+
+  .desafio-sub {
+    font-family: var(--font-body);
+    font-size: var(--text-body-large);
+    line-height: 1.55;
+    color: rgba(239, 239, 236, 0.7);
+    margin: 0;
+    max-width: 680px;
+    text-wrap: pretty;
+  }
+
+  /* --- Showcase: ventana + satélites ----------------------------------- */
+
+  .showcase {
+    position: relative;
+    max-width: 880px;
+    margin-inline: auto;
+  }
+
+  .window {
+    position: relative;
+    z-index: 1;
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+    font-family: var(--font-body);
+  }
+
+  .win-bar {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 16px;
+    background-color: #2A2731;
+  }
+
+  .win-dot {
+    width: 11px;
+    height: 11px;
+    border-radius: 50%;
+  }
+
+  .win-dot[data-c='r'] { background-color: #FF5F57; }
+  .win-dot[data-c='y'] { background-color: #FEBC2E; }
+  .win-dot[data-c='g'] { background-color: #28C840; }
+
+  .win-body {
+    display: flex;
+    background-color: var(--background);
+  }
+
+  .win-side {
+    display: none;
+    flex-direction: column;
+    width: 170px;
+    flex-shrink: 0;
+    background-color: #FAFAF8;
+    border-right: 1px solid var(--neutral-200);
+    padding: var(--space-5) var(--space-3);
+  }
+
+  @media (min-width: 640px) {
+    .win-side {
+      display: flex;
+    }
+  }
+
+  .side-items {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .side-item {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--neutral-600);
+    padding: 7px 12px;
+    border-radius: 8px;
+  }
+
+  .side-item.active {
+    color: var(--primary);
+    background-color: var(--primary-light);
+  }
+
+  .win-main {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .wm-head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--neutral-200);
+  }
+
+  .wm-title {
+    font-size: var(--text-body);
+    font-weight: 700;
+    color: var(--foreground);
+  }
+
+  .wm-meta {
+    font-size: 13px;
+    color: var(--neutral-600);
+  }
+
+  .wm-rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .wm-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-5);
+  }
+
+  .wm-row + .wm-row {
+    border-top: 1px solid var(--neutral-200);
+  }
+
+  .wm-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--neutral-200);
+    flex-shrink: 0;
+  }
+
+  .wm-main-col {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+  }
+
+  .wm-client {
+    font-size: var(--text-body-small);
+    font-weight: 500;
+    color: var(--foreground);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .wm-detail {
+    font-size: 13px;
+    color: var(--neutral-600);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .wm-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--neutral-800);
+    border: 1px solid var(--neutral-300);
+    border-radius: var(--radius-pill);
+    padding: 3px 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .wm-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--neutral-500);
+  }
+
+  .wm-chip[data-tone='info'] .wm-dot { background-color: var(--primary); }
+  .wm-chip[data-tone='warn'] .wm-dot { background-color: #D97706; }
+  .wm-chip[data-tone='ok'] .wm-dot { background-color: #059669; }
+
+  @media (max-width: 519px) {
+    .wm-detail {
+      display: none;
+    }
+  }
+
+  /* --- Satélites --------------------------------------------------------- */
+
+  .sat {
+    position: absolute;
+    font-family: var(--font-body);
+  }
+
+  /* Panel Equipo: asoma por detrás de la ventana, a la izquierda */
+  .sat-equipo {
+    display: none;
+    z-index: 0;
+    top: 22%;
+    left: -120px;
+    width: 200px;
+    background-color: #262330;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: var(--space-4);
+  }
+
+  @media (min-width: 1024px) {
+    .sat-equipo {
+      display: block;
+    }
+  }
+
+  .se-title {
+    display: block;
+    font-size: 13px;
+    font-weight: 700;
+    color: #EFEFEC;
+    margin-bottom: var(--space-3);
+  }
+
+  .se-rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+
+  .se-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .se-avatar {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.14);
+    flex-shrink: 0;
+  }
+
+  .se-nombre {
+    font-size: 13px;
+    font-weight: 500;
+    color: #EFEFEC;
+  }
+
+  .se-rol {
+    margin-left: auto;
+    font-size: 13px;
+    color: rgba(239, 239, 236, 0.5);
+  }
+
+  /* Acción rápida: pill oscura sobre el borde izquierdo de la ventana */
+  .sat-pill {
+    z-index: 2;
+    bottom: 16%;
+    left: calc(-1 * var(--space-6));
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #262330;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #EFEFEC;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: var(--radius-pill);
+    padding: 10px 18px 10px 10px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 767px) {
+    .sat-pill {
+      left: var(--space-2);
+      bottom: -18px;
+    }
+  }
+
+  .sp-plus {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 15px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Notificación: pill clara sobre el borde superior derecho */
+  .sat-notif {
+    z-index: 2;
+    top: -16px;
+    right: calc(-1 * var(--space-4));
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--background);
+    color: var(--foreground);
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: var(--radius-pill);
+    padding: 9px 16px;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+    white-space: nowrap;
+  }
+
+  @media (max-width: 767px) {
+    .sat-notif {
+      right: var(--space-2);
+      top: -14px;
+    }
+  }
+
+  .sn-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    flex-shrink: 0;
+  }
+
+  /* La vista del cliente: widget oscuro abajo a la derecha */
+  .sat-cliente {
+    z-index: 2;
+    bottom: -52px;
+    right: calc(-1 * var(--space-4));
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    width: 210px;
+    background-color: #262330;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: var(--space-4);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  }
+
+  @media (max-width: 767px) {
+    .sat-cliente {
+      right: var(--space-2);
+      bottom: -36px;
+    }
+  }
+
+  .sc-brand {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(239, 239, 236, 0.6);
+  }
+
+  .sc-sub {
+    font-size: var(--text-body-small);
+    font-weight: 500;
+    color: #FFFFFF;
+  }
+
+  .sc-stats {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 13px;
+    color: rgba(239, 239, 236, 0.7);
+    margin-top: 2px;
+  }
+
+  .sc-ok {
+    color: #34D399;
+  }
+
+  .sc-sep {
+    color: rgba(239, 239, 236, 0.4);
+  }
+</style>
