@@ -1,73 +1,142 @@
 ---
+// Hero v4 (referencia NordLayer, adaptada): bloque oscuro partido en dos.
+// Izquierda: titular en tres golpes (el tercero es el payoff del reframe),
+// bullets como proof points, doble CTA con intención diferenciada
+// (lista de espera / demo en vivo) y microcopy de riesgo.
+// Derecha: el mapa de cuentas compacto con dos tarjetas narrativas
+// flotando encima. La viñeta: mientras mirás una sola pantalla,
+// las aprobaciones y los pedidos pasan solos.
+const BULLETS = [
+  'Gestioná tus clientes, coordiná tu equipo y generá el contenido en un solo lugar',
+  'Creás el perfil de tu cliente una única vez, Manny alimenta cada generación sin que pierdas información',
+  'Para el feedback, un solo link',
+  'Del pedido a producción, se encarga Manny',
+];
+
+const CUENTAS = [
+  { cliente: 'Café Aurora', estado: 'En producción', tone: 'info' },
+  { cliente: 'Vinoteca Peralta', estado: 'Espera aprobación', tone: 'warn' },
+  { cliente: 'Librería del Sur', estado: 'Propuesta enviada', tone: 'neutral' },
+];
 ---
 
 <section class="hero" id="producto">
-  <div class="section-wrap">
-    <p class="eyebrow hero-eyebrow">La torre de control de tu agencia</p>
+  <div class="section-wrap hero-grid">
+    <div class="hero-copy">
+      <p class="hero-eyebrow">La torre de control de tu agencia</p>
 
-    <h1 class="hero-h1">
-      Ordenamos la información,<br />
-      <span class="italic-accent">tu equipo hace lo suyo.</span>
-    </h1>
+      <h1 class="hero-h1">
+        Ordená cada cuenta.<br />
+        Coordiná cada entrega.<br />
+        <span class="hero-payoff">Tenés más tiempo para la creatividad.</span>
+      </h1>
 
-    <p class="lead hero-lead">
-      El trabajo de cada cliente vive disperso en cinco herramientas que
-      no se hablan. Manny lo ordena en un solo lugar: perfil, calendario,
-      aprobaciones y pedidos a diseño. Todas tus cuentas, bajo control.
-    </p>
+      <ul class="hero-bullets">
+        {BULLETS.map((b) => (
+          <li>
+            <span class="bullet-dot" aria-hidden="true"></span>
+            {b}
+          </li>
+        ))}
+      </ul>
 
-    <a href="#beta-final" class="hero-link" data-cta="hero">
-      Sumate a la lista
-      <span class="hero-link-arrow" aria-hidden="true">→</span>
-    </a>
+      <div class="hero-ctas">
+        <a href="#beta-final" class="cta-primary" data-cta="hero">
+          Sumate a la lista
+          <span aria-hidden="true">→</span>
+        </a>
+        <a href="#beta-final" class="cta-secondary" data-cta="hero-demo" data-intent-demo>
+          Pedí una demo en vivo
+        </a>
+      </div>
 
-    <!-- El idioma visual del producto asomando: ambiente, no argumento.
-         Último en la jerarquía del hero (otra escala, otra tipografía,
-         otro contraste que el H1). El chip del medio rota de estado. -->
-    <div class="hero-strip" aria-hidden="true" data-animate>
-      <span class="strip-chip">
-        <span class="strip-dot"></span>
-        Propuesta enviada
-      </span>
-      <span class="strip-chip strip-cycle">
-        <span class="strip-state" data-default style="--i: 0">
-          <span class="strip-dot" data-tone="warn"></span>
-          Espera aprobación
+      <p class="hero-risk">
+        Sin compromiso. Hasta una charla informal nos serviría para saber
+        cómo ayudarte.
+      </p>
+    </div>
+
+    <div
+      class="hero-visual"
+      role="img"
+      aria-label="La vista de Inicio de Manny con las cuentas de la agencia y, flotando encima, una aprobación de cliente recién llegada y un pedido a diseño enviado"
+    >
+      <div class="mini-app">
+        <div class="mini-head">
+          <span class="mini-title">Inicio</span>
+          <span class="mini-meta">Todas tus cuentas</span>
+        </div>
+        <ul class="mini-rows">
+          {CUENTAS.map((c) => (
+            <li class="mini-row">
+              <span class="mini-avatar"></span>
+              <span class="mini-client">{c.cliente}</span>
+              <span class="mini-chip" data-tone={c.tone}>
+                <span class="mini-dot"></span>
+                {c.estado}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="float-card float-approval">
+        <span class="fc-check" aria-hidden="true">✓</span>
+        <span class="fc-main">
+          <span class="fc-title">Valeria (cliente)</span>
+          <span class="fc-body">Aprobó Story · lunes 13</span>
         </span>
-        <span class="strip-state" style="--i: 1">
-          <span class="strip-dot" data-tone="ok"></span>
-          Aprobado
+      </div>
+
+      <div class="float-card float-order">
+        <span class="fc-avatar" aria-hidden="true"></span>
+        <span class="fc-main">
+          <span class="fc-title">Pedido a diseño</span>
+          <span class="fc-body">Marcos · freelance</span>
         </span>
-      </span>
-      <span class="strip-chip">
-        <span class="strip-dot" data-tone="info"></span>
-        En producción
-      </span>
+        <span class="fc-chip">Enviado</span>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
   .hero {
-    padding-top: var(--space-20);
-    padding-bottom: var(--space-16);
+    background-color: var(--block-dark);
+    color: #EFEFEC;
+    padding-block: var(--space-16);
   }
 
   @media (min-width: 1024px) {
     .hero {
-      min-height: calc(100vh - var(--nav-height));
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-top: 0;
-      padding-bottom: 0;
+      padding-block: var(--space-24);
+    }
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-14);
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .hero-grid {
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: var(--space-16);
     }
   }
 
   /* La categoría vive en el descriptor del nav a partir de 900px; en mobile
      el descriptor se oculta, así que acá entra como eyebrow. Nunca los dos. */
   .hero-eyebrow {
-    margin-bottom: var(--space-6);
+    font-family: var(--font-body);
+    font-size: var(--text-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    font-weight: 500;
+    color: rgba(239, 239, 236, 0.55);
+    margin: 0 0 var(--space-6);
   }
 
   @media (min-width: 900px) {
@@ -77,143 +146,296 @@
   }
 
   .hero-h1 {
-    /* Slightly tighter max font than display-h1 so 2 lines fit in container */
     font-family: var(--font-display);
-    font-size: clamp(44px, 8vw, 120px);
-    line-height: var(--leading-tight);
-    letter-spacing: var(--tracking-display);
+    font-size: clamp(38px, 4.6vw, 66px);
+    line-height: 1.06;
+    letter-spacing: var(--tracking-h2);
     font-weight: 500;
-    color: var(--foreground);
+    color: #FFFFFF;
     text-wrap: pretty;
+    margin: 0 0 var(--space-8);
+  }
+
+  .hero-payoff {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--primary-on-dark);
+  }
+
+  .hero-bullets {
+    list-style: none;
     margin: 0 0 var(--space-10);
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    max-width: 560px;
   }
 
-  @media (min-width: 1024px) {
-    .hero-h1 {
-      margin-bottom: var(--space-12);
-    }
+  .hero-bullets li {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    font-family: var(--font-body);
+    font-size: var(--text-body);
+    line-height: 1.5;
+    color: rgba(239, 239, 236, 0.78);
   }
 
-  .hero-lead {
-    margin: 0 0 var(--space-10);
-    max-width: 880px;
+  .bullet-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--primary-on-dark);
+    flex-shrink: 0;
+    margin-top: 8px;
   }
 
-  @media (min-width: 1024px) {
-    .hero-lead {
-      margin-bottom: var(--space-12);
-    }
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
   }
 
-  .hero-link {
+  .cta-primary {
     display: inline-flex;
     align-items: center;
     gap: 10px;
     font-family: var(--font-body);
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 500;
     color: var(--primary-foreground);
     background-color: var(--primary);
-    padding: 14px 28px;
+    padding: 13px 26px;
     border-radius: var(--radius-pill);
     text-decoration: none;
     transition:
       background-color var(--duration-normal) var(--ease-default),
       transform var(--duration-normal) var(--ease-default);
-    width: max-content;
   }
 
-  .hero-link:hover {
+  .cta-primary:hover {
     background-color: var(--primary-hover);
     transform: translateY(-1px);
   }
 
-  .hero-link:active {
-    background-color: var(--primary-active);
-    transform: translateY(0);
+  .cta-secondary {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 500;
+    color: #EFEFEC;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    padding: 12px 26px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    transition: border-color var(--duration-normal) var(--ease-default);
   }
 
-  .hero-link-arrow {
-    transition: transform var(--duration-normal) var(--ease-default);
+  .cta-secondary:hover {
+    border-color: rgba(255, 255, 255, 0.6);
   }
 
-  .hero-link:hover .hero-link-arrow {
-    transform: translateX(3px);
+  .hero-risk {
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.5;
+    color: rgba(239, 239, 236, 0.55);
+    margin: 0;
+    max-width: 480px;
   }
 
-  /* --- Franja de estados: la torre de control asomando ------------------ */
+  /* --- Visual: mapa de cuentas + tarjetas narrativas -------------------- */
 
-  .hero-strip {
+  .hero-visual {
+    position: relative;
+    max-width: 560px;
+    width: 100%;
+    justify-self: center;
+    /* aire para que las tarjetas flotantes no se recorten */
+    padding-block: var(--space-8);
+  }
+
+  @media (min-width: 1024px) {
+    .hero-visual {
+      justify-self: end;
+    }
+  }
+
+  .mini-app {
+    background-color: var(--background);
+    border-radius: 14px;
+    overflow: hidden;
+    font-family: var(--font-body);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+  }
+
+  .mini-head {
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: var(--space-10);
+    align-items: baseline;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--neutral-200);
   }
 
-  .strip-chip {
+  .mini-title {
+    font-size: var(--text-body);
+    font-weight: 700;
+    color: var(--foreground);
+  }
+
+  .mini-meta {
+    font-size: 13px;
+    color: var(--neutral-600);
+  }
+
+  .mini-rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mini-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-5);
+  }
+
+  .mini-row + .mini-row {
+    border-top: 1px solid var(--neutral-200);
+  }
+
+  .mini-avatar {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--neutral-200);
+    flex-shrink: 0;
+  }
+
+  .mini-client {
+    font-size: var(--text-body-small);
+    font-weight: 500;
+    color: var(--foreground);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mini-chip {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    font-family: var(--font-body);
+    margin-left: auto;
     font-size: 13px;
     font-weight: 500;
-    color: var(--neutral-600);
+    color: var(--neutral-800);
     border: 1px solid var(--neutral-300);
     border-radius: var(--radius-pill);
-    padding: 4px 12px;
+    padding: 3px 10px;
     white-space: nowrap;
+    flex-shrink: 0;
   }
 
-  .strip-dot {
+  .mini-dot {
     width: 7px;
     height: 7px;
     border-radius: 50%;
     background-color: var(--neutral-500);
   }
 
-  .strip-dot[data-tone='warn'] { background-color: #D97706; }
-  .strip-dot[data-tone='ok'] { background-color: #059669; }
-  .strip-dot[data-tone='info'] { background-color: var(--primary); }
+  .mini-chip[data-tone='info'] .mini-dot { background-color: var(--primary); }
+  .mini-chip[data-tone='warn'] .mini-dot { background-color: #D97706; }
 
-  /* Los 2 estados del chip del medio apilados en la misma celda:
-     ancho reservado por el label más largo, crossfade sin layout shift. */
-  .strip-cycle {
-    display: inline-grid;
+  /* --- Tarjetas narrativas ---------------------------------------------- */
+
+  .float-card {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    background-color: var(--background);
+    border-radius: 12px;
+    padding: var(--space-3) var(--space-4);
+    font-family: var(--font-body);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
   }
 
-  .strip-state {
-    grid-area: 1 / 1;
-    justify-self: center;
+  .float-approval {
+    top: 0;
+    right: calc(-1 * var(--space-4));
+  }
+
+  .float-order {
+    bottom: 0;
+    left: calc(-1 * var(--space-4));
+  }
+
+  @media (min-width: 1200px) {
+    .float-approval {
+      right: calc(-1 * var(--space-10));
+    }
+
+    .float-order {
+      left: calc(-1 * var(--space-10));
+    }
+  }
+
+  .fc-check {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: rgba(5, 150, 105, 0.12);
+    color: #059669;
+    font-size: 13px;
+    font-weight: 700;
     display: inline-flex;
     align-items: center;
-    gap: 6px;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .fc-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: var(--neutral-200);
+    flex-shrink: 0;
+  }
+
+  .fc-main {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+  }
+
+  .fc-title {
+    font-size: 13px;
+    color: var(--neutral-600);
     white-space: nowrap;
-    opacity: 0;
   }
 
-  .strip-state[data-default] {
-    opacity: 1;
+  .fc-body {
+    font-size: var(--text-body-small);
+    font-weight: 500;
+    color: var(--foreground);
+    white-space: nowrap;
   }
 
-  .hero-strip.in-view .strip-state {
-    animation: strip-cycle 8s linear infinite;
-    animation-delay: calc(var(--i) * 4s);
-    animation-fill-mode: backwards;
-  }
-
-  @keyframes strip-cycle {
-    0% { opacity: 0; }
-    6% { opacity: 1; }
-    44% { opacity: 1; }
-    50% { opacity: 0; }
-    100% { opacity: 0; }
-  }
-
-  /* El reduced-motion global (0.01ms) haría estrobo con el loop: se apaga
-     acá y queda el estado por defecto. */
-  @media (prefers-reduced-motion: reduce) {
-    .hero-strip.in-view .strip-state {
-      animation: none;
-    }
+  .fc-chip {
+    display: inline-flex;
+    align-items: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--primary);
+    border: 1px solid rgba(68, 39, 255, 0.3);
+    border-radius: var(--radius-pill);
+    padding: 3px 10px;
+    white-space: nowrap;
   }
 </style>

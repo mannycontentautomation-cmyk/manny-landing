@@ -141,6 +141,18 @@ const jsonLd = {
         showAtBottom();
       }
 
+      // El CTA de demo pre-marca el checkbox del form (mismo destino,
+      // intención distinta). El visitante puede desmarcarlo.
+      document.querySelectorAll('[data-intent-demo]').forEach((link) => {
+        link.addEventListener('click', () => {
+          document
+            .querySelectorAll<HTMLInputElement>('.waitlist input[name="demo"]')
+            .forEach((check) => {
+              check.checked = true;
+            });
+        });
+      });
+
       // Atribución de CTA: los links que anclan al form marcan por dónde
       // llegó el visitante; el submit del waitlist lo suma al `source`.
       document.querySelectorAll('[data-cta]').forEach((link) => {

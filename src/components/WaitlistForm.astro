@@ -21,44 +21,80 @@ const {
   data-form-id={formId}
   novalidate
 >
-  <input
-    type="email"
-    name="email"
-    placeholder={placeholder}
-    required
-    autocomplete="email"
-    aria-label="Tu email"
-  />
-  <button type="submit">
-    <span class="btn-label">{cta}</span>
-  </button>
+  <div class="pill">
+    <input
+      type="email"
+      name="email"
+      placeholder={placeholder}
+      required
+      autocomplete="email"
+      aria-label="Tu email"
+    />
+    <button type="submit">
+      <span class="btn-label">{cta}</span>
+    </button>
+  </div>
+
+  <label class="demo-check">
+    <input type="checkbox" name="demo" />
+    <span>Quiero una demo en vivo</span>
+  </label>
 
   <p class="status" data-status="idle" aria-live="polite"></p>
 </form>
 
 <style>
   .waitlist {
-    position: relative;
     display: flex;
-    gap: var(--space-2);
-    padding: 6px;
-    border-radius: var(--radius-pill);
+    flex-direction: column;
+    gap: var(--space-3);
     max-width: 460px;
     width: 100%;
   }
 
-  .waitlist.is-light {
+  .pill {
+    display: flex;
+    gap: var(--space-2);
+    padding: 6px;
+    border-radius: var(--radius-pill);
+    width: 100%;
+  }
+
+  .waitlist.is-light .pill {
     background: #FFFFFF;
     border: 1px solid var(--border);
     box-shadow: 0 1px 2px rgba(25, 23, 29, 0.04);
   }
 
-  .waitlist.is-dark {
+  .waitlist.is-dark .pill {
     background: rgba(255, 255, 255, 0.08);
     border: 1px solid rgba(255, 255, 255, 0.18);
   }
 
-  .waitlist input {
+  /* El intent de demo: el CTA secundario del hero lo pre-marca
+     (data-intent-demo en BaseLayout), pero el visitante manda. */
+  .demo-check {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    cursor: pointer;
+    width: max-content;
+    color: var(--neutral-800);
+  }
+
+  .waitlist.is-dark .demo-check {
+    color: rgba(239, 239, 236, 0.75);
+  }
+
+  .demo-check input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--primary);
+    cursor: pointer;
+  }
+
+  .pill input {
     flex: 1;
     min-width: 0;
     border: none;
@@ -70,15 +106,15 @@ const {
     color: var(--foreground);
   }
 
-  .waitlist.is-dark input {
+  .waitlist.is-dark .pill input {
     color: #EFEFEC;
   }
 
-  .waitlist input::placeholder {
+  .pill input::placeholder {
     color: var(--neutral-500);
   }
 
-  .waitlist.is-dark input::placeholder {
+  .waitlist.is-dark .pill input::placeholder {
     color: rgba(239, 239, 236, 0.5);
   }
 
@@ -111,11 +147,8 @@ const {
   }
 
   .status {
-    position: absolute;
-    top: calc(100% + 10px);
-    left: 6px;
-    right: 6px;
     margin: 0;
+    padding-inline: 6px;
     font-size: 13px;
     line-height: 1.4;
     color: var(--neutral-600);
@@ -144,12 +177,12 @@ const {
   }
 
   @media (max-width: 480px) {
-    .waitlist {
+    .pill {
       flex-direction: column;
       padding: 12px;
       border-radius: 16px;
     }
-    .waitlist input {
+    .pill input {
       padding: 10px var(--space-3);
     }
     .waitlist button {
@@ -193,11 +226,14 @@ const {
         /* sessionStorage bloqueado */
       }
 
+      const demoCheck = form.querySelector<HTMLInputElement>('input[name="demo"]');
+      const intent = demoCheck?.checked ? 'demo' : 'waitlist';
+
       try {
         const res = await fetch('/api/waitlist', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ email, source: `${formId}:${via}` }),
+          body: JSON.stringify({ email, source: `${formId}:${via}`, intent }),
         });
 
         const data = (await res.json().catch(() => ({}))) as {
@@ -218,9 +254,15 @@ const {
         }
 
         status.dataset.status = 'success';
-        status.textContent = data.alreadySignedUp
-          ? 'Ya estabas en la lista. Te avisamos cuando llegue tu turno.'
-          : '¡Sumado! Revisá tu mail para confirmar.';
+        if (intent === 'demo') {
+          status.textContent = data.alreadySignedUp
+            ? 'Ya estabas en la lista. Te escribimos para coordinar la demo.'
+            : '¡Listo! Te escribimos para coordinar la demo.';
+        } else {
+          status.textContent = data.alreadySignedUp
+            ? 'Ya estabas en la lista. Te avisamos cuando llegue tu turno.'
+            : '¡Sumado! Revisá tu mail para confirmar.';
+        }
         input.value = '';
       } catch (_err) {
         status.dataset.status = 'error';

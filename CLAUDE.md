@@ -3,6 +3,8 @@
 Marketing landing for **Manny** (manny.tools) — single page, scroll-down, **editorial typographic direction**.
 
 > **Branch `landing-v3` (2026-07-09):** implements the copy v3 replanteo ("torre de control", benefit blocks with promise headers) from `manny-docs/Docs/Comunicacion/12_LANDING_COPY_V3.md`. Developed by Lion (Juan handed off the landing to focus on the platform). `main` still serves the previous version; Juan merges this branch when he decides to deploy. When merged, the v3 doc drops its ⚠️ and becomes the record of what's live.
+>
+> **Branch `landing-v4` (2026-07-13, in progress):** visual redesign on top of v3, screen by screen, from reference captures Lion picked (first one: NordLayer hero). Dark hero with split layout, triple-hit headline, proof-point bullets, dual-intent CTAs (waitlist / live demo). Section colors get decided at the end of the pass; everything stays within Manny design guidelines.
 
 ## Stack
 
@@ -27,8 +29,8 @@ src/
 ├── layouts/BaseLayout.astro   ← <head>, fonts, meta SEO, lang="es-AR"
 ├── styles/tokens.css          ← design tokens, layout primitives, typography helpers
 └── components/
-    ├── Nav.astro              ← STICKY (backdrop blur) so the status chip "Lista de espera abierta" (only conversion trigger) rides the whole page; brand + descriptor "La torre de control de tu agencia" (≥900px); wordmark hidden <480px
-    ├── Hero.astro             ← category eyebrow (mobile only, <900px; mirror of the nav descriptor) + H1 + subhead v3 + CTA pill "Sumate a la lista →" + status strip (3 muted chips below the CTA, middle one crossfades espera↔aprobado: ambient product language, aria-hidden, last in hero hierarchy); centered in viewport on desktop
+    ├── Nav.astro              ← STICKY and DARK (v4: same block color as hero/footer, backdrop blur); brand white + descriptor (≥900px) + status chip outline (≥640px) + filled CTA "Sumate a la lista"; wordmark hidden <480px
+    ├── Hero.astro             ← v4 dark split hero (NordLayer-pattern): eyebrow (mobile only) + 3-hit headline (payoff line italic --primary-on-dark) + 4 proof-point bullets + dual CTA (primary "Sumate a la lista" / secondary outline "Pedí una demo en vivo" with data-intent-demo) + risk microcopy. Right: compact Inicio mockup + 2 floating narrative cards (client approval, design order sent)
     ├── Highlight.astro        ← el reframe: pull quote ("El cuello de botella...") at --text-h2-cta size, alone. Deliberately static: never animate it
     ├── VistaCentral.astro     ← Bloque A "Todo, de un vistazo." + HTML mockup of the Inicio view. ALIVE: the Vinoteca Peralta chip cycles through the account lifecycle (propuesta → espera → aprobado → producción), 12s CSS loop, pauses on hover, only one animated row on purpose
     ├── ContextoOmnicanal.astro← Bloques B + C side by side: "El contexto no se pierde." / "Una campaña. Todos los canales."
@@ -36,7 +38,7 @@ src/
     ├── Disenador.astro        ← "Todo listo para producir? El pedido lo arma Manny." + HTML mockup of the design order (assignee Marcos, freelance). ALIVE: the 4 ✓ pop in sequence on viewport entry + single pulse of "Enviar pedido →"
     ├── Principio.astro        ← cierre de confianza: "Las decisiones son de tu equipo. Manny las ordena." Deliberately static
     ├── CTAFooter.astro        ← dark block: H2 + WaitlistForm + footer integrado (LinkedIn icon, no Privacy/Terms/Contact). The mascot peeks over the top edge (`.peek`: cropped MannyMark, decorative, the single brand guiño of the page) and greets with a speech bubble ("No veo las horas de poder ayudarte!") the first time the visitor reaches the bottom of the page (`.peek-bubble`, shown by the BaseLayout script, stays once shown)
-    ├── WaitlistForm.astro     ← email pill, light/dark variants, vanilla JS submit. `source` = `formId:via` where via ∈ hero|nav|direct (which CTA the visitor clicked last, via sessionStorage `manny-cta` set in BaseLayout)
+    ├── WaitlistForm.astro     ← email pill + "Quiero una demo en vivo" checkbox (pre-checked by any [data-intent-demo] CTA; visitor can uncheck), light/dark variants, vanilla JS submit. POST sends `intent` (waitlist|demo) + `source` = `formId:via` where via ∈ hero|hero-demo|nav|direct (sessionStorage `manny-cta` set in BaseLayout)
     ├── Wordmark.astro         ← SVG-based "manny!" wordmark (color prop)
     └── MannyMark.astro        ← SVG-based mark (color prop)
 
@@ -140,6 +142,7 @@ The form is wired to a real backend (since 2026-05-10):
 - **Email provider**: Resend, domain `manny.tools` verified. Single Audience (new Resend API model — no `audienceId` needed). Confirmation email template lives inline in `api/waitlist.ts:19-79` (HTML + plaintext fallback, inline styles for email-client compat).
 - **Env vars** (Production + Preview in Vercel): `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API` (note: not `_KEY`), `RESEND_FROM_EMAIL` (= `Manny <hola@manny.tools>`).
 - **Duplicate handling**: relies on the unique constraint on `email`. On `23505` (Postgres unique violation) the endpoint returns `{ ok: true, alreadySignedUp: true }` and the form shows "Ya estabas en la lista..." instead of resending the confirmation.
+- **Demo intent (v4)**: the endpoint accepts `intent: 'demo'`. Demo requests get a different confirmation email ("Coordinemos una demo de Manny") AND an internal notification email to the team inbox (`WAITLIST_NOTIFY_EMAIL` env var, falls back to the address inside `RESEND_FROM_EMAIL`). The notification fires even when the email was already on the list (that signal matters more than the insert). `source` gets a `demo+` prefix so demo rows are queryable without a schema change. ⚠️ Email flows can't be tested locally (env keys live in Vercel): verify on the first preview deploy.
 - **Architecture choice**: Vercel function suelta en `/api/*.ts`, NOT an Astro endpoint. Keeps Astro as pure SSG. Vercel auto-detects the folder alongside the static build.
 
 ## Pending TODOs
