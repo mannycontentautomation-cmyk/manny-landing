@@ -57,7 +57,9 @@ api/
 └── waitlist.ts                ← Vercel function: POST email → Supabase insert + Resend contact + confirmation email
 ```
 
-Section order in `index.astro` (v4, in progress): **Nav → Hero → Desafio → Dolores → ContextoOmnicanal → RelacionCliente → Disenador → Principio → CTAFooter**.
+Section order in `index.astro` (v4, in progress): **Nav → Hero → Desafio → Dolores → ComoArrancas → ContextoOmnicanal → RelacionCliente → Disenador → Principio → CTAFooter**.
+
+**ComoArrancas.astro** (v4 screen 4, NordLayer "How to deploy" pattern): the FIRST LIGHT section (breaks the dark arc above). Centered eyebrow "Cómo arrancás" + numbered H2 ("Ordená tu agencia en tres pasos." — the "Ordená" closes the loop with the hero's first line) + objection-killer subhead, then 3 steps: violet number square + light laptop wireframe (outline + `::after` base) holding a white mini-card (paso 1 perfil+checks, paso 2 calendar grid, paso 3 client link + approval/order chips) + step title + body. Closing centered CTA "Pedí una demo en vivo" (`data-intent-demo`, pre-checks the form demo checkbox). NOTE: this is onboarding ("how easy to start"), NOT the v3 "proceso en 4 tiempos" pipeline that was killed — different objection, comes after promise/reframe/pains.
 
 **Dolores.astro** (v4 screen 3): 4-column pain row on dark, no section title (hangs from Desafio). Each column: inline line-icon SVG (single color --primary-on-dark) + pain title in second person (bold sans, white) + short body that pivots to the resolution. The 4 pains mirror the 4 hero bullets on purpose (pain ↔ promise symmetry, same as the reference). ⚠️ Pains 2/3/4 thematically overlap the old v3 sections below (ContextoOmnicanal, RelacionCliente, Disenador): decide at the end of the v4 pass whether those survive. The old "proceso en 4 tiempos" (HowItWorks) was removed on purpose — don't bring it back. `Highlight.astro` and `VistaCentral.astro` are out of the flow (absorbed by Desafio: the reframe is its H2 and the big dashboard replaced "Todo, de un vistazo"); the files remain in the repo until the v4 pass finishes, then delete if nothing reclaims them.
 
