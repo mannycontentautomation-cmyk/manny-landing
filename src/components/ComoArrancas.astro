@@ -145,6 +145,9 @@
 
   /* --- Pasos ------------------------------------------------------------- */
 
+  /* La columna sube a 2 y luego a 3 recién cuando cada columna puede
+     contener la laptop de tamaño fijo (264px) sin encogerla. Así las tres
+     laptops quedan idénticas en todos los formatos. */
   .pasos {
     list-style: none;
     margin: 0 0 var(--space-16);
@@ -154,27 +157,35 @@
     gap: var(--space-14);
   }
 
-  @media (min-width: 768px) {
+  @media (min-width: 640px) {
+    .pasos {
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-12) var(--space-10);
+    }
+  }
+
+  @media (min-width: 1100px) {
     .pasos {
       grid-template-columns: repeat(3, 1fr);
       gap: var(--space-10);
     }
   }
 
+  /* Tamaño fijo del bloque (laptop + textos), centrado en su columna. */
   .paso {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    max-width: 264px;
+    margin-inline: auto;
   }
 
-  /* Laptop wireframe: solo contorno, liviana. Cap de ancho para que en
-     una sola columna no se agrande y deje la tarjeta perdida en el medio. */
+  /* Laptop wireframe: solo contorno, liviana. Ancho fijo = idéntica siempre. */
   .laptop {
     position: relative;
     width: 100%;
-    max-width: 360px;
     margin-bottom: var(--space-8);
-    padding: 0 var(--space-8) var(--space-5);
+    padding: 0 var(--space-4) var(--space-5);
   }
 
   .paso-num {
@@ -201,14 +212,14 @@
     border: 1.5px solid var(--neutral-300);
     border-radius: 12px 12px 0 0;
     background-color: #FAFAF8;
-    /* Pantalla algo más alta que ancha: las mini-tarjetas son verticales
-       y tienen que caer adentro. overflow oculto por las dudas. */
-    aspect-ratio: 6 / 5;
+    /* Alto fijo (no aspect-ratio) para que las tres pantallas sean iguales
+       sin importar el ancho de columna. La tarjeta cae centrada adentro. */
+    height: 200px;
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-5);
+    padding: 0;
   }
 
   /* Base de la laptop */
@@ -224,10 +235,9 @@
     background-color: #F0F0EC;
   }
 
-  /* Mini-tarjetas dentro de la pantalla: flotan, más chicas que la pantalla */
+  /* Mini-tarjetas: ancho fijo, flotan centradas dentro de la pantalla. */
   .card {
-    width: 100%;
-    max-width: 200px;
+    width: 200px;
     background-color: var(--background);
     border: 1px solid var(--neutral-200);
     border-radius: 10px;
