@@ -168,10 +168,12 @@
     align-items: flex-start;
   }
 
-  /* Laptop wireframe: solo contorno, liviana */
+  /* Laptop wireframe: solo contorno, liviana. Cap de ancho para que en
+     una sola columna no se agrande y deje la tarjeta perdida en el medio. */
   .laptop {
     position: relative;
     width: 100%;
+    max-width: 360px;
     margin-bottom: var(--space-8);
     padding: 0 var(--space-8) var(--space-5);
   }
@@ -200,11 +202,14 @@
     border: 1.5px solid var(--neutral-300);
     border-radius: 12px 12px 0 0;
     background-color: #FAFAF8;
-    aspect-ratio: 16 / 10;
+    /* Pantalla algo más alta que ancha: las mini-tarjetas son verticales
+       y tienen que caer adentro. overflow oculto por las dudas. */
+    aspect-ratio: 6 / 5;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: var(--space-6);
+    padding: var(--space-5);
   }
 
   /* Base de la laptop */
@@ -220,10 +225,10 @@
     background-color: #F0F0EC;
   }
 
-  /* Mini-tarjetas dentro de la pantalla */
+  /* Mini-tarjetas dentro de la pantalla: flotan, más chicas que la pantalla */
   .card {
     width: 100%;
-    max-width: 220px;
+    max-width: 200px;
     background-color: var(--background);
     border: 1px solid var(--neutral-200);
     border-radius: 10px;
@@ -296,14 +301,18 @@
     padding: 3px 10px;
   }
 
+  /* Celdas fijas y chicas: con 1fr + aspect-ratio se estiraban al ancho
+     de la tarjeta y la volvían altísima (desbordaba la laptop). */
   .cc-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, 28px);
+    justify-content: center;
     gap: 5px;
   }
 
   .cc-grid span {
-    aspect-ratio: 1;
+    width: 28px;
+    height: 28px;
     border-radius: 4px;
     background-color: var(--neutral-200);
   }
