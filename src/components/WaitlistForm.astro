@@ -4,13 +4,15 @@ type Variant = 'primary' | 'dark';
 interface Props {
   variant?: Variant;
   cta?: string;
+  demoCta?: string;
   placeholder?: string;
   formId?: string;
 }
 
 const {
   variant = 'primary',
-  cta = 'Sumarme a la beta',
+  cta = 'Sumarme a la lista',
+  demoCta = 'Quiero una demo',
   placeholder = 'tu@email.com',
   formId = 'waitlist',
 } = Astro.props;
@@ -30,15 +32,14 @@ const {
       autocomplete="email"
       aria-label="Tu email"
     />
-    <button type="submit">
-      <span class="btn-label">{cta}</span>
-    </button>
   </div>
 
-  <label class="demo-check">
-    <input type="checkbox" name="demo" />
-    <span>Quiero una demo en vivo</span>
-  </label>
+  <!-- Dos vías: el visitante define su intención al elegir el botón.
+       El submitter (data-intent) decide si es lista de espera o demo. -->
+  <div class="actions">
+    <button type="submit" class="act act-primary" data-intent="waitlist">{cta}</button>
+    <button type="submit" class="act act-secondary" data-intent="demo">{demoCta}</button>
+  </div>
 
   <p class="status" data-status="idle" aria-live="polite"></p>
 </form>
@@ -71,29 +72,6 @@ const {
     border: 1px solid rgba(255, 255, 255, 0.18);
   }
 
-  /* El intent de demo: el CTA secundario del hero lo pre-marca
-     (data-intent-demo en BaseLayout), pero el visitante manda. */
-  .demo-check {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 14px;
-    cursor: pointer;
-    width: max-content;
-    color: var(--neutral-800);
-  }
-
-  .waitlist.is-dark .demo-check {
-    color: rgba(239, 239, 236, 0.75);
-  }
-
-  .demo-check input {
-    width: 16px;
-    height: 16px;
-    accent-color: var(--primary);
-    cursor: pointer;
-  }
-
   .pill input {
     flex: 1;
     min-width: 0;
@@ -118,30 +96,62 @@ const {
     color: rgba(239, 239, 236, 0.5);
   }
 
-  .waitlist button {
-    background: var(--primary);
-    color: #FFFFFF;
-    border: none;
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .act {
     border-radius: var(--radius-pill);
-    padding: 12px 22px;
+    padding: 12px 24px;
     font-family: inherit;
     font-size: 15px;
     font-weight: 700;
     letter-spacing: 0.01em;
     cursor: pointer;
     white-space: nowrap;
-    transition: background-color var(--duration-normal) var(--ease-default);
+    transition:
+      background-color var(--duration-normal) var(--ease-default),
+      border-color var(--duration-normal) var(--ease-default);
   }
 
-  .waitlist button:hover {
+  .act-primary {
+    background: var(--primary);
+    color: #FFFFFF;
+    border: 1px solid var(--primary);
+  }
+
+  .act-primary:hover {
     background: var(--primary-hover);
+    border-color: var(--primary-hover);
   }
 
-  .waitlist button:active {
+  .act-primary:active {
     background: var(--primary-active);
   }
 
-  .waitlist button:disabled {
+  .act-secondary {
+    background: transparent;
+    color: var(--foreground);
+    border: 1px solid var(--border);
+    font-weight: 500;
+  }
+
+  .waitlist.is-dark .act-secondary {
+    color: #EFEFEC;
+    border-color: rgba(255, 255, 255, 0.28);
+  }
+
+  .act-secondary:hover {
+    border-color: var(--neutral-600);
+  }
+
+  .waitlist.is-dark .act-secondary:hover {
+    border-color: rgba(255, 255, 255, 0.6);
+  }
+
+  .act:disabled {
     opacity: 0.6;
     cursor: not-allowed;
   }
@@ -178,14 +188,16 @@ const {
 
   @media (max-width: 480px) {
     .pill {
-      flex-direction: column;
       padding: 12px;
       border-radius: 16px;
     }
     .pill input {
       padding: 10px var(--space-3);
     }
-    .waitlist button {
+    .actions {
+      flex-direction: column;
+    }
+    .act {
       width: 100%;
     }
   }
@@ -195,16 +207,20 @@ const {
   const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   document.querySelectorAll<HTMLFormElement>('form.waitlist').forEach((form) => {
-    const button = form.querySelector<HTMLButtonElement>('button[type="submit"]');
+    const buttons = form.querySelectorAll<HTMLButtonElement>('button[type="submit"]');
     const input = form.querySelector<HTMLInputElement>('input[type="email"]');
     const status = form.querySelector<HTMLElement>('.status');
-    if (!button || !input || !status) return;
+    if (!buttons.length || !input || !status) return;
 
     const formId = form.dataset.formId || 'waitlist';
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       const email = (input.value || '').trim();
+
+      // El botón elegido define la intención (lista de espera o demo).
+      const submitter = (e as SubmitEvent).submitter as HTMLButtonElement | null;
+      const intent = submitter?.dataset.intent === 'demo' ? 'demo' : 'waitlist';
 
       if (!EMAIL_RE.test(email)) {
         status.dataset.status = 'error';
@@ -213,9 +229,9 @@ const {
         return;
       }
 
-      button.disabled = true;
+      buttons.forEach((b) => (b.disabled = true));
       status.dataset.status = 'idle';
-      status.textContent = 'Sumándote…';
+      status.textContent = intent === 'demo' ? 'Reservando tu demo…' : 'Sumándote…';
 
       // El CTA por el que llegó el visitante (hero / nav) lo guarda el
       // script de BaseLayout en sessionStorage; sin click previo, "direct".
@@ -225,9 +241,6 @@ const {
       } catch {
         /* sessionStorage bloqueado */
       }
-
-      const demoCheck = form.querySelector<HTMLInputElement>('input[name="demo"]');
-      const intent = demoCheck?.checked ? 'demo' : 'waitlist';
 
       try {
         const res = await fetch('/api/waitlist', {
@@ -268,7 +281,7 @@ const {
         status.dataset.status = 'error';
         status.textContent = 'Algo salió mal. Probá de nuevo en un rato.';
       } finally {
-        button.disabled = false;
+        buttons.forEach((b) => (b.disabled = false));
       }
     });
   });

@@ -57,7 +57,11 @@ api/
 └── waitlist.ts                ← Vercel function: POST email → Supabase insert + Resend contact + confirmation email
 ```
 
-Section order in `index.astro` (v4, in progress): **Nav → Hero → Desafio → Dolores → ComoArrancas → ContextoOmnicanal → RelacionCliente → Disenador → Principio → CTAFooter**.
+Section order in `index.astro` (v4): **Nav → Hero → Desafio → Dolores → ComoArrancas → Principio → CTAFooter**. The old v3 benefit sections (ContextoOmnicanal, RelacionCliente, Disenador) were removed as redundant with the new dark arc (hero bullets ↔ Dolores ↔ ComoArrancas cover the same ground). Only **Principio** survives as the confidence close, and it's now just the headline "Las decisiones son de tu equipo. Manny las ordena." (body line removed). Those component files plus Highlight/VistaCentral remain in the repo unused; delete once v4 is locked. The mascot peek + speech bubble were removed from CTAFooter.
+
+**Nav CTAs mirror the hero**: outline "Pedí una demo" (`data-cta="nav-demo"`) + filled "Sumate a la lista" (`data-cta="nav"`). The old "Lista de espera abierta" status chip is gone.
+
+**WaitlistForm dual intent (v4)**: the form has an email input + TWO submit buttons — "Sumarme a la lista" (`data-intent="waitlist"`) and "Quiero una demo" (`data-intent="demo"`). The submitter button decides intent (read via `e.submitter.dataset.intent`); no checkbox. All demo CTAs (hero/nav/ComoArrancas) just anchor to `#beta-final` and carry `data-cta` for source attribution — the visitor picks the actual path at the footer. This is how demo-vs-waitlist gets defined. The `data-intent-demo` pre-check mechanism and the whole animation IIFE (choreo/animate/approve) + peek-bubble script were removed from BaseLayout; only CTA attribution remains.
 
 **ComoArrancas.astro** (v4 screen 4, NordLayer "How to deploy" pattern): the FIRST LIGHT section (breaks the dark arc above). Centered eyebrow "Cómo arrancás" + numbered H2 ("Ordená tu agencia en tres pasos." — the "Ordená" closes the loop with the hero's first line) + objection-killer subhead, then 3 steps: violet number square + light laptop wireframe (outline + `::after` base) holding a white mini-card (paso 1 perfil+checks, paso 2 calendar grid, paso 3 client link + approval/order chips) + step title + body. Closing centered CTA "Pedí una demo en vivo" (`data-intent-demo`, pre-checks the form demo checkbox). NOTE: this is onboarding ("how easy to start"), NOT the v3 "proceso en 4 tiempos" pipeline that was killed — different objection, comes after promise/reframe/pains.
 

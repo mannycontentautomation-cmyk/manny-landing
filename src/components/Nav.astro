@@ -13,18 +13,15 @@ import Wordmark from './Wordmark.astro';
     </a>
     <span class="nav-descriptor">La torre de control de tu agencia</span>
     <span class="nav-spacer" aria-hidden="true"></span>
-    <a href="#beta-final" class="nav-status" data-cta="nav">
-      <span class="nav-status-dot" aria-hidden="true"></span>
-      Lista de espera abierta
-    </a>
+    <a href="#beta-final" class="nav-demo" data-cta="nav-demo">Pedí una demo</a>
     <a href="#beta-final" class="nav-cta" data-cta="nav">Sumate a la lista</a>
   </div>
 </nav>
 
 <style>
   /* Sticky y oscuro (mismo bloque que el hero v4 y el footer): el par
-     chip de estado (outline) + CTA lleno acompaña toda la página.
-     Altura = --nav-height en tokens.css. */
+     demo (outline) + lista (lleno) espeja los CTAs del hero y acompaña
+     toda la página. Altura = --nav-height en tokens.css. */
   .nav {
     position: sticky;
     top: 0;
@@ -81,10 +78,9 @@ import Wordmark from './Wordmark.astro';
     flex: 1;
   }
 
-  .nav-status {
+  .nav-demo {
     display: none;
     align-items: center;
-    gap: 8px;
     font-family: var(--font-body);
     font-size: 13px;
     font-weight: 500;
@@ -92,26 +88,19 @@ import Wordmark from './Wordmark.astro';
     text-decoration: none;
     border: 1px solid rgba(255, 255, 255, 0.25);
     border-radius: var(--radius-pill);
-    padding: 8px 16px;
+    padding: 8px 18px;
     white-space: nowrap;
     transition: border-color var(--duration-normal) var(--ease-default);
   }
 
-  .nav-status:hover {
-    border-color: rgba(255, 255, 255, 0.55);
+  .nav-demo:hover {
+    border-color: rgba(255, 255, 255, 0.6);
   }
 
   @media (min-width: 640px) {
-    .nav-status {
+    .nav-demo {
       display: inline-flex;
     }
-  }
-
-  .nav-status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: var(--primary-on-dark);
   }
 
   .nav-cta {

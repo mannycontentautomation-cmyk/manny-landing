@@ -7,17 +7,6 @@ const year = new Date().getFullYear();
 ---
 
 <section class="cta-block" id="beta-final">
-  <!-- El guiño de marca (uno por superficie): la mascota asomándose
-       sobre el borde superior del bloque oscuro. Decorativa. El globo
-       aparece cuando el visitante llega al fondo de la página (lo
-       dispara el script de BaseLayout con la clase .show). -->
-  <span class="peek" aria-hidden="true">
-    <MannyMark color="blue" size={56} />
-  </span>
-  <span class="peek-bubble" data-peek-bubble aria-hidden="true">
-    ¡No veo la hora de poder ayudarte!
-  </span>
-
   <div class="cta-section">
     <div class="section-wrap cta-grid">
       <h2 class="cta-h2">
@@ -26,10 +15,15 @@ const year = new Date().getFullYear();
 
       <div class="cta-form-col">
         <p class="cta-sub">
-          Estamos terminando los últimos detalles. Dejá tu mail y te
-          escribimos en cuanto puedas entrar.
+          Estamos terminando los últimos detalles. Dejá tu mail: te
+          avisamos cuando puedas entrar, o coordinamos una demo en vivo.
         </p>
-        <WaitlistForm variant="dark" cta="Sumarme a la lista" formId="cta-waitlist" />
+        <WaitlistForm
+          variant="dark"
+          cta="Sumarme a la lista"
+          demoCta="Quiero una demo"
+          formId="cta-waitlist"
+        />
       </div>
     </div>
   </div>
@@ -62,61 +56,8 @@ const year = new Date().getFullYear();
 
 <style>
   .cta-block {
-    position: relative;
     background: var(--block-dark);
     color: #EFEFEC;
-  }
-
-  /* Recorte que muestra solo la parte de arriba de la mascota por encima
-     del borde del bloque oscuro: se asoma, el resto queda "detrás". */
-  .peek {
-    position: absolute;
-    top: 0;
-    right: clamp(24px, 10vw, 140px);
-    transform: translateY(-100%);
-    height: 34px;
-    overflow: hidden;
-    display: block;
-  }
-
-  /* Globo de diálogo de la mascota: mismo lenguaje de burbuja que el
-     comentario del mockup de aprobación (radio chico como cola, acá
-     abajo a la derecha, apuntando a la mascota). Fuera de .peek para
-     que el overflow del recorte no lo corte. */
-  .peek-bubble {
-    position: absolute;
-    top: 0;
-    right: calc(clamp(24px, 10vw, 140px) + 20px);
-    background-color: var(--background);
-    color: var(--foreground);
-    border: 1px solid var(--neutral-300);
-    border-radius: 12px;
-    border-bottom-right-radius: 2px;
-    padding: 8px 14px;
-    font-family: var(--font-body);
-    font-size: 14px;
-    font-weight: 500;
-    white-space: nowrap;
-    box-shadow: 0 2px 8px rgba(25, 23, 29, 0.08);
-    pointer-events: none;
-    opacity: 0;
-    transform: translateY(calc(-100% - 24px));
-    transition:
-      opacity 300ms var(--ease-default),
-      transform 300ms var(--ease-default);
-  }
-
-  .peek-bubble.show {
-    opacity: 1;
-    transform: translateY(calc(-100% - 32px));
-  }
-
-  @media (max-width: 480px) {
-    .peek-bubble {
-      white-space: normal;
-      max-width: 210px;
-      text-align: center;
-    }
   }
 
   .cta-section {
