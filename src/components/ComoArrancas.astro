@@ -56,7 +56,6 @@
               <div class="cc-grid">
                 <span></span><span class="on"></span><span></span>
                 <span class="on"></span><span></span><span class="on"></span>
-                <span></span><span class="on"></span><span></span>
               </div>
             </div>
           </div>
@@ -299,21 +298,21 @@
     background-color: var(--primary-light);
     border-radius: var(--radius-pill);
     padding: 3px 10px;
+    white-space: nowrap;
   }
 
-  /* Celdas fijas y chicas: con 1fr + aspect-ratio se estiraban al ancho
-     de la tarjeta y la volvían altísima (desbordaba la laptop). */
+  /* Slots anchos, 2 filas x 3 columnas: leen como espacios de contenido
+     del calendario. Altura fija (con aspect-ratio se estiraban al ancho
+     y desbordaban la laptop). */
   .cc-grid {
     display: grid;
-    grid-template-columns: repeat(3, 28px);
-    justify-content: center;
-    gap: 5px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
   }
 
   .cc-grid span {
-    width: 28px;
-    height: 28px;
-    border-radius: 4px;
+    height: 34px;
+    border-radius: 6px;
     background-color: var(--neutral-200);
   }
 
