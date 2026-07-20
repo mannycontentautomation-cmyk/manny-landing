@@ -136,13 +136,13 @@ const CUENTAS = [
   .hero-band-title {
     display: flex;
     align-items: center;
-    padding-block: clamp(28px, 4vh, 64px);
+    padding-block: clamp(32px, 5vh, 76px);
   }
 
   .hero-band-visual {
     display: flex;
     align-items: center;
-    padding-block: clamp(16px, 2.4vh, 36px);
+    padding-block: clamp(20px, 2.8vh, 44px);
   }
 
   /* Mas aire que las otras dos: es la banda que cierra contra el borde
@@ -150,7 +150,7 @@ const CUENTAS = [
   .hero-band-facts {
     display: flex;
     align-items: center;
-    padding-block: clamp(24px, 4.2vh, 56px);
+    padding-block: clamp(28px, 5vh, 64px);
   }
 
   .hero-band > .section-wrap {
@@ -294,7 +294,9 @@ const CUENTAS = [
   .mini-chip[data-tone='info'] .mini-dot { background-color: var(--primary); }
   .mini-chip[data-tone='warn'] .mini-dot { background-color: #B45309; }
 
-  @media (max-height: 860px) {
+  /* En pantallas de menos de 1000px de alto el mockup se comprime, asi el
+     hero entra entero sin tener que recortarle aire a las bandas. */
+  @media (max-height: 1000px) {
     .mini-row { padding-block: var(--space-2); }
     .mini-head { padding-block: var(--space-3); }
   }

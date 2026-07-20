@@ -6,9 +6,9 @@ import Wordmark from './Wordmark.astro';
 <nav class="nav" aria-label="Principal">
   <div class="section-wrap section-wrap--fluid nav-inner">
     <a href="/" class="nav-brand" aria-label="Manny, inicio">
-      <MannyMark color="white" size={40} />
+      <MannyMark color="white" size={30} />
       <span class="nav-word">
-        <Wordmark color="white" height={32} />
+        <Wordmark color="white" height={24} />
       </span>
     </a>
     <span class="nav-spacer" aria-hidden="true"></span>
@@ -27,8 +27,9 @@ import Wordmark from './Wordmark.astro';
     position: sticky;
     top: 0;
     z-index: 50;
-    /* 80px de alto total = --nav-height (hairline del Figma en y=80) */
-    padding-block: 20px;
+    /* Alto exacto = --nav-height (la hairline del Figma cae en y=80). Fijado
+       y no derivado del padding: con el borde de 1px daba 81. */
+    height: var(--nav-height);
     /* Mismo color que el hero, opaco: se lee como "sin fondo", solo la
        linea que lo separa. Con alpha + blur daba un gris distinto al del
        bloque. Opaco y no transparente porque es sticky: el contenido tiene
@@ -40,6 +41,7 @@ import Wordmark from './Wordmark.astro';
   .nav-inner {
     display: flex;
     align-items: center;
+    height: 100%;
     gap: var(--space-4);
   }
 
