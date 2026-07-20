@@ -113,16 +113,19 @@ const CUENTAS = [
     }
   }
 
+  /* minmax(0, ...) y no 1fr a secas: el tamaño mínimo automático de un grid
+     item es su min-content, así que las filas del mockup ensanchaban la
+     columna y la página scrolleaba de costado en mobile. */
   .hero-grid {
     display: grid;
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: var(--space-14);
     align-items: center;
   }
 
   @media (min-width: 1024px) {
     .hero-grid {
-      grid-template-columns: 1.05fr 0.95fr;
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
       gap: var(--space-16);
     }
   }
@@ -255,8 +258,10 @@ const CUENTAS = [
     max-width: 560px;
     width: 100%;
     justify-self: center;
-    /* aire para que las tarjetas flotantes no se recorten */
-    padding-block: var(--space-8);
+    /* Aire vertical = alto de tarjeta (70px) menos la mordida que queremos
+       sobre el borde del mockup. Con 56px las tarjetas se apoyan en el borde
+       en vez de taparle una fila entera. */
+    padding-block: var(--space-14);
   }
 
   @media (min-width: 1024px) {
@@ -324,6 +329,9 @@ const CUENTAS = [
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    /* Sin esto el flex item no baja de su ancho de contenido, el ellipsis
+       nunca entra y la fila ensancha la columna del grid en mobile. */
+    min-width: 0;
   }
 
   .mini-chip {
@@ -365,14 +373,26 @@ const CUENTAS = [
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
   }
 
+  /* En mobile las tarjetas se alinean al mockup: la sangría negativa las
+     saca del viewport y hace scrollear la página de costado. */
   .float-approval {
     top: 0;
-    right: calc(-1 * var(--space-4));
+    right: 0;
   }
 
   .float-order {
     bottom: 0;
-    left: calc(-1 * var(--space-4));
+    left: 0;
+  }
+
+  @media (min-width: 768px) {
+    .float-approval {
+      right: calc(-1 * var(--space-4));
+    }
+
+    .float-order {
+      left: calc(-1 * var(--space-4));
+    }
   }
 
   @media (min-width: 1200px) {
