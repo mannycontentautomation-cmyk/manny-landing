@@ -184,6 +184,23 @@ svg {
   }
 }
 
+/* PRUEBA (rama hero-fluido): contenedor sin tope de ancho.
+   En vez de topear en 1280px y dejar margen muerto en pantallas grandes,
+   el contenido ocupa siempre ~90% del viewport. Referencia: tr9.webflow.io,
+   que sostiene ese 90.6% de 1024 a 1920 sin cap.
+   Si esto se adopta, reemplaza a .section-wrap en TODAS las secciones:
+   convivir las dos desalinea el hero del resto de la pagina. */
+.section-wrap--fluid {
+  max-width: none;
+  padding-inline: var(--gutter-mobile);
+}
+
+@media (min-width: 768px) {
+  .section-wrap--fluid {
+    padding-inline: 4.7vw;
+  }
+}
+
 /* Optional 64×64 grid background — subtle */
 .grid-bg {
   background-image:

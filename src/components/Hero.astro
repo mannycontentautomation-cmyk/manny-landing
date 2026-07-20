@@ -23,7 +23,7 @@ const CUENTAS = [
 ---
 
 <section class="hero" id="producto">
-  <div class="section-wrap hero-grid">
+  <div class="section-wrap section-wrap--fluid hero-grid">
     <div class="hero-copy">
       <p class="hero-eyebrow">La torre de control de tu agencia</p>
 
@@ -154,10 +154,14 @@ const CUENTAS = [
 
   .hero-h1 {
     font-family: var(--font-display);
-    /* Calibrado para que "Ganá tiempo para la creatividad." entre en una
-       linea de 1024px para arriba: el H1 son 3 golpes, no 4. */
-    font-size: clamp(38px, 3.9vw, 56px);
-    line-height: 1.06;
+    /* PRUEBA: tipografia atada al viewport, sin tope. Al escalar al mismo
+       ritmo que el contenedor fluido, los cortes de linea quedan iguales en
+       todos los anchos. 4.6vw es el maximo con el que el tercer golpe entra
+       en una linea desde 1024px (medido: quiebra a 4.6vw, aguanta a 4.45). */
+    font-size: clamp(38px, 4.4vw, 132px);
+    /* tr9 usa 1.01, pero es una grotesca. La italica de Instrument Serif
+       tiene descendentes largas y a 1.01 chocan con la linea de abajo. */
+    line-height: 1.03;
     letter-spacing: var(--tracking-h2);
     font-weight: 500;
     color: #FFFFFF;
@@ -171,14 +175,17 @@ const CUENTAS = [
     color: var(--primary-on-dark);
   }
 
+  /* La lista se estructura con reglas, no con bullets: el mismo recurso que
+     sostiene la grilla en la referencia. La regla corre a lo ancho de la
+     columna y hace de renglon. */
   .hero-bullets {
     list-style: none;
     margin: 0 0 var(--space-10);
     padding: 0;
     display: flex;
     flex-direction: column;
-    gap: var(--space-3);
-    max-width: 560px;
+    max-width: 640px;
+    border-top: 1px solid rgba(239, 239, 236, 0.14);
   }
 
   .hero-bullets li {
@@ -186,18 +193,15 @@ const CUENTAS = [
     align-items: flex-start;
     gap: var(--space-3);
     font-family: var(--font-body);
-    font-size: var(--text-body);
+    font-size: var(--text-body-large);
     line-height: 1.5;
-    color: rgba(239, 239, 236, 0.78);
+    color: rgba(239, 239, 236, 0.82);
+    padding-block: var(--space-3);
+    border-bottom: 1px solid rgba(239, 239, 236, 0.14);
   }
 
   .bullet-dot {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background-color: var(--primary-on-dark);
-    flex-shrink: 0;
-    margin-top: 8px;
+    display: none;
   }
 
   .hero-ctas {
