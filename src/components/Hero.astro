@@ -142,13 +142,15 @@ const CUENTAS = [
   .hero-band-visual {
     display: flex;
     align-items: center;
-    padding-block: clamp(20px, 3vh, 40px);
+    padding-block: clamp(16px, 2.4vh, 36px);
   }
 
+  /* Mas aire que las otras dos: es la banda que cierra contra el borde
+     inferior del viewport y necesita no quedar pegada. */
   .hero-band-facts {
     display: flex;
     align-items: center;
-    padding-block: clamp(20px, 3vh, 40px);
+    padding-block: clamp(24px, 4.2vh, 56px);
   }
 
   .hero-band > .section-wrap {
@@ -159,9 +161,11 @@ const CUENTAS = [
 
   .hero-h1 {
     font-family: var(--font-display);
-    /* 6.61vw = los 100px del Figma a 1512. Sin tope real: escala con el
-       contenedor fluido, asi los cortes de linea no se mueven. */
-    font-size: clamp(32px, 6.61vw, 172px);
+    /* 6.61vw = los 100px del Figma a 1512. El min() con vh lo ata tambien
+       a la altura: en pantallas anchas y bajas el titular crecia por ancho
+       y empujaba la banda de abajo fuera del viewport.
+       10.2vh = esos mismos 100px sobre los 982 de alto del Figma. */
+    font-size: clamp(32px, min(6.61vw, 10.2vh), 172px);
     /* En el Figma cada linea es un parrafo absoluto con line-height 93 pero
        separados 105px: el interlineado efectivo es 1.05, no 0.93. A 0.93 se
        pisan las descendentes de la serif. */
@@ -184,7 +188,8 @@ const CUENTAS = [
     position: relative;
     display: flex;
     justify-content: center;
-    padding-block: var(--space-12);
+    /* Aire para que las tarjetas montadas no tapen una fila del mockup */
+    padding-block: clamp(20px, 3vh, 48px);
   }
 
   .mini-app {
@@ -396,16 +401,19 @@ const CUENTAS = [
       top: 52%;
     }
 
-    /* 69.8% = los 1022px del Figma sobre 1344 de contenido. Las dos
-       comparten borde izquierdo y se montan sobre el borde derecho del
-       mockup, como en el mock. */
+    /* El Figma las pone en 69.8%, montadas 78px sobre el bloque central.
+       Ahi el bloque es un placeholder vacio; aca abajo hay un chip de
+       estado con texto. Anclamos al borde derecho del mockup (centrado y
+       45% de ancho => termina en 72.5%) con una mordida FIJA de 12px: por
+       porcentaje la mordida crecia con el ancho y volvia a cortar el chip,
+       que vive 20px adentro del borde. */
     .float-approval {
-      left: 69.8%;
+      left: calc(72.5% - 12px);
       top: 14%;
     }
 
     .float-order {
-      left: 69.8%;
+      left: calc(72.5% - 12px);
       top: 52%;
     }
   }

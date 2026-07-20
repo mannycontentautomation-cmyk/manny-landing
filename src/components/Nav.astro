@@ -29,9 +29,11 @@ import Wordmark from './Wordmark.astro';
     z-index: 50;
     /* 80px de alto total = --nav-height (hairline del Figma en y=80) */
     padding-block: 20px;
-    background-color: rgba(25, 23, 29, 0.88);
-    -webkit-backdrop-filter: blur(8px);
-    backdrop-filter: blur(8px);
+    /* Mismo color que el hero, opaco: se lee como "sin fondo", solo la
+       linea que lo separa. Con alpha + blur daba un gris distinto al del
+       bloque. Opaco y no transparente porque es sticky: el contenido tiene
+       que pasar por detras, no verse. */
+    background-color: var(--block-dark);
     border-bottom: 1px solid rgba(239, 239, 236, 0.12);
   }
 
