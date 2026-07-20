@@ -1,18 +1,14 @@
 ---
-// Hero v4 (referencia NordLayer, adaptada): bloque oscuro partido en dos.
-// Izquierda: titular en tres golpes (el tercero es el payoff del reframe),
-// bullets como proof points, doble CTA con intención diferenciada
-// (lista de espera / demo en vivo) y microcopy de riesgo.
-// Derecha: el mapa de cuentas compacto con dos tarjetas narrativas
-// flotando encima. La viñeta: mientras mirás una sola pantalla,
-// las aprobaciones y los pedidos pasan solos.
-// Proof points, no frases. Los cuatro entran en una linea y espejan, en el
-// mismo orden, las cuatro columnas de Dolores (dolor -> promesa).
+// Hero v5: layout en bandas horizontales full-bleed separadas por hairlines.
+// El titular deja de compartir fila con el grafico y se lleva una banda
+// entera: la tipografia pasa a ser el layout. Debajo, la banda del producto
+// y la banda de proof points con el indicador de scroll.
+// Los CTAs viven solo en el nav sticky, que acompaña toda la pagina.
 const BULLETS = [
-  'Clientes, equipo y contenido en un solo lugar',
-  'Cargás el perfil una vez y no se pierde',
-  'Para el feedback, un solo link',
-  'Del pedido a producción, se encarga Manny',
+  'Clientes, equipo y contenido en un solo lugar.',
+  'Cargás el perfil una vez y no se pierde.',
+  'Para el feedback, un solo link.',
+  'Del pedido a producción, se encarga <b>Manny</b>.',
 ];
 
 const CUENTAS = [
@@ -23,81 +19,78 @@ const CUENTAS = [
 ---
 
 <section class="hero" id="producto">
-  <div class="section-wrap section-wrap--fluid hero-grid">
-    <div class="hero-copy">
-      <p class="hero-eyebrow">La torre de control de tu agencia</p>
-
+  <!-- Banda 1: el titular, solo -->
+  <div class="hero-band hero-band-title">
+    <div class="section-wrap section-wrap--fluid">
       <h1 class="hero-h1">
-        Ordená cada cuenta.<br />
-        Coordiná cada entrega.<br />
+        Ordená y coordiná la gestión.<br />
         <span class="hero-payoff">Ganá tiempo para la creatividad.</span>
       </h1>
-
-      <ul class="hero-bullets">
-        {BULLETS.map((b) => (
-          <li>
-            <span class="bullet-dot" aria-hidden="true"></span>
-            {b}
-          </li>
-        ))}
-      </ul>
-
-      <div class="hero-ctas">
-        <a href="#beta-final" class="cta-primary" data-cta="hero">
-          Sumate a la lista
-          <span aria-hidden="true">→</span>
-        </a>
-        <a href="#beta-final" class="cta-secondary" data-cta="hero-demo">
-          Pedí una demo en vivo
-        </a>
-      </div>
-
-      <p class="hero-risk">
-        Sin compromiso. Hasta una charla informal nos serviría para saber
-        cómo ayudarte.
-      </p>
     </div>
+  </div>
 
-    <div
-      class="hero-visual"
-      role="img"
-      aria-label="La vista de Inicio de Manny con las cuentas de la agencia y, flotando encima, una aprobación de cliente recién llegada y un pedido a diseño enviado"
-    >
-      <div class="mini-app">
-        <div class="mini-head">
-          <span class="mini-title">Inicio</span>
-          <span class="mini-meta">Todas tus cuentas</span>
+  <!-- Banda 2: el producto -->
+  <div class="hero-band hero-band-visual">
+    <div class="section-wrap section-wrap--fluid">
+      <div
+        class="visual-row"
+        role="img"
+        aria-label="La vista de Inicio de Manny con las cuentas de la agencia y, flotando encima, una aprobación de cliente recién llegada y un pedido a diseño enviado"
+      >
+        <!-- Satelite propio del hero: no se repite en Desafio -->
+        <div class="sat-calendario" aria-hidden="true">
+          <span class="sat-plus">+</span>
+          Creá un calendario
         </div>
-        <ul class="mini-rows">
-          {CUENTAS.map((c) => (
-            <li class="mini-row">
-              <span class="mini-avatar"></span>
-              <span class="mini-client">{c.cliente}</span>
-              <span class="mini-chip" data-tone={c.tone}>
-                <span class="mini-dot"></span>
-                {c.estado}
-              </span>
-            </li>
-          ))}
-        </ul>
-      </div>
 
-      <div class="float-card float-approval">
-        <span class="fc-check" aria-hidden="true">✓</span>
-        <span class="fc-main">
-          <span class="fc-title">Valeria (cliente)</span>
-          <span class="fc-body">Aprobó Story · lunes 13</span>
-        </span>
-      </div>
+        <div class="mini-app">
+          <div class="mini-head">
+            <span class="mini-title">Inicio</span>
+            <span class="mini-meta">Todas tus cuentas</span>
+          </div>
+          <ul class="mini-rows">
+            {CUENTAS.map((c) => (
+              <li class="mini-row">
+                <span class="mini-avatar"></span>
+                <span class="mini-client">{c.cliente}</span>
+                <span class="mini-chip" data-tone={c.tone}>
+                  <span class="mini-dot"></span>
+                  {c.estado}
+                </span>
+              </li>
+            ))}
+          </ul>
+        </div>
 
-      <div class="float-card float-order">
-        <span class="fc-avatar" aria-hidden="true"></span>
-        <span class="fc-main">
-          <span class="fc-title">Pedido a diseño</span>
-          <span class="fc-body">Marcos · freelance</span>
-        </span>
-        <span class="fc-chip">Enviado</span>
+        <div class="float-card float-approval">
+          <span class="fc-check" aria-hidden="true">✓</span>
+          <span class="fc-main">
+            <span class="fc-title">Valeria (cliente)</span>
+            <span class="fc-body">Aprobó Story · lunes 13</span>
+          </span>
+        </div>
+
+        <div class="float-card float-order">
+          <span class="fc-avatar" aria-hidden="true"></span>
+          <span class="fc-main">
+            <span class="fc-title">Pedido a diseño</span>
+            <span class="fc-body">Marcos · freelance</span>
+          </span>
+          <span class="fc-chip">Enviado</span>
+        </div>
       </div>
+    </div>
+  </div>
+
+  <!-- Banda 3: proof points + bajada al resto de la pagina -->
+  <div class="hero-band hero-band-facts">
+    <div class="section-wrap section-wrap--fluid facts-row">
+      <ul class="hero-bullets">
+        {BULLETS.map((b) => <li set:html={b} />)}
+      </ul>
+      <a href="#desafio" class="scroll-cue" aria-label="Ir a la siguiente sección">
+        <span aria-hidden="true">↓</span>
+      </a>
     </div>
   </div>
 </section>
@@ -106,67 +99,47 @@ const CUENTAS = [
   .hero {
     background-color: var(--block-dark);
     color: #EFEFEC;
-    padding-block: var(--space-16);
   }
 
-  @media (min-width: 1024px) {
-    .hero {
-      padding-block: var(--space-24);
-    }
+  /* Las bandas son full-bleed: la hairline cruza toda la pantalla y es lo
+     que estructura el bloque. El contenido de cada banda si respeta el
+     contenedor fluido. */
+  .hero-band + .hero-band {
+    border-top: 1px solid rgba(239, 239, 236, 0.12);
   }
 
-  /* minmax(0, ...) y no 1fr a secas: el tamaño mínimo automático de un grid
-     item es su min-content, así que las filas del mockup ensanchaban la
-     columna y la página scrolleaba de costado en mobile. */
-  .hero-grid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: var(--space-14);
-    align-items: center;
+  /* Los espaciados van en vh y no en vw: el hero tiene que entrar en una
+     pantalla, y lo que lo aprieta es el alto, no el ancho. En un viewport
+     bajo las bandas se comprimen solas. */
+  .hero-band-title {
+    padding-block: clamp(28px, 4.5vh, 72px);
   }
 
-  @media (min-width: 1024px) {
-    .hero-grid {
-      /* La columna de copy se lleva algo mas de ancho para que el tercer
-         golpe del H1 no envuelva. El mockup sigue holgado. */
-      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-      gap: var(--space-16);
-    }
+  .hero-band-visual {
+    padding-block: clamp(20px, 3vh, 48px);
   }
 
-  /* La categoría vive en el descriptor del nav a partir de 900px; en mobile
-     el descriptor se oculta, así que acá entra como eyebrow. Nunca los dos. */
-  .hero-eyebrow {
-    font-family: var(--font-body);
-    font-size: var(--text-eyebrow);
-    letter-spacing: var(--tracking-eyebrow);
-    text-transform: uppercase;
-    font-weight: 500;
-    color: rgba(239, 239, 236, 0.55);
-    margin: 0 0 var(--space-6);
+  .hero-band-facts {
+    padding-block: clamp(18px, 2.5vh, 32px);
   }
 
-  @media (min-width: 900px) {
-    .hero-eyebrow {
-      display: none;
-    }
-  }
+  /* --- Banda 1: el titular --------------------------------------------- */
 
   .hero-h1 {
     font-family: var(--font-display);
-    /* PRUEBA: tipografia atada al viewport, sin tope. Al escalar al mismo
-       ritmo que el contenedor fluido, los cortes de linea quedan iguales en
-       todos los anchos. 4.6vw es el maximo con el que el tercer golpe entra
-       en una linea desde 1024px (medido: quiebra a 4.6vw, aguanta a 4.45). */
-    font-size: clamp(38px, 4.4vw, 132px);
-    /* tr9 usa 1.01, pero es una grotesca. La italica de Instrument Serif
-       tiene descendentes largas y a 1.01 chocan con la linea de abajo. */
+    /* Atada al viewport y sin tope real: escala con el contenedor fluido,
+       asi los cortes de linea no se mueven entre 1024 y 1920. */
+    /* 6.5vw = el titular llena ~72% de la banda en cualquier ancho, igual
+       que el mock. Medido de 1024 a 1920: siempre 2 lineas, 72%. */
+    font-size: clamp(34px, 6.5vw, 180px);
+    /* La italica de Instrument Serif tiene descendentes largas: por debajo
+       de 1.03 chocan con el renglon siguiente. */
     line-height: 1.03;
     letter-spacing: var(--tracking-h2);
     font-weight: 500;
     color: #FFFFFF;
+    margin: 0;
     text-wrap: pretty;
-    margin: 0 0 var(--space-8);
   }
 
   .hero-payoff {
@@ -175,109 +148,15 @@ const CUENTAS = [
     color: var(--primary-on-dark);
   }
 
-  /* La lista se estructura con reglas, no con bullets: el mismo recurso que
-     sostiene la grilla en la referencia. La regla corre a lo ancho de la
-     columna y hace de renglon. */
-  .hero-bullets {
-    list-style: none;
-    margin: 0 0 var(--space-10);
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    max-width: 640px;
-    border-top: 1px solid rgba(239, 239, 236, 0.14);
-  }
+  /* --- Banda 2: el producto -------------------------------------------- */
 
-  .hero-bullets li {
-    display: flex;
-    align-items: flex-start;
-    gap: var(--space-3);
-    font-family: var(--font-body);
-    font-size: var(--text-body-large);
-    line-height: 1.5;
-    color: rgba(239, 239, 236, 0.82);
-    padding-block: var(--space-3);
-    border-bottom: 1px solid rgba(239, 239, 236, 0.14);
-  }
-
-  .bullet-dot {
-    display: none;
-  }
-
-  .hero-ctas {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-3);
-    margin-bottom: var(--space-5);
-  }
-
-  .cta-primary {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    font-family: var(--font-body);
-    font-size: 16px;
-    font-weight: 500;
-    color: var(--primary-foreground);
-    background-color: var(--primary);
-    padding: 13px 26px;
-    border-radius: var(--radius-pill);
-    text-decoration: none;
-    transition:
-      background-color var(--duration-normal) var(--ease-default),
-      transform var(--duration-normal) var(--ease-default);
-  }
-
-  .cta-primary:hover {
-    background-color: var(--primary-hover);
-    transform: translateY(-1px);
-  }
-
-  .cta-secondary {
-    display: inline-flex;
-    align-items: center;
-    font-family: var(--font-body);
-    font-size: 16px;
-    font-weight: 500;
-    color: #EFEFEC;
-    background: transparent;
-    border: 1px solid rgba(255, 255, 255, 0.28);
-    padding: 12px 26px;
-    border-radius: var(--radius-pill);
-    text-decoration: none;
-    transition: border-color var(--duration-normal) var(--ease-default);
-  }
-
-  .cta-secondary:hover {
-    border-color: rgba(255, 255, 255, 0.6);
-  }
-
-  .hero-risk {
-    font-family: var(--font-body);
-    font-size: 14px;
-    line-height: 1.5;
-    color: rgba(239, 239, 236, 0.55);
-    margin: 0;
-    max-width: 480px;
-  }
-
-  /* --- Visual: mapa de cuentas + tarjetas narrativas -------------------- */
-
-  .hero-visual {
+  .visual-row {
     position: relative;
-    max-width: 560px;
-    width: 100%;
-    justify-self: center;
-    /* Aire vertical = alto de tarjeta (70px) menos la mordida que queremos
-       sobre el borde del mockup. Con 56px las tarjetas se apoyan en el borde
-       en vez de taparle una fila entera. */
+    display: flex;
+    justify-content: center;
+    /* Aire = alto de tarjeta (~65px) menos la mordida buscada sobre el
+       borde del mockup. Con menos, las tarjetas tapan una fila entera. */
     padding-block: var(--space-14);
-  }
-
-  @media (min-width: 1024px) {
-    .hero-visual {
-      justify-self: end;
-    }
   }
 
   .mini-app {
@@ -286,6 +165,8 @@ const CUENTAS = [
     overflow: hidden;
     font-family: var(--font-body);
     box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+    width: 100%;
+    max-width: 680px;
   }
 
   .mini-head {
@@ -304,7 +185,8 @@ const CUENTAS = [
 
   .mini-meta {
     font-size: 13px;
-    color: var(--neutral-600);
+    /* neutral-600 sobre blanco da 3.74:1, por debajo de AA */
+    color: var(--neutral-800);
   }
 
   .mini-rows {
@@ -340,7 +222,7 @@ const CUENTAS = [
     overflow: hidden;
     text-overflow: ellipsis;
     /* Sin esto el flex item no baja de su ancho de contenido, el ellipsis
-       nunca entra y la fila ensancha la columna del grid en mobile. */
+       nunca entra y la fila ensancha la columna en mobile. */
     min-width: 0;
   }
 
@@ -364,16 +246,57 @@ const CUENTAS = [
     height: 7px;
     border-radius: 50%;
     background-color: var(--neutral-500);
+    flex-shrink: 0;
   }
 
   .mini-chip[data-tone='info'] .mini-dot { background-color: var(--primary); }
-  .mini-chip[data-tone='warn'] .mini-dot { background-color: #D97706; }
+  .mini-chip[data-tone='warn'] .mini-dot { background-color: #B45309; }
 
-  /* --- Tarjetas narrativas ---------------------------------------------- */
+  /* Notebooks de pantalla baja (1280x800, 1024x768): el mockup se comprime
+     para que el hero siga entrando en una pantalla. */
+  @media (max-height: 860px) {
+    .mini-row {
+      padding-block: var(--space-2);
+    }
+
+    .mini-head {
+      padding-block: var(--space-3);
+    }
+  }
+
+  /* --- Satelites y tarjetas -------------------------------------------- */
+
+  .sat-calendario {
+    display: none;
+    align-items: center;
+    gap: var(--space-2);
+    font-family: var(--font-body);
+    font-size: var(--text-body-small);
+    font-weight: 500;
+    color: var(--foreground);
+    background-color: var(--neutral-200);
+    border-radius: var(--radius-pill);
+    padding: 8px 16px 8px 8px;
+    white-space: nowrap;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  }
+
+  .sat-plus {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 15px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
 
   .float-card {
-    position: absolute;
-    display: flex;
+    display: none;
     align-items: center;
     gap: var(--space-3);
     background-color: var(--background);
@@ -383,36 +306,34 @@ const CUENTAS = [
     box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4);
   }
 
-  /* En mobile las tarjetas se alinean al mockup: la sangría negativa las
-     saca del viewport y hace scrollear la página de costado. */
-  .float-approval {
-    top: 0;
-    right: 0;
-  }
+  /* Debajo de 900px la composicion flotante no tiene aire: queda el mockup
+     solo, que es el dato, y los satelites se ocultan. */
+  @media (min-width: 900px) {
+    .sat-calendario,
+    .float-card {
+      display: flex;
+      position: absolute;
+    }
 
-  .float-order {
-    bottom: 0;
-    left: 0;
-  }
+    .sat-calendario {
+      left: 0;
+      bottom: 18%;
+    }
 
-  @media (min-width: 768px) {
     .float-approval {
-      right: calc(-1 * var(--space-4));
+      top: 0;
+      right: 4%;
     }
 
     .float-order {
-      left: calc(-1 * var(--space-4));
+      bottom: 0;
+      left: 16%;
     }
   }
 
-  @media (min-width: 1200px) {
-    .float-approval {
-      right: calc(-1 * var(--space-10));
-    }
-
-    .float-order {
-      left: calc(-1 * var(--space-10));
-    }
+  @media (min-width: 1280px) {
+    .float-approval { right: 12%; }
+    .float-order { left: 22%; }
   }
 
   .fc-check {
@@ -420,9 +341,8 @@ const CUENTAS = [
     height: 26px;
     border-radius: 50%;
     background-color: rgba(5, 150, 105, 0.12);
-    color: #059669;
+    color: #047857;
     font-size: 13px;
-    font-weight: 700;
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -440,14 +360,11 @@ const CUENTAS = [
   .fc-main {
     display: flex;
     flex-direction: column;
-    gap: 1px;
-    min-width: 0;
   }
 
   .fc-title {
     font-size: 13px;
-    color: var(--neutral-600);
-    white-space: nowrap;
+    color: var(--neutral-800);
   }
 
   .fc-body {
@@ -458,14 +375,71 @@ const CUENTAS = [
   }
 
   .fc-chip {
-    display: inline-flex;
-    align-items: center;
     font-size: 13px;
     font-weight: 500;
     color: var(--primary);
-    border: 1px solid rgba(68, 39, 255, 0.3);
+    border: 1px solid var(--primary);
     border-radius: var(--radius-pill);
     padding: 3px 10px;
+    margin-left: var(--space-2);
     white-space: nowrap;
+  }
+
+  /* --- Banda 3: proof points ------------------------------------------- */
+
+  .facts-row {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: var(--space-8);
+  }
+
+  .hero-bullets {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .hero-bullets li {
+    font-family: var(--font-body);
+    font-size: var(--text-body-large);
+    line-height: 1.75;
+    color: rgba(239, 239, 236, 0.82);
+  }
+
+  .hero-bullets :global(b) {
+    font-weight: 700;
+    color: #FFFFFF;
+  }
+
+  .scroll-cue {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background-color: #FFFFFF;
+    color: var(--foreground);
+    font-size: 20px;
+    text-decoration: none;
+    flex-shrink: 0;
+    transition: transform var(--duration-normal) var(--ease-default);
+  }
+
+  .scroll-cue:hover {
+    transform: translateY(3px);
+  }
+
+  @media (min-width: 768px) {
+    .scroll-cue {
+      display: inline-flex;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-cue:hover {
+      transform: none;
+    }
   }
 </style>

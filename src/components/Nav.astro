@@ -4,24 +4,25 @@ import Wordmark from './Wordmark.astro';
 ---
 
 <nav class="nav" aria-label="Principal">
-  <div class="section-wrap nav-inner">
+  <div class="section-wrap section-wrap--fluid nav-inner">
     <a href="/" class="nav-brand" aria-label="Manny, inicio">
       <MannyMark color="white" size={40} />
       <span class="nav-word">
         <Wordmark color="white" height={32} />
       </span>
     </a>
-    <span class="nav-descriptor">La torre de control de tu agencia</span>
     <span class="nav-spacer" aria-hidden="true"></span>
-    <a href="#beta-final" class="nav-demo" data-cta="nav-demo">Pedí una demo</a>
-    <a href="#beta-final" class="nav-cta" data-cta="nav">Sumate a la lista</a>
+    <a href="#beta-final" class="nav-cta" data-cta="nav">Avisame</a>
+    <a href="#beta-final" class="nav-demo" data-cta="nav-demo">Pedí una demo en vivo</a>
   </div>
 </nav>
 
 <style>
-  /* Sticky y oscuro (mismo bloque que el hero v4 y el footer): el par
-     demo (outline) + lista (lleno) espeja los CTAs del hero y acompaña
-     toda la página. Altura = --nav-height en tokens.css. */
+  /* Sticky y oscuro (mismo bloque que el hero y el footer). Desde la v5 el
+     hero no tiene botones: estos son los unicos CTAs sobre el fold, y por
+     eso el nav acompaña toda la pagina. La hairline inferior es la primera
+     del sistema de bandas del hero.
+     Altura = --nav-height en tokens.css. */
   .nav {
     position: sticky;
     top: 0;
@@ -30,6 +31,7 @@ import Wordmark from './Wordmark.astro';
     background-color: rgba(25, 23, 29, 0.88);
     -webkit-backdrop-filter: blur(8px);
     backdrop-filter: blur(8px);
+    border-bottom: 1px solid rgba(239, 239, 236, 0.12);
   }
 
   .nav-inner {
@@ -54,22 +56,6 @@ import Wordmark from './Wordmark.astro';
 
   @media (min-width: 480px) {
     .nav-word {
-      display: block;
-    }
-  }
-
-  .nav-descriptor {
-    display: none;
-    font-family: var(--font-body);
-    font-size: var(--text-body-small);
-    color: rgba(239, 239, 236, 0.55);
-    padding-left: var(--space-4);
-    border-left: 1px solid rgba(255, 255, 255, 0.15);
-    white-space: nowrap;
-  }
-
-  @media (min-width: 900px) {
-    .nav-descriptor {
       display: block;
     }
   }
