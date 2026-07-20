@@ -143,9 +143,10 @@ svg {
   --gutter-tablet: 48px;
   --gutter-desktop: 80px;
 
-  /* Nav height = padding-block (16 + 16) + logo (40). The nav is sticky;
-     this var sizes the hero to viewport and the scroll-margin of anchors. */
-  --nav-height: 72px;
+  /* Nav height: 80px exactos del Figma (la primera hairline del sistema de
+     bandas cae ahi). Sticky; dimensiona el hero a viewport y el
+     scroll-margin de los anchors. */
+  --nav-height: 80px;
 
   --radius: 8px;
   --radius-pill: 999px;
@@ -184,10 +185,9 @@ svg {
   }
 }
 
-/* PRUEBA (rama hero-fluido): contenedor sin tope de ancho.
-   En vez de topear en 1280px y dejar margen muerto en pantallas grandes,
-   el contenido ocupa siempre ~90% del viewport. Referencia: tr9.webflow.io,
-   que sostiene ese 90.6% de 1024 a 1920 sin cap.
+/* Contenedor sin tope de ancho: en vez de topear en 1280px y dejar margen
+   muerto en pantallas grandes, el contenido escala con el viewport.
+   5.56vw = los 84px de gutter del Figma a 1512px de ancho.
    Si esto se adopta, reemplaza a .section-wrap en TODAS las secciones:
    convivir las dos desalinea el hero del resto de la pagina. */
 .section-wrap--fluid {
@@ -197,7 +197,7 @@ svg {
 
 @media (min-width: 768px) {
   .section-wrap--fluid {
-    padding-inline: 4.7vw;
+    padding-inline: 5.56vw;
   }
 }
 
