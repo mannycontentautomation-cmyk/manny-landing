@@ -6,9 +6,11 @@
 // Derecha: el mapa de cuentas compacto con dos tarjetas narrativas
 // flotando encima. La viñeta: mientras mirás una sola pantalla,
 // las aprobaciones y los pedidos pasan solos.
+// Proof points, no frases. Los cuatro entran en una linea y espejan, en el
+// mismo orden, las cuatro columnas de Dolores (dolor -> promesa).
 const BULLETS = [
-  'Gestioná tus clientes, coordiná tu equipo y generá el contenido en un solo lugar',
-  'Creás el perfil de tus cuentas una única vez, Manny alimenta cada generación sin que pierdas información',
+  'Clientes, equipo y contenido en un solo lugar',
+  'Cargás el perfil una vez y no se pierde',
   'Para el feedback, un solo link',
   'Del pedido a producción, se encarga Manny',
 ];
@@ -125,7 +127,9 @@ const CUENTAS = [
 
   @media (min-width: 1024px) {
     .hero-grid {
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+      /* La columna de copy se lleva algo mas de ancho para que el tercer
+         golpe del H1 no envuelva. El mockup sigue holgado. */
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
       gap: var(--space-16);
     }
   }
@@ -150,7 +154,9 @@ const CUENTAS = [
 
   .hero-h1 {
     font-family: var(--font-display);
-    font-size: clamp(38px, 4.6vw, 66px);
+    /* Calibrado para que "Ganá tiempo para la creatividad." entre en una
+       linea de 1024px para arriba: el H1 son 3 golpes, no 4. */
+    font-size: clamp(38px, 3.9vw, 56px);
     line-height: 1.06;
     letter-spacing: var(--tracking-h2);
     font-weight: 500;
