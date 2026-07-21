@@ -32,3 +32,6 @@ out/
 .astro/
 .vercel
 .env*.local
+
+# Playwright MCP screenshots / scratch (revisión visual, no versionar)
+.playwright-mcp/

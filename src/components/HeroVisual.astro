@@ -1,0 +1,547 @@
+---
+// HeroVisual: el producto trabajando, en una sola escena animada.
+// Composicion: la vista de Inicio en el centro (las cuentas de la agencia),
+// el calendario y su pildora a la izquierda, y a la derecha dos tarjetas
+// montadas sobre el mockup: la aprobacion que llega y el pedido a diseño.
+//
+// La animacion es UN solo ciclo compartido (--hv-cycle, 16s) que cuenta una
+// historia causal: llega la aprobacion de Valeria (tarjeta entra) -> el chip
+// de Vinoteca Peralta pasa de "Espera aprobacion" a "Aprobado" -> se agendan
+// piezas en el calendario -> el pedido a diseño sale ("Enviado").
+// Todo con transform/opacity (cero reflow) y sin JS: sin animacion la escena
+// queda en su estado final, completo y correcto.
+//
+// prefers-reduced-motion: el sitio fuerza animation-duration 0.01ms global,
+// que convierte cualquier loop en estrobo. Por eso cada animacion tiene su
+// opt-out explicito (animation: none) y los estilos BASE de cada pieza son el
+// estado final de la historia (tarjeta visible, chip en "Aprobado", etc.).
+
+const CUENTAS = [
+  { cliente: 'Café Aurora', iniciales: 'CA', estado: 'En producción', tone: 'info' },
+  // Vinoteca Peralta se renderiza aparte: su chip es el que cambia de estado.
+  { cliente: 'Librería del Sur', iniciales: 'LS', estado: 'Propuesta enviada', tone: 'neutral' },
+  { cliente: 'Vivero Alsina', iniciales: 'VA', estado: 'Calendario listo', tone: 'neutral' },
+];
+
+// Celdas del calendario: cuales arrancan "agendadas" (estaticas) y cuales
+// se agendan durante el ciclo (pop escalonado a/b/c).
+const CAL_CELLS = [
+  null, 'static', null, null,
+  'a', null, 'static', 'b',
+  null, 'c', null, 'static',
+];
+---
+
+<div
+  class="hv"
+  role="img"
+  aria-label="La vista de Inicio de Manny con las cuentas de la agencia: llega la aprobación de una clienta, el estado de la cuenta se actualiza solo y un pedido a diseño sale para un freelance"
+>
+  <!-- Cluster izquierdo: el calendario de contenido -->
+  <div class="hv-cal" aria-hidden="true">
+    <span class="hv-cal-head"></span>
+    <span class="hv-cal-grid">
+      {CAL_CELLS.map((kind) => (
+        <span
+          class:list={['hv-cell', kind && 'hv-cell--on', kind && kind !== 'static' && `hv-cell--${kind}`]}
+        ></span>
+      ))}
+    </span>
+  </div>
+
+  <div class="hv-pill" aria-hidden="true">
+    <span class="hv-pill-plus">+</span>
+    Creá un calendario
+  </div>
+
+  <!-- Centro: la vista de Inicio -->
+  <div class="hv-app">
+    <div class="hv-head">
+      <span class="hv-title">Inicio</span>
+      <span class="hv-meta">Todas tus cuentas</span>
+    </div>
+    <ul class="hv-rows">
+      <li class="hv-row">
+        <span class="hv-avatar">CA</span>
+        <span class="hv-client">Café Aurora</span>
+        <span class="hv-chip" data-tone="info"><span class="hv-dot"></span>En producción</span>
+      </li>
+
+      <!-- La fila viva: los dos chips apilados en la misma celda de grid
+           (mismo ancho reservado, cero layout shift) y crossfade entre ambos. -->
+      <li class="hv-row">
+        <span class="hv-avatar">VP</span>
+        <span class="hv-client">Vinoteca Peralta</span>
+        <span class="hv-chip-swap">
+          <span class="hv-chip hv-chip--warn" data-tone="warn"><span class="hv-dot"></span>Espera aprobación</span>
+          <span class="hv-chip hv-chip--ok" data-tone="ok"><span class="hv-dot"></span>Aprobado</span>
+        </span>
+      </li>
+
+      {CUENTAS.slice(1).map((c) => (
+        <li class="hv-row">
+          <span class="hv-avatar">{c.iniciales}</span>
+          <span class="hv-client">{c.cliente}</span>
+          <span class="hv-chip" data-tone={c.tone}><span class="hv-dot"></span>{c.estado}</span>
+        </li>
+      ))}
+    </ul>
+  </div>
+
+  <!-- La aprobacion que llega (dispara el cambio de chip) -->
+  <div class="hv-card hv-approval">
+    <span class="hv-check" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+        <path d="M5 12.5l4.5 4.5L19 7.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" />
+      </svg>
+    </span>
+    <span class="hv-card-main">
+      <span class="hv-card-title">Vinoteca Peralta</span>
+      <span class="hv-card-body">Valeria aprobó Story · ahora</span>
+    </span>
+  </div>
+
+  <!-- El pedido a diseño que sale -->
+  <div class="hv-card hv-order">
+    <span class="hv-order-avatar" aria-hidden="true">M</span>
+    <span class="hv-card-main">
+      <span class="hv-card-title">Pedido a diseño</span>
+      <span class="hv-card-body">Marcos · freelance</span>
+    </span>
+    <span class="hv-sent">Enviado</span>
+  </div>
+</div>
+
+<style>
+  /* Un solo reloj para toda la escena: cada pieza anima sobre el mismo ciclo
+     con sus porcentajes, asi la secuencia queda siempre sincronizada. */
+  .hv {
+    --hv-cycle: 16s;
+    position: relative;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    font-family: var(--font-body);
+  }
+
+  /* --- La vista de Inicio ----------------------------------------------- */
+
+  .hv-app {
+    background-color: var(--background);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08), 0 24px 64px rgba(0, 0, 0, 0.45);
+    width: 100%;
+    min-width: 0;
+  }
+
+  @media (min-width: 1024px) {
+    .hv-app {
+      max-width: 45%;
+    }
+  }
+
+  .hv-head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--neutral-200);
+  }
+
+  .hv-title {
+    font-size: var(--text-body);
+    font-weight: 700;
+    color: var(--foreground);
+  }
+
+  .hv-meta {
+    font-size: 13px;
+    /* neutral-600 sobre blanco da 3.74:1, por debajo de AA */
+    color: var(--neutral-800);
+  }
+
+  .hv-rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .hv-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-3) var(--space-5);
+  }
+
+  .hv-row + .hv-row {
+    border-top: 1px solid var(--neutral-200);
+  }
+
+  .hv-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background-color: var(--primary-light);
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    flex-shrink: 0;
+  }
+
+  .hv-client {
+    font-size: var(--text-body-small);
+    font-weight: 500;
+    color: var(--foreground);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    /* Sin esto el flex item no baja de su min-content y la fila
+       ensancha la columna en mobile. */
+    min-width: 0;
+  }
+
+  .hv-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--neutral-800);
+    border: 1px solid var(--neutral-300);
+    border-radius: var(--radius-pill);
+    padding: 3px 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .hv-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--neutral-500);
+    flex-shrink: 0;
+  }
+
+  .hv-chip[data-tone='info'] .hv-dot { background-color: var(--primary); }
+  .hv-chip[data-tone='warn'] .hv-dot { background-color: #B45309; }
+  /* Verdes ya usados en el hero para la aprobacion */
+  .hv-chip[data-tone='ok'] .hv-dot { background-color: #047857; }
+  .hv-chip[data-tone='ok'] { color: #047857; border-color: rgba(4, 120, 87, 0.35); }
+
+  /* Los dos estados de Vinoteca apilados en una misma celda: el grid reserva
+     el ancho del chip mas largo y el cambio es puro opacity (cero shift). */
+  .hv-chip-swap {
+    display: inline-grid;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .hv-chip-swap .hv-chip {
+    grid-area: 1 / 1;
+    margin-left: 0;
+    justify-self: end;
+  }
+
+  /* Estado BASE = final de la historia: aprobado. Las keyframes arrancan el
+     ciclo mostrando "Espera aprobacion" y hacen el flip en el medio. */
+  .hv-chip--warn {
+    opacity: 0;
+    animation: hv-chip-warn var(--hv-cycle) var(--ease-default) infinite;
+  }
+
+  .hv-chip--ok {
+    opacity: 1;
+    animation: hv-chip-ok var(--hv-cycle) var(--ease-default) infinite;
+  }
+
+  @keyframes hv-chip-warn {
+    0%, 20%   { opacity: 1; }
+    26%, 90%  { opacity: 0; }
+    97%, 100% { opacity: 1; }
+  }
+
+  @keyframes hv-chip-ok {
+    0%, 20%   { opacity: 0; }
+    26%, 90%  { opacity: 1; }
+    97%, 100% { opacity: 0; }
+  }
+
+  /* --- Piezas satelite --------------------------------------------------- */
+
+  .hv-card {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    background-color: var(--background);
+    border-radius: 14px;
+    padding: var(--space-3) var(--space-4);
+    box-shadow: 0 4px 30px rgba(25, 23, 29, 0.15), 0 16px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  /* Debajo de 1024px la composicion flotante no tiene aire: queda el mockup
+     como dato y la aprobacion (el corazon animado) mordiendo el borde.
+     OJO: esta regla vive DESPUES de .hv-card para ganarle a su display. */
+  .hv-cal,
+  .hv-pill,
+  .hv-order {
+    display: none;
+  }
+
+  .hv-approval {
+    position: absolute;
+    right: 0;
+    bottom: -16px;
+    max-width: calc(100% - 16px);
+    /* Estado base = visible (final de la historia). El ciclo la hace entrar
+       desde abajo y salir suave antes de reiniciar. */
+    animation: hv-card-in var(--hv-cycle) var(--ease-default) infinite;
+  }
+
+  @keyframes hv-card-in {
+    0%, 6%    { opacity: 0; transform: translateY(12px); }
+    12%, 90%  { opacity: 1; transform: translateY(0); }
+    96%, 100% { opacity: 0; transform: translateY(12px); }
+  }
+
+  .hv-check {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: rgba(5, 150, 105, 0.12);
+    color: #047857;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    animation: hv-check-pop var(--hv-cycle) var(--ease-default) infinite;
+  }
+
+  .hv-check svg {
+    width: 14px;
+    height: 14px;
+  }
+
+  /* El tilde aparece un pelo despues de que aterriza la tarjeta */
+  @keyframes hv-check-pop {
+    0%, 12%   { opacity: 0; transform: scale(0.5); }
+    17%       { opacity: 1; transform: scale(1.06); }
+    21%, 90%  { opacity: 1; transform: scale(1); }
+    96%, 100% { opacity: 0; transform: scale(0.5); }
+  }
+
+  .hv-card-main {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+  }
+
+  .hv-card-title {
+    font-size: 13px;
+    color: var(--neutral-800);
+  }
+
+  .hv-card-body {
+    font-size: var(--text-body-small);
+    font-weight: 500;
+    color: var(--foreground);
+    white-space: nowrap;
+  }
+
+  .hv-order-avatar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: var(--neutral-200);
+    color: var(--neutral-800);
+    font-size: 13px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+
+  /* "Enviado" aparece cuando el pedido sale, pasada la mitad del ciclo.
+     Base = visible. El ancho esta siempre reservado (solo opacity). */
+  .hv-sent {
+    font-size: 13px;
+    font-weight: 500;
+    color: #047857;
+    background-color: rgba(5, 150, 105, 0.12);
+    border-radius: var(--radius-pill);
+    padding: 3px 10px;
+    white-space: nowrap;
+    animation: hv-sent-in var(--hv-cycle) var(--ease-default) infinite;
+  }
+
+  @keyframes hv-sent-in {
+    0%, 50%   { opacity: 0; transform: translateY(4px); }
+    56%, 92%  { opacity: 1; transform: translateY(0); }
+    98%, 100% { opacity: 0; transform: translateY(4px); }
+  }
+
+  /* --- Calendario -------------------------------------------------------- */
+
+  .hv-cal {
+    flex-direction: column;
+    gap: 10px;
+    background-color: var(--primary-on-dark);
+    border-radius: 20px;
+    padding: 16px;
+    width: 13.4%;
+    aspect-ratio: 180 / 202;
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  }
+
+  .hv-cal-head {
+    display: block;
+    height: 8px;
+    width: 60%;
+    border-radius: 4px;
+    background-color: rgba(25, 23, 29, 0.25);
+  }
+
+  .hv-cal-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 6px;
+    flex: 1;
+  }
+
+  .hv-cell {
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.55);
+  }
+
+  /* Piezas agendadas: violeta pleno sobre el tile lila */
+  .hv-cell--on {
+    position: relative;
+  }
+
+  .hv-cell--on::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 4px;
+    background-color: var(--primary);
+  }
+
+  /* Tres celdas se agendan durante el ciclo, escalonadas, mientras el resto
+     queda fijo. Base (sin animacion) = agendadas. */
+  .hv-cell--a::after { animation: hv-cell-a var(--hv-cycle) var(--ease-default) infinite; }
+  .hv-cell--b::after { animation: hv-cell-b var(--hv-cycle) var(--ease-default) infinite; }
+  .hv-cell--c::after { animation: hv-cell-c var(--hv-cycle) var(--ease-default) infinite; }
+
+  @keyframes hv-cell-a {
+    0%, 32%   { opacity: 0; transform: scale(0.5); }
+    38%, 92%  { opacity: 1; transform: scale(1); }
+    98%, 100% { opacity: 0; transform: scale(0.5); }
+  }
+
+  @keyframes hv-cell-b {
+    0%, 38%   { opacity: 0; transform: scale(0.5); }
+    44%, 92%  { opacity: 1; transform: scale(1); }
+    98%, 100% { opacity: 0; transform: scale(0.5); }
+  }
+
+  @keyframes hv-cell-c {
+    0%, 44%   { opacity: 0; transform: scale(0.5); }
+    50%, 92%  { opacity: 1; transform: scale(1); }
+    98%, 100% { opacity: 0; transform: scale(0.5); }
+  }
+
+  /* --- Pildora ----------------------------------------------------------- */
+
+  .hv-pill {
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 15px;
+    font-weight: 500;
+    border-radius: var(--radius-pill);
+    padding: 4px 18px 4px 4px;
+    white-space: nowrap;
+    height: 38px;
+    background-color: #E7E7E7;
+    border: 1px solid #CCCCCC;
+    color: var(--foreground);
+    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  }
+
+  .hv-pill-plus {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    font-size: 16px;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  /* --- Composicion desktop ----------------------------------------------- */
+
+  @media (min-width: 1024px) {
+    .hv-cal,
+    .hv-pill {
+      display: flex;
+      position: absolute;
+    }
+
+    .hv-order {
+      display: flex;
+    }
+
+    .hv-cal {
+      left: 14.1%;
+      top: 6%;
+    }
+
+    .hv-pill {
+      left: 6.6%;
+      top: 56%;
+    }
+
+    /* Mockup centrado al 45% => su borde derecho cae en 72.5%. Mordida FIJA
+       de 12px: por porcentaje creceria con el ancho y taparia los chips. */
+    .hv-approval {
+      right: auto;
+      bottom: auto;
+      max-width: none;
+      left: calc(72.5% - 12px);
+      top: 8%;
+    }
+
+    .hv-order {
+      position: absolute;
+      left: calc(72.5% - 12px);
+      top: 58%;
+    }
+  }
+
+  /* --- Reduced motion ----------------------------------------------------
+     Requisito duro: la regla global fuerza animation-duration 0.01ms, que
+     convierte estos loops en estrobo. Aca se apagan y queda el estado base,
+     que es el final de la historia: aprobacion visible, chip en "Aprobado",
+     calendario agendado, pedido "Enviado". */
+  @media (prefers-reduced-motion: reduce) {
+    .hv-approval,
+    .hv-check,
+    .hv-chip--warn,
+    .hv-chip--ok,
+    .hv-sent,
+    .hv-cell--a::after,
+    .hv-cell--b::after,
+    .hv-cell--c::after {
+      animation: none;
+    }
+  }
+</style>
