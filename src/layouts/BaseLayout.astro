@@ -8,8 +8,8 @@ interface Props {
 }
 
 const {
-  title = 'Manny · El pipeline de producción para equipos creativos',
-  description = 'Propuesta, brief, calendario y producción de piezas. En un solo flujo, con el contexto de cada cliente viajando de principio a fin. Pensado para agencias creativas, estudios y equipos in-house.',
+  title = 'Manny · La torre de control de tu agencia',
+  description = 'El trabajo de cada cliente vive disperso en herramientas que no se hablan. Manny lo ordena en un solo lugar: perfil, calendario, aprobaciones y pedidos a diseño. Pensado para agencias creativas, estudios y freelancers.',
   ogImage = '/assets/og-image.png',
 } = Astro.props;
 
@@ -26,7 +26,7 @@ const jsonLd = {
       url: siteURL,
       logo: `${siteURL}/logo.png`,
       description:
-        'Pipeline de producción para agencias creativas. La agencia sube el brief y el contexto del cliente; Manny procesa esa información para generar piezas específicas. El control de cada decisión es siempre de la agencia.',
+        'La torre de control para agencias creativas: el estado de cada cliente, el perfil de cada marca, las aprobaciones y los pedidos a diseño en un solo lugar. Manny propone y ordena; el equipo elige, edita y aprueba.',
       sameAs: ['https://www.linkedin.com/company/somosmanny'],
     },
     {
@@ -77,8 +77,30 @@ const jsonLd = {
       rel="stylesheet"
       href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"
     />
+
+    {
+      /* Vercel Web Analytics: solo en el build de producción. Requiere
+         habilitar Web Analytics en el dashboard de Vercel (proyecto
+         manny-landing) para que /_vercel/insights/script.js exista. */
+      import.meta.env.PROD && (
+        <script is:inline defer src="/_vercel/insights/script.js" />
+      )
+    }
   </head>
   <body>
     <slot />
+    <script>
+      // Atribución de CTA: los links que anclan al form marcan por dónde
+      // llegó el visitante; el submit del waitlist lo suma al `source`.
+      document.querySelectorAll('[data-cta]').forEach((link) => {
+        link.addEventListener('click', () => {
+          try {
+            sessionStorage.setItem('manny-cta', link.getAttribute('data-cta') ?? 'direct');
+          } catch {
+            /* sessionStorage bloqueado: el source queda "direct" */
+          }
+        });
+      });
+    </script>
   </body>
 </html>

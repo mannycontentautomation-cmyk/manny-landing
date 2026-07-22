@@ -1,0 +1,451 @@
+---
+// Sección onboarding (referencia NordLayer "How to deploy"): FONDO CLARO.
+// Corta el arco oscuro de arriba. Eyebrow + H2 numerado + subhead que mata
+// la objeción de implementación, 3 pasos con número en cuadrado violeta +
+// laptop wireframe (contorno liviano) con mini-tarjeta blanca adentro, y
+// remate: CTA centrado a la demo en vivo (pre-marca el checkbox del form).
+// OJO: no es el "proceso en 4 tiempos" de la v3 (aquel era el pipeline del
+// producto como columna vertebral). Este cuenta lo fácil que es arrancar.
+---
+
+<section class="arrancas">
+  <div class="section-wrap section-wrap--fluid">
+    <div class="arrancas-card">
+    <header class="arrancas-head">
+      <p class="arrancas-eyebrow">Cómo empiezas</p>
+      <h2 class="display-h2 arrancas-h2">
+        Ordena tu agencia <span class="italic-accent">en tres pasos.</span>
+      </h2>
+      <p class="arrancas-sub">
+        Una sola plataforma, todas las herramientas. Cargas tu primer
+        cliente y empiezas a trabajar el mismo día.
+      </p>
+    </header>
+
+    <ol class="pasos">
+      <li class="paso">
+        <span class="paso-num" aria-hidden="true">1</span>
+        <div class="paso-mock" aria-hidden="true">
+          <div class="mk-head">
+            <span class="mk-avatar">CA</span>
+            <span class="mk-titles">
+              <span class="mk-name">Café Aurora</span>
+              <span class="mk-sub">Perfil del cliente</span>
+            </span>
+          </div>
+          <ul class="mk-attrs">
+            <li><span class="mk-check">✓</span><span class="mk-attr-k">Identidad</span><span class="mk-attr-v">Cálida</span></li>
+            <li><span class="mk-check">✓</span><span class="mk-attr-k">Tono</span><span class="mk-attr-v">Cercano</span></li>
+            <li><span class="mk-check">✓</span><span class="mk-attr-k">Audiencia</span><span class="mk-attr-v">25 a 40</span></li>
+          </ul>
+        </div>
+        <h3 class="paso-titulo">Carga el perfil del cliente</h3>
+        <p class="paso-cuerpo">
+          Sube las notas de reunión, los lineamientos de la marca y lo que
+          ya tengas. Manny los estructura en un perfil vivo.
+        </p>
+      </li>
+
+      <li class="paso">
+        <span class="paso-num" aria-hidden="true">2</span>
+        <div class="paso-mock" aria-hidden="true">
+          <div class="mk-head">
+            <span class="mk-titles">
+              <span class="mk-name">Calendario · Julio</span>
+              <span class="mk-sub">12 piezas · 3 canales</span>
+            </span>
+          </div>
+          <div class="cal-grid">
+            <span class="cal-cell"></span>
+            <span class="cal-cell has"><i></i></span>
+            <span class="cal-cell"></span>
+            <span class="cal-cell has has-b"><i></i></span>
+            <span class="cal-cell"></span>
+            <span class="cal-cell"></span>
+            <span class="cal-cell has"><i></i></span>
+            <span class="cal-cell"></span>
+            <span class="cal-cell has has-c"><i></i></span>
+            <span class="cal-cell"></span>
+            <span class="cal-cell has"><i></i></span>
+            <span class="cal-cell"></span>
+            <span class="cal-cell has has-b"><i></i></span>
+            <span class="cal-cell"></span>
+          </div>
+        </div>
+        <h3 class="paso-titulo">Arma la campaña y su calendario</h3>
+        <p class="paso-cuerpo">
+          Manny propone direcciones a partir del perfil. Tú eliges,
+          editas y apruebas el plan.
+        </p>
+      </li>
+
+      <li class="paso">
+        <span class="paso-num" aria-hidden="true">3</span>
+        <div class="paso-mock" aria-hidden="true">
+          <div class="mk-link">
+            <span class="mk-link-txt">manny.tools/c/aurora</span>
+            <span class="mk-link-copy">Copiar</span>
+          </div>
+          <div class="mk-approve">
+            <span class="mk-avatar mk-avatar-v">V</span>
+            <span class="mk-titles">
+              <span class="mk-name">Valeria aprobó</span>
+              <span class="mk-sub">3 piezas · hoy 14:32</span>
+            </span>
+            <span class="mk-check mk-check-lg">✓</span>
+          </div>
+          <span class="mk-order">Pedido a diseño enviado</span>
+        </div>
+        <h3 class="paso-titulo">Comparte y produce</h3>
+        <p class="paso-cuerpo">
+          Tu cliente aprueba con un link y los pedidos salen armados a
+          diseño. Todo queda registrado.
+        </p>
+      </li>
+    </ol>
+
+    <div class="arrancas-cta">
+      <a href="#beta-final" class="cta-primary" data-cta="arrancas-demo">
+        Pide una demo en vivo
+        <span aria-hidden="true">→</span>
+      </a>
+    </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Seccion transparente: el fondo oscuro con grid queda como margen
+     alrededor de la tarjeta clara que flota (comp Landing_design). */
+  .arrancas {
+    padding-block: var(--space-16);
+  }
+
+  @media (min-width: 1024px) {
+    .arrancas {
+      padding-block: var(--space-20);
+    }
+  }
+
+  /* La tarjeta clara flotante: contenido sobre fondo blanco, esquinas bien
+     redondeadas, aire generoso adentro. */
+  .arrancas-card {
+    background-color: var(--background);
+    color: var(--foreground);
+    border-radius: clamp(24px, 3vw, 40px);
+    padding: clamp(40px, 6vw, 96px) clamp(24px, 4vw, 72px);
+  }
+
+  .arrancas-head {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-5);
+    margin-bottom: var(--space-16);
+  }
+
+  .arrancas-eyebrow {
+    font-family: var(--font-body);
+    font-size: var(--text-eyebrow);
+    letter-spacing: var(--tracking-eyebrow);
+    text-transform: uppercase;
+    font-weight: 500;
+    color: var(--neutral-800);
+    margin: 0;
+  }
+
+  .arrancas-h2 {
+    margin: 0;
+    max-width: 820px;
+  }
+
+  .arrancas-sub {
+    font-family: var(--font-body);
+    font-size: var(--text-body-large);
+    line-height: 1.55;
+    color: var(--neutral-800);
+    margin: 0;
+    max-width: 620px;
+    text-wrap: pretty;
+  }
+
+  /* --- Pasos: tarjetas-pantalla del producto ---------------------------- */
+
+  .pasos {
+    list-style: none;
+    margin: 0 0 var(--space-16);
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+    max-width: 340px;
+    margin-inline: auto;
+  }
+
+  @media (min-width: 880px) {
+    .pasos {
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-10);
+      max-width: none;
+    }
+  }
+
+  .paso {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  /* Numero como nodo del stepper: circulo, tipografia sans, centrado arriba. */
+  .paso-num {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
+    width: 40px;
+    height: 40px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--block-dark);
+    color: #FFFFFF;
+    font-family: var(--font-body);
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 50%;
+  }
+
+  /* La tarjeta-pantalla: misma familia que el mockup del hero. */
+  /* Borde mas marcado: sobre la tarjeta clara padre (blanca) las tarjetas
+     blancas se perdian; el borde les da contraste. */
+  .paso-mock {
+    position: relative;
+    text-align: left;
+    background-color: var(--background);
+    border: 1px solid var(--neutral-300);
+    border-radius: 16px;
+    box-shadow: 0 14px 34px rgba(25, 23, 29, 0.08);
+    padding: 24px 20px 20px;
+    /* El numero solapa el borde superior (~16px adentro, mitad afuera): se
+       lee como nodo pegado a la tarjeta, no flotando cerquita. */
+    margin-top: 4px;
+    margin-bottom: var(--space-7);
+    /* Alto fijo = las 3 quedan iguales (la mas alta es la de perfil, 226). */
+    height: 240px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-family: var(--font-body);
+  }
+
+  /* Header comun (avatar + titulos) */
+  .mk-head { display: flex; align-items: center; gap: 10px; }
+
+  .mk-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    /* Un poco mas de tono que --primary-light para separarse del card blanco */
+    background-color: #DDDDF7;
+    color: var(--primary);
+    font-size: 13px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .mk-avatar-v { border-radius: 50%; }
+
+  .mk-titles { display: flex; flex-direction: column; min-width: 0; }
+
+  .mk-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--foreground);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mk-sub { font-size: 13px; color: var(--neutral-800); }
+
+  .mk-check {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: rgba(5, 150, 105, 0.12);
+    color: #047857;
+    font-size: 13px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* Paso 1: atributos del perfil */
+  .mk-attrs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .mk-attrs li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background-color: #F4F4F1;
+  }
+
+  .mk-attr-k { font-weight: 500; color: var(--foreground); }
+  .mk-attr-v { margin-left: auto; color: var(--neutral-800); }
+
+  /* Paso 2: calendario real (grilla de dias, sin letras <13px) */
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+  }
+
+  .cal-cell {
+    aspect-ratio: 1;
+    border-radius: 5px;
+    background-color: #F4F4F1;
+    border: 1px solid var(--neutral-300);
+    position: relative;
+  }
+
+  /* Barra de contenido = pieza agendada. Late suave, escalonada. */
+  .cal-cell.has i {
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    height: 5px;
+    border-radius: 3px;
+    /* Violeta mas suave que --primary (#4427FF, muy electrico): armoniza con
+       el ambar y el verde de los otros canales, no salta. */
+    background-color: #8D82E6;
+    animation: cell-breathe 3.4s var(--ease-default) infinite;
+  }
+
+  .cal-cell.has-b i { background-color: #B45309; }
+  .cal-cell.has-c i { background-color: #047857; }
+  .cal-cell.has:nth-child(4) i { animation-delay: 0.5s; }
+  .cal-cell.has:nth-child(9) i { animation-delay: 1s; }
+  .cal-cell.has:nth-child(13) i { animation-delay: 1.5s; }
+
+  @keyframes cell-breathe {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cal-cell.has i { animation: none; opacity: 1; }
+  }
+
+  /* Paso 3: vista del cliente (link + aprobacion + pedido) */
+  .mk-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #F4F4F1;
+    border: 1px solid var(--neutral-300);
+    border-radius: 9px;
+    padding: 9px 10px;
+  }
+
+  .mk-link-txt {
+    flex: 1;
+    min-width: 0;
+    font-size: 13px;
+    color: var(--neutral-800);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mk-link-copy { font-size: 13px; font-weight: 500; color: var(--primary); flex-shrink: 0; }
+
+  .mk-approve { display: flex; align-items: center; gap: 10px; }
+
+  .mk-avatar-v { background-color: rgba(5, 150, 105, 0.12); color: #047857; }
+
+  .mk-check-lg {
+    width: 22px;
+    height: 22px;
+    margin-left: auto;
+    font-size: 13px;
+  }
+
+  .mk-order {
+    align-self: flex-start;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--primary);
+    border: 1px solid rgba(68, 39, 255, 0.3);
+    border-radius: var(--radius-pill);
+    padding: 5px 12px;
+  }
+
+  .paso-titulo {
+    font-family: var(--font-body);
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--foreground);
+    margin: 0 0 var(--space-3);
+    text-wrap: balance;
+  }
+
+  .paso-cuerpo {
+    font-family: var(--font-body);
+    font-size: var(--text-body-small);
+    line-height: 1.55;
+    color: var(--neutral-800);
+    margin: 0;
+    text-wrap: pretty;
+  }
+
+  /* --- CTA de remate ----------------------------------------------------- */
+
+  .arrancas-cta {
+    display: flex;
+    justify-content: center;
+  }
+
+  .cta-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 500;
+    color: var(--primary-foreground);
+    background-color: var(--primary);
+    padding: 14px 30px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    transition:
+      background-color var(--duration-normal) var(--ease-default),
+      transform var(--duration-normal) var(--ease-default);
+  }
+
+  .cta-primary:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-1px);
+  }
+</style>

@@ -2,25 +2,44 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Nav from '../components/Nav.astro';
 import Hero from '../components/Hero.astro';
-import HowItWorks from '../components/HowItWorks.astro';
-import Highlight from '../components/Highlight.astro';
+import Desafio from '../components/Desafio.astro';
+import Dolores from '../components/Dolores.astro';
+import ComoArrancas from '../components/ComoArrancas.astro';
+import Principio from '../components/Principio.astro';
 import CTAFooter from '../components/CTAFooter.astro';
 ---
 
 <BaseLayout>
-  <div class="page grid-bg">
+  <div class="page">
     <Nav />
     <main>
       <Hero />
-      <HowItWorks />
-      <Highlight />
+      <Desafio />
+      <Dolores />
+      <ComoArrancas />
+      <Principio />
     </main>
   </div>
   <CTAFooter />
 </BaseLayout>
 
 <style>
+  /* Toda la pagina va sobre el bloque oscuro (comp Landing_design). Las
+     secciones claras (Como arrancas) son tarjetas que flotan encima, no
+     cambian el fondo base. El grid cuadriculado del comp va con lineas
+     claras (sobre oscuro; las oscuras de la version clara eran invisibles).
+     Las secciones oscuras van transparentes para dejarlo pasar. */
   .page {
-    background-color: var(--background);
+    background-color: var(--block-dark);
+    background-image:
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  @media (min-width: 1024px) {
+    .page {
+      background-size: 64px 64px;
+    }
   }
 </style>

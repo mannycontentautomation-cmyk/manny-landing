@@ -2,6 +2,10 @@
 
 Marketing landing for **Manny** (manny.tools) — single page, scroll-down, **editorial typographic direction**.
 
+> **Branch `landing-v3` (2026-07-09):** implements the copy v3 replanteo ("torre de control", benefit blocks with promise headers) from `manny-docs/Docs/Comunicacion/12_LANDING_COPY_V3.md`. Developed by Lion (Juan handed off the landing to focus on the platform). `main` still serves the previous version; Juan merges this branch when he decides to deploy. When merged, the v3 doc drops its ⚠️ and becomes the record of what's live.
+>
+> **Branch `landing-v4` (2026-07-13, in progress):** visual redesign on top of v3, screen by screen, from reference captures Lion picked (first one: NordLayer hero). Dark hero with split layout, triple-hit headline, proof-point bullets, dual-intent CTAs (waitlist / live demo). Section colors get decided at the end of the pass; everything stays within Manny design guidelines.
+
 ## Stack
 
 - **Astro 5** (static SSG, no SSR) + **TypeScript strict**
@@ -25,12 +29,16 @@ src/
 ├── layouts/BaseLayout.astro   ← <head>, fonts, meta SEO, lang="es-AR"
 ├── styles/tokens.css          ← design tokens, layout primitives, typography helpers
 └── components/
-    ├── Nav.astro              ← logo + wordmark only (no nav links)
-    ├── Hero.astro             ← eyebrow + H1 + lead + "Sumate a la lista →"; centered in viewport on desktop
-    ├── HowItWorks.astro       ← 4 numbered steps with italic violet numerals; steps 01 + 04 close the auto-improvement loop
-    ├── Highlight.astro        ← centered pull quote ("El cuello de botella...")
-    ├── CTAFooter.astro        ← dark block: H2 + WaitlistForm + footer integrado (LinkedIn icon, no Privacy/Terms/Contact)
-    ├── WaitlistForm.astro     ← email pill, light/dark variants, vanilla JS submit
+    ├── Nav.astro              ← STICKY and DARK (v4: same block color as hero/footer, backdrop blur); brand white + descriptor (≥900px) + status chip outline (≥640px) + filled CTA "Sumate a la lista"; wordmark hidden <480px
+    ├── Hero.astro             ← v4 dark split hero (NordLayer-pattern): eyebrow (mobile only) + 3-hit headline (payoff line italic --primary-on-dark) + 4 proof-point bullets + dual CTA (primary "Sumate a la lista" / secondary outline "Pedí una demo en vivo" with data-intent-demo) + risk microcopy. Right: compact Inicio mockup + 2 floating narrative cards (client approval, design order sent)
+    ├── Highlight.astro        ← el reframe: pull quote ("El cuello de botella...") at --text-h2-cta size, alone. Deliberately static: never animate it
+    ├── VistaCentral.astro     ← Bloque A "Todo, de un vistazo." + HTML mockup of the Inicio view. ALIVE: the Vinoteca Peralta chip cycles through the account lifecycle (propuesta → espera → aprobado → producción), 12s CSS loop, pauses on hover, only one animated row on purpose
+    ├── ContextoOmnicanal.astro← Bloques B + C side by side: "El contexto no se pierde." / "Una campaña. Todos los canales."
+    ├── RelacionCliente.astro  ← "El feedback de tus clientes..." + HTML mockup of the client approval screen (white-label: header is the agency's, never "Manny"). ALIVE with hybrid trigger: "Aprobar" is the only clickable element (idle pulse affordance); on click or ~6s after entering viewport, the sequence runs: pressed → chip "Aprobada" + registro "lunes 13 · 14:32" → Valeria's comment slides in. Runs once, stays
+    ├── Disenador.astro        ← "Todo listo para producir? El pedido lo arma Manny." + HTML mockup of the design order (assignee Marcos, freelance). ALIVE: the 4 ✓ pop in sequence on viewport entry + single pulse of "Enviar pedido →"
+    ├── Principio.astro        ← cierre de confianza: "Las decisiones son de tu equipo. Manny las ordena." Deliberately static
+    ├── CTAFooter.astro        ← dark block: H2 + WaitlistForm + footer integrado (LinkedIn icon, no Privacy/Terms/Contact). The mascot peeks over the top edge (`.peek`: cropped MannyMark, decorative, the single brand guiño of the page) and greets with a speech bubble ("No veo las horas de poder ayudarte!") the first time the visitor reaches the bottom of the page (`.peek-bubble`, shown by the BaseLayout script, stays once shown)
+    ├── WaitlistForm.astro     ← email pill + "Quiero una demo en vivo" checkbox (pre-checked by any [data-intent-demo] CTA; visitor can uncheck), light/dark variants, vanilla JS submit. POST sends `intent` (waitlist|demo) + `source` = `formId:via` where via ∈ hero|hero-demo|nav|direct (sessionStorage `manny-cta` set in BaseLayout)
     ├── Wordmark.astro         ← SVG-based "manny!" wordmark (color prop)
     └── MannyMark.astro        ← SVG-based mark (color prop)
 
@@ -49,13 +57,27 @@ api/
 └── waitlist.ts                ← Vercel function: POST email → Supabase insert + Resend contact + confirmation email
 ```
 
-Section order in `index.astro`: **Nav → Hero → HowItWorks → Highlight → CTAFooter**.
+Section order in `index.astro` (v4): **Nav → Hero → Desafio → Dolores → ComoArrancas → Principio → CTAFooter**. The old v3 benefit sections (ContextoOmnicanal, RelacionCliente, Disenador) were removed as redundant with the new dark arc (hero bullets ↔ Dolores ↔ ComoArrancas cover the same ground). Only **Principio** survives as the confidence close, and it's now just the headline "Las decisiones son de tu equipo. Manny las ordena." (body line removed). Those component files plus Highlight/VistaCentral remain in the repo unused; delete once v4 is locked. The mascot peek + speech bubble were removed from CTAFooter.
+
+**Nav CTAs mirror the hero**: outline "Pedí una demo" (`data-cta="nav-demo"`) + filled "Sumate a la lista" (`data-cta="nav"`). The old "Lista de espera abierta" status chip is gone.
+
+**WaitlistForm dual intent (v4)**: the form has an email input + TWO submit buttons — "Sumarme a la lista" (`data-intent="waitlist"`) and "Quiero una demo" (`data-intent="demo"`). The submitter button decides intent (read via `e.submitter.dataset.intent`); no checkbox. All demo CTAs (hero/nav/ComoArrancas) just anchor to `#beta-final` and carry `data-cta` for source attribution — the visitor picks the actual path at the footer. This is how demo-vs-waitlist gets defined. The `data-intent-demo` pre-check mechanism and the whole animation IIFE (choreo/animate/approve) + peek-bubble script were removed from BaseLayout; only CTA attribution remains.
+
+**ComoArrancas.astro** (v4 screen 4, NordLayer "How to deploy" pattern): the FIRST LIGHT section (breaks the dark arc above). Centered eyebrow "Cómo arrancás" + numbered H2 ("Ordená tu agencia en tres pasos." — the "Ordená" closes the loop with the hero's first line) + objection-killer subhead, then 3 steps: violet number square + light laptop wireframe (outline + `::after` base) holding a white mini-card (paso 1 perfil+checks, paso 2 calendar grid, paso 3 client link + approval/order chips) + step title + body. Closing centered CTA "Pedí una demo en vivo" (`data-intent-demo`, pre-checks the form demo checkbox). NOTE: this is onboarding ("how easy to start"), NOT the v3 "proceso en 4 tiempos" pipeline that was killed — different objection, comes after promise/reframe/pains.
+
+**Dolores.astro** (v4 screen 3): 4-column pain row on dark, no section title (hangs from Desafio). Each column: inline line-icon SVG (single color --primary-on-dark) + pain title in second person (bold sans, white) + short body that pivots to the resolution. The 4 pains mirror the 4 hero bullets on purpose (pain ↔ promise symmetry, same as the reference). ⚠️ Pains 2/3/4 thematically overlap the old v3 sections below (ContextoOmnicanal, RelacionCliente, Disenador): decide at the end of the v4 pass whether those survive. The old "proceso en 4 tiempos" (HowItWorks) was removed on purpose — don't bring it back. `Highlight.astro` and `VistaCentral.astro` are out of the flow (absorbed by Desafio: the reframe is its H2 and the big dashboard replaced "Todo, de un vistazo"); the files remain in the repo until the v4 pass finishes, then delete if nothing reclaims them.
+
+**Desafio.astro** (v4 screen 2, NordLayer "The Challenge" pattern): dark section, centered eyebrow "El desafío" + reframe H2 + subhead, then the platform showcase: a window-chrome mockup (traffic lights, sidebar nav, account map) with 4 satellite UI fragments orbiting it (Equipo panel peeking behind on the left ≥1024px, "+ Nueva campaña" dark pill, "Nueva aprobación de Valeria" light pill, and the client-view dark widget "Café Aurora · 2 aprobadas · 1 comentario"). Satellites are aria-hidden; the showcase has one role="img" description. Overlaps between satellites and window content are intentional (composition, not data table).
+
+**Product mockups are HTML/CSS built into the components** (VistaCentral, RelacionCliente, Disenador), styled low-fi after the etapa-1 wireframe (`manny-platform/Docs/mockups/wireframe-etapa-1.dc.html`). The real product doesn't exist yet (rebuild pending), so no screenshots: when it ships, swap mockups for real captures without touching structure. Mockup text follows the same voice rules (voseo, 13px min); client names are fictional (Café Aurora, Vinoteca Peralta, Librería del Sur, Vivero Alsina).
 
 ## Layout patterns
 
 - **`.section-wrap` is the canonical container.** `max-width: 1280px`, `padding-inline: 24px (mobile) / 48px (tablet) / 80px (desktop)`. Use it inside every section so widths align across Nav, Hero, body sections, and CTAFooter inner content. The dark CTAFooter wraps both the CTA grid and the BlackFooter inner with `.section-wrap`.
 
-- **Hero fills the viewport on desktop.** At ≥1024px, `.hero` is `min-height: calc(100vh - var(--nav-height))` with `flex-direction: column` + `justify-content: center` so the eyebrow/H1/lead/link block is vertically centered and the next section appears on scroll. Mobile keeps the regular padding flow (no forced 100vh — looks ugly with the browser bar). `--nav-height: 104px` is defined in tokens.css.
+- **Hero fills the viewport on desktop.** At ≥1024px, `.hero` is `min-height: calc(100vh - var(--nav-height))` with `flex-direction: column` + `justify-content: center` so the eyebrow/H1/lead/link block is vertically centered and the next section appears on scroll. Mobile keeps the regular padding flow (no forced 100vh — looks ugly with the browser bar). `--nav-height: 72px` is defined in tokens.css (slimmed when the nav went sticky); anchor targets get `[id] { scroll-margin-top }` clearance in tokens.css so the sticky nav never covers them.
+
+- **Animation principle: animate the product, not the page.** Movement lives INSIDE the mockups (the "torre de control viva"); Highlight and Principio stay still on purpose, the still/alive contrast is what makes the alive parts read. The only animation JS on the page is one IntersectionObserver script in `BaseLayout.astro` (~25 lines): it adds `.armed` to `[data-choreo]` mockups on load (hides the choreography's payoff states; no JS = full static mockup), `.in-view` when a `[data-animate]`/`[data-choreo]` block enters the viewport (loops start only when someone is watching), and `.played` on click of `[data-approve]` or 6s after in-view. All animation is transform/opacity with reserved widths (grid-area stacking): zero layout shift, zero Lighthouse cost. ⚠️ The global reduced-motion rule in tokens.css forces `animation-duration: 0.01ms`, which turns infinite loops into strobe: every looped animation MUST ship its own `@media (prefers-reduced-motion: reduce) { animation: none }` showing a sensible static state (see chip-cycle and approve-pulse).
 
 - **Editorial typography helpers in `tokens.css`:**
   - `.display-h1` / `.hero-h1`: Instrument Serif, big clamp, `line-height: 0.92`
@@ -71,7 +93,7 @@ Section order in `index.astro`: **Nav → Hero → HowItWorks → Highlight → 
 
 The landing copy MUST respect these:
 
-1. **Voseo argentino always.** "elegís", "diseñás", "aprobás", "vos". Never "tú/tienes/puedes/haces". Source: `brief.md` §5 + `Docs/Comunicacion/04_VOZ_Y_TONO_EXTERNO.md`.
+1. **Español latino neutro (tuteo).** "eliges", "diseñas", "apruebas", "tú". NO voseo ("elegís/aprobás/vos") ni tonada rioplatense ("acá", "recién"). Decisión de Juan (2026-07-22) que reemplaza la regla anterior de voseo argentino. Imperativos: "Súmate", "Pide", "Carga", "Cuéntanos". El `lang` del `<html>` sigue en `es-AR` a nivel técnico pero el copy es neutro.
 
 2. **No em-dashes (—) in user-visible copy.** Juan flagged em-dash as AI-writing tic. Replace with period (split sentences) or comma. OK in aria-labels and code comments.
 
@@ -100,7 +122,7 @@ The landing copy MUST respect these:
    - **Brief / contexto del cliente as the core**: agencies upload notes, briefs, brand guidelines. That's what Manny processes. Not generic content.
    - **The agency keeps control of every decision.** Manny *proposes*, the agency *decides* and *edits*. Avoid "Manny propone tres direcciones" (the specific number isn't always true) — use "Manny propone direcciones".
    - **AI is invisible / the support, not the protagonist.** "Nos apoyamos en la AI para agregar valor, pero el control es de la agencia."
-   - **Auto-improvement loop**: every approved piece feeds back into the brief vivo, and the next proposal gets more faithful. Steps 01 and 04 of HowItWorks now close this loop visibly.
+   - **Auto-improvement loop**: every approved piece feeds back into the perfil (ex "brief vivo"), and the next proposal gets more faithful. In v3 this lives in Bloque B ("se afina con cada pieza aprobada").
 
 ## Current phase
 
@@ -130,9 +152,12 @@ The form is wired to a real backend (since 2026-05-10):
 - **Email provider**: Resend, domain `manny.tools` verified. Single Audience (new Resend API model — no `audienceId` needed). Confirmation email template lives inline in `api/waitlist.ts:19-79` (HTML + plaintext fallback, inline styles for email-client compat).
 - **Env vars** (Production + Preview in Vercel): `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API` (note: not `_KEY`), `RESEND_FROM_EMAIL` (= `Manny <hola@manny.tools>`).
 - **Duplicate handling**: relies on the unique constraint on `email`. On `23505` (Postgres unique violation) the endpoint returns `{ ok: true, alreadySignedUp: true }` and the form shows "Ya estabas en la lista..." instead of resending the confirmation.
+- **Demo intent (v4)**: the endpoint accepts `intent: 'demo'`. Demo requests get a different confirmation email ("Coordinemos una demo de Manny") AND an internal notification email to the team inbox (`WAITLIST_NOTIFY_EMAIL` env var, falls back to the address inside `RESEND_FROM_EMAIL`). The notification fires even when the email was already on the list (that signal matters more than the insert). `source` gets a `demo+` prefix so demo rows are queryable without a schema change. ⚠️ Email flows can't be tested locally (env keys live in Vercel): verify on the first preview deploy.
 - **Architecture choice**: Vercel function suelta en `/api/*.ts`, NOT an Astro endpoint. Keeps Astro as pure SSG. Vercel auto-detects the folder alongside the static build.
 
 ## Pending TODOs
+
+- **Enable Vercel Web Analytics** in the Vercel dashboard (project manny-landing → Analytics). The snippet (`/_vercel/insights/script.js`, PROD-only) already ships in `BaseLayout.astro`; without the dashboard toggle it 404s silently. Once live, read submits by `source` (`cta-waitlist:hero|nav|direct`) in Supabase to see which CTA converts.
 
 - **Submit sitemap to search engines**: register `manny.tools` in [Google Search Console](https://search.google.com/search-console) and [Bing Webmaster Tools](https://www.bing.com/webmasters), submit `https://manny.tools/sitemap-index.xml`. Bing matters specifically — ChatGPT search is powered by Bing. ~5 min each.
 
@@ -154,8 +179,8 @@ The form is wired to a real backend (since 2026-05-10):
 ## Common QA commands
 
 ```bash
-# Voseo check (placeholder "tu@email.com" is OK, otherwise should be empty)
-grep -rEn '\b(tú|tienes|puedes|haces|debes)\b' src/ --include='*.astro'
+# Voseo check: el copy es tuteo neutro, así que NO debe haber voseo (vacío)
+grep -rEni '\b(vos|elegís|diseñás|aprobás|cargás|pedí|sumate|ordená|coordiná|ganá|subí|armá|compartí|producí|contanos|trabajás|probá|revisá|acá|recién)\b' src/ --include='*.astro'
 
 # Em-dash check (none in user-visible copy; OK in code comments)
 grep -rn "—" src/components/ src/pages/ src/layouts/ --include='*.astro'

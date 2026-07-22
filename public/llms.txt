@@ -1,44 +1,47 @@
 # Manny
 
-> Manny es el pipeline de producción para agencias creativas estudios de contenido y equipos de comunicación in-house. Subís el brief, las notas y el contexto del cliente; Manny procesa esa información y la usa para generar piezas específicas para cada marca. Lo que funciona pasa a ser contexto de futuras campañas. La agencia siempre conserva el control de cada decisión.
+> Manny es la torre de control para agencias creativas, estudios de contenido y freelancers que manejan varios clientes: ordena el perfil de cada marca, el calendario, las aprobaciones y los pedidos a diseño en un solo lugar. El equipo decide; Manny propone y ordena.
 
 ## Estado
 
-Pre-launch. Lista de espera abierta en https://manny.tools.
+Pre-launch. Lista de espera abierta en https://manny.tools. Quien quiera se puede sumar a la lista o pedir una demo en vivo.
+
+## Cómo se empieza
+
+Sin implementación ni consultores: se carga el primer cliente y se arranca el mismo día. Tres pasos:
+
+1. **Carga el perfil del cliente.** Se suben las notas de reunión, los lineamientos de la marca y lo que ya haya; Manny los estructura en un perfil vivo.
+2. **Arma la campaña y su calendario.** Manny propone direcciones a partir del perfil; el equipo elige, edita y aprueba el plan.
+3. **Comparte y produce.** El cliente aprueba con un link y los pedidos salen armados a diseño. Todo queda registrado.
+
+## Qué resuelve
+
+El cuello de botella de una agencia no es la creatividad: es la coordinación. El trabajo de cada cliente vive disperso en cinco herramientas que no se hablan, y el estado real de cada cuenta hay que reconstruirlo de memoria. Manny lo ordena en un solo lugar: se ve qué se propuso, qué espera aprobación y qué está en producción, para todas las cuentas a la vez.
 
 ## Para quién es
 
 - Agencias creativas que coordinan la producción de varios clientes en paralelo.
-- Estudios de contenido y diseño con pipeline fragmentado entre cinco o más herramientas.
-- Equipos de comunicación in-house de marcas medianas o grandes.
-- Emprendedores que coordinan su propia marca y proveedores creativos.
+- Estudios de contenido y diseño con el trabajo fragmentado entre cinco o más herramientas.
+- Freelancers y community managers que manejan varias cuentas y hoy improvisan el flujo con Asana, Drive y chats.
 
 ## Cómo funciona
 
-El núcleo es el contexto del cliente. La agencia sube el brief, las notas de la reunión, las decisiones tomadas, los lineamientos de marca. Esa información es lo que Manny procesa para generar piezas específicas, no contenido genérico.
-
-El flujo:
-
-1. Cargás el brief y las notas. Manny arma un brief vivo a partir de eso.
-2. Manny propone direcciones a partir del brief. La agencia elige y edita: la decisión nunca queda del lado de Manny.
-3. Calendarizás: armás la grilla con las piezas conectadas al brief.
-4. Diseñás el template de la campaña una vez. Manny se hace cargo de la producción repetitiva. La agencia aprueba pieza por pieza con un link.
-
-## Cómo aprende
-
-Lo que funciona pasa a ser contexto de futuras campañas. El brief vivo de cada cliente se enriquece con cada pieza aprobada, y la próxima propuesta llega con más fidelidad a la marca. La agencia no tiene que volver a explicar el contexto cada vez: el contexto se acumula y mejora con el uso.
+- **El contexto no se pierde.** El perfil de cada marca vive en un solo lugar y se afina con cada pieza aprobada. El equipo arranca cada día con toda la información que necesita.
+- **Una campaña, todos los canales.** La campaña se piensa una vez y Manny la baja a cada canal con su formato y su tono: el post de Instagram, el artículo de LinkedIn, el mail. Es omnicanalidad de producción y contexto, no de publicación: Manny no programa ni publica en redes.
+- **El feedback del cliente, en un mismo lugar.** La agencia comparte el calendario o las piezas con un link. El cliente mira, comenta y aprueba en cualquier momento; todo queda registrado y trazable.
+- **El pedido a diseño lo arma Manny.** Del calendario aprobado sale el pedido completo: textos finales, formatos por canal, referencias y contexto de marca. El diseñador no cambia de herramienta: recibe todo junto y listo para arrancar.
 
 ## Posicionamiento
 
-- **El control es de la agencia.** Manny propone, la agencia decide. La AI es el motor que aporta velocidad y consistencia, no el protagonista que reemplaza el criterio creativo.
-- **La AI es invisible.** El sujeto siempre es Manny y el equipo, no "la AI". Manny no se vende como "potenciado por inteligencia artificial". Se vende como el sistema que hace que la información del cliente deje de perderse.
-- **El contexto vive en un solo lugar** y viaja de principio a fin del pipeline (no se pierde entre Notion, Drive, WhatsApp, Canva y la cabeza del dueño).
-- **El equipo creativo diseña el template una vez.** Manny reproduce para cada cliente, sin que el diseñador tenga que cambiar su flujo de Figma.
+- **Las decisiones son del equipo.** Manny propone, ordena y prepara. El equipo elige, edita y aprueba. Lo contrario del "se hace solo" de otras herramientas.
+- **La AI es invisible.** El sujeto siempre es Manny y el equipo, no "la AI". Manny no se vende como "potenciado por inteligencia artificial": se vende como el sistema que hace que la información del cliente deje de perderse.
+- **La torre de control es la categoría.** No es una herramienta de diseño, ni un publicador de redes, ni un CRM: es el lugar central desde donde la agencia maneja todas sus cuentas.
 
 ## Glosario interno
 
-- **Pieza**: una unidad de contenido publicable (post, story, reel, banner). Manny no usa "lote" ni "batch" en comunicación externa.
-- **Brief vivo**: el documento de contexto del cliente que se actualiza con cada pieza aprobada y mejora la fidelidad de futuras propuestas.
+- **Pieza**: una unidad de contenido publicable (post, story, reel, mail). Manny no usa "lote" ni "batch" en comunicación externa.
+- **Perfil del cliente**: la memoria viva de cada marca (identidad, tono, audiencia, restricciones, lo que funcionó). Se enriquece con cada pieza aprobada y mejora la fidelidad de futuras propuestas.
+- **Pedido a diseño**: lo que recibe el diseñador para producir: textos finales, formatos por canal, referencias y contexto de marca.
 - **Agencia creativa** (no "agencia de marketing"): Manny no cubre paid media ni performance.
 
 ## Links

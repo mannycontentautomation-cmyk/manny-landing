@@ -1,0 +1,359 @@
+---
+// La relación con tu cliente: promesa + mockup de la pantalla de aprobación
+// (lo que ve el cliente de la agencia al abrir el link).
+// White-label: el cliente nunca ve "Manny"; el encabezado es de la agencia.
+//
+// Coreografía con trigger híbrido (la demo del producto sin producto):
+// el botón "Aprobar" es el ÚNICO elemento clickeable, con pulso de affordance.
+// Al click, o solo a los ~6s de entrar al viewport (data-choreo en el script
+// de BaseLayout), corre la secuencia: pressed → chip "Aprobada" + registro
+// con día y hora → entra el comentario de Valeria. Corre una vez y queda.
+// Sin JS no se agrega .armed y el mockup se ve completo y estático.
+---
+
+<section class="benefit">
+  <div class="section-wrap benefit-grid">
+    <div class="benefit-copy">
+      <h2 class="display-h2 benefit-h2">
+        El feedback de tus clientes,
+        <span class="italic-accent">todo en un mismo lugar.</span>
+      </h2>
+      <p class="lead benefit-lead">
+        Le pasás el calendario o las piezas con un link. Tu cliente mira,
+        comenta y aprueba.
+      </p>
+    </div>
+
+    <div
+      class="mockup"
+      role="img"
+      aria-label="Pantalla de aprobación que ve el cliente: mira las piezas del mes, comenta y aprueba, y cada aprobación queda registrada con día y hora"
+      data-choreo
+    >
+      <div class="mockup-head">
+        <span class="mockup-brand">Estudio Norte</span>
+        <span class="mockup-meta">Tu contenido de julio</span>
+      </div>
+
+      <ul class="piece-list">
+        <li class="piece">
+          <span class="piece-thumb"></span>
+          <span class="piece-main">
+            <span class="piece-name">Post · jueves 9</span>
+            <span class="piece-note">La cosecha llega al salón</span>
+          </span>
+          <span class="piece-chip" data-state="ok">Aprobada</span>
+        </li>
+        <li class="piece">
+          <span class="piece-thumb"></span>
+          <span class="piece-main">
+            <span class="piece-name">Reel · sábado 11</span>
+            <span class="piece-note">Detrás del mostrador</span>
+          </span>
+          <span class="piece-chip" data-state="ok">Aprobada</span>
+        </li>
+        <li class="piece">
+          <span class="piece-thumb"></span>
+          <span class="piece-main">
+            <span class="piece-name">Story · lunes 13</span>
+            <span class="piece-note">Anuncio de horarios</span>
+          </span>
+          <span class="piece-end">
+            <span class="piece-actions">
+              <span class="piece-btn piece-btn-primary" data-approve>Aprobar</span>
+              <span class="piece-btn">Comentar</span>
+            </span>
+            <span class="piece-result">
+              <span class="piece-chip" data-state="ok">Aprobada</span>
+              <span class="piece-stamp">lunes 13 · 14:32</span>
+            </span>
+          </span>
+        </li>
+      </ul>
+
+      <div class="comment">
+        <span class="comment-author">Valeria (cliente)</span>
+        <span class="comment-text">¿Va con el logo nuevo? Si es así, aprobado.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .benefit {
+    padding-block: var(--space-16);
+  }
+
+  @media (min-width: 1024px) {
+    .benefit {
+      padding-block: var(--space-24);
+    }
+  }
+
+  .benefit-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .benefit-grid {
+      grid-template-columns: 1.1fr 1fr;
+      gap: var(--space-20);
+    }
+  }
+
+  .benefit-h2 {
+    margin: 0 0 var(--space-6);
+  }
+
+  .benefit-lead {
+    margin: 0;
+    max-width: 560px;
+    color: var(--neutral-800);
+  }
+
+  /* --- Mockup: pantalla de aprobación ---------------------------------- */
+
+  .mockup {
+    background-color: var(--background);
+    border: 1px solid var(--neutral-300);
+    border-radius: 12px;
+    overflow: hidden;
+    font-family: var(--font-body);
+  }
+
+  .mockup-head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--space-6);
+    border-bottom: 1px solid var(--neutral-200);
+  }
+
+  .mockup-brand {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--foreground);
+  }
+
+  .mockup-meta {
+    font-size: 13px;
+    color: var(--neutral-600);
+    margin-left: auto;
+  }
+
+  .piece-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .piece {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-6);
+  }
+
+  .piece + .piece {
+    border-top: 1px solid var(--neutral-200);
+  }
+
+  .piece-thumb {
+    width: 44px;
+    height: 44px;
+    border-radius: 8px;
+    background-color: var(--neutral-200);
+    flex-shrink: 0;
+  }
+
+  .piece-main {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+  }
+
+  .piece-name {
+    font-size: var(--text-body-small);
+    font-weight: 500;
+    color: var(--foreground);
+    white-space: nowrap;
+  }
+
+  .piece-note {
+    font-size: 13px;
+    color: var(--neutral-600);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .piece-chip {
+    display: inline-flex;
+    align-items: center;
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: var(--radius-pill);
+    padding: 4px 12px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .piece-chip[data-state='ok'] {
+    color: #059669;
+    border: 1px solid rgba(5, 150, 105, 0.35);
+  }
+
+  /* --- Coreografía de aprobación --------------------------------------- */
+  /* Botones y desenlace (chip + registro) apilados en la misma celda de
+     grid: al cambiar de estado la fila no se mueve (cero layout shift). */
+
+  .piece-end {
+    display: inline-grid;
+    margin-left: auto;
+    flex-shrink: 0;
+    align-items: center;
+  }
+
+  .piece-actions {
+    grid-area: 1 / 1;
+    justify-self: end;
+    display: inline-flex;
+    gap: 8px;
+    transition: opacity var(--duration-slow) var(--ease-default);
+  }
+
+  .piece-result {
+    grid-area: 1 / 1;
+    justify-self: end;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 3px;
+    opacity: 0;
+    transform: translateY(4px);
+    pointer-events: none;
+    transition:
+      opacity var(--duration-slow) var(--ease-default),
+      transform var(--duration-slow) var(--ease-default);
+  }
+
+  .piece-stamp {
+    font-size: 13px;
+    color: var(--neutral-600);
+    white-space: nowrap;
+  }
+
+  .piece-btn {
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: var(--radius-pill);
+    padding: 5px 14px;
+    border: 1px solid var(--neutral-300);
+    color: var(--neutral-800);
+    white-space: nowrap;
+  }
+
+  .piece-btn-primary {
+    background-color: var(--foreground);
+    border-color: var(--foreground);
+    color: var(--background);
+    transition: transform 150ms var(--ease-default);
+  }
+
+  /* Affordance: el único elemento clickeable pulsa suave hasta que se usa */
+  [data-approve] {
+    cursor: pointer;
+  }
+
+  .mockup.in-view:not(.played) [data-approve] {
+    animation: approve-pulse 4s ease-in-out infinite;
+  }
+
+  @keyframes approve-pulse {
+    0%, 16%, 100% {
+      transform: none;
+      box-shadow: 0 0 0 0 rgba(68, 39, 255, 0);
+    }
+    8% {
+      transform: scale(1.05);
+      box-shadow: 0 0 0 6px rgba(68, 39, 255, 0.14);
+    }
+  }
+
+  /* Secuencia (dispara .played): pressed → sale Aprobar/Comentar →
+     entra el chip con su registro → entra el comentario de Valeria. */
+  .mockup.played [data-approve] {
+    transform: scale(0.96);
+  }
+
+  .mockup.played .piece-actions {
+    opacity: 0;
+    pointer-events: none;
+    transition-delay: 200ms;
+  }
+
+  .mockup.played .piece-result {
+    opacity: 1;
+    transform: none;
+    transition-delay: 550ms;
+  }
+
+  /* El reduced-motion global (0.01ms) haría estrobo con el loop del pulso:
+     se apaga acá. Los cambios de estado quedan, instantáneos. */
+  @media (prefers-reduced-motion: reduce) {
+    .mockup.in-view:not(.played) [data-approve] {
+      animation: none;
+    }
+  }
+
+  .comment {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin: 0 var(--space-6) var(--space-5);
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--neutral-200);
+    border-radius: 10px;
+    border-top-left-radius: 2px;
+    transition:
+      opacity 400ms var(--ease-default),
+      transform 400ms var(--ease-default);
+  }
+
+  /* Con JS (.armed) el comentario espera su turno en la secuencia;
+     ocupa su lugar siempre (solo opacity/transform: cero layout shift). */
+  .mockup.armed .comment {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  .mockup.armed.played .comment {
+    opacity: 1;
+    transform: none;
+    transition-delay: 1200ms;
+  }
+
+  .comment-author {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--neutral-600);
+  }
+
+  .comment-text {
+    font-size: var(--text-body-small);
+    color: var(--foreground);
+  }
+
+  @media (max-width: 479px) {
+    .piece-note {
+      display: none;
+    }
+  }
+</style>

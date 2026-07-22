@@ -3,30 +3,216 @@ import MannyMark from './MannyMark.astro';
 import Wordmark from './Wordmark.astro';
 ---
 
+<!-- Filtro de refraccion para el glass del nav (tecnica de jh3y: turbulencia
+     + displacement sobre el backdrop). Solo se aplica en navegadores que
+     soportan url() en backdrop-filter (Chrome/Firefox); Safari usa el blur. -->
+<svg class="nav-glass-defs" aria-hidden="true" focusable="false" width="0" height="0">
+  <filter id="nav-glass" x="-30%" y="-30%" width="160%" height="160%" color-interpolation-filters="sRGB">
+    <feTurbulence type="fractalNoise" baseFrequency="0.009 0.011" numOctaves="2" seed="17" result="noise" />
+    <feGaussianBlur in="noise" stdDeviation="1.1" result="softNoise" />
+    <feDisplacementMap in="SourceGraphic" in2="softNoise" scale="26" xChannelSelector="R" yChannelSelector="G" />
+  </filter>
+</svg>
+
 <nav class="nav" aria-label="Principal">
-  <div class="section-wrap nav-inner">
+  <div class="nav-island">
     <a href="/" class="nav-brand" aria-label="Manny, inicio">
-      <MannyMark color="blue" size={40} />
-      <Wordmark color="blue" height={32} />
+      <MannyMark color="white" size={26} />
+      <span class="nav-word">
+        <Wordmark color="white" height={22} />
+      </span>
     </a>
+    <span class="nav-links">
+      <a href="#beta-final" class="nav-demo" data-cta="nav-demo">Pide una demo en vivo</a>
+      <a href="#beta-final" class="nav-cta" data-cta="nav">Súmate a la lista</a>
+    </span>
   </div>
 </nav>
 
 <style>
+  /* Isla flotante: el nav ya no es una barra full-width sino una pildora
+     centrada que flota sobre el contenido (sticky). Ocupa su lugar en el
+     flujo, asi empuja el hero hacia abajo el espacio que necesita. */
   .nav {
-    padding-block: var(--space-8);
+    position: sticky;
+    top: 16px;
+    z-index: 50;
+    display: flex;
+    justify-content: center;
+    padding-inline: var(--space-4);
+    /* Aire arriba: la isla no queda pegada al borde superior. */
+    margin-block: 32px 0;
   }
 
-  .nav-inner {
-    display: flex;
+  /* Efecto glass (aprox. del efecto Glass del Figma: fill #646464 20%, luz
+     desde arriba). El shader de refraccion/dispersion no existe en CSS; se
+     aproxima con fill translucido gris + blur + saturate y un borde de luz
+     superior (inset highlight). Angosta: hug al contenido. */
+  .nav-island {
+    display: inline-flex;
     align-items: center;
+    /* Aire entre el logo y el par de botones (el par entre si queda junto).
+       Chico en mobile, generoso en desktop. */
+    gap: clamp(28px, 7vw, 88px);
+    height: 58px;
+    padding: 0 12px 0 24px;
+    border-radius: var(--radius-pill);
+    background-color: rgba(120, 120, 120, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    /* Base cross-browser (Safari incluido): frost + saturacion. En Chrome lo
+       pisa el @supports de abajo (glass); en Safari es lo unico que se ve, por
+       eso se mantiene. */
+    -webkit-backdrop-filter: blur(20px) saturate(180%);
+    backdrop-filter: blur(20px) saturate(180%);
+    max-width: 100%;
+  }
+
+  /* Progressive enhancement: refraccion real (lensing en los bordes) donde
+     url() en backdrop-filter esta soportado. El `not (-webkit-hyphens: none)`
+     excluye Safari, que reporta soporte pero no lo aplica y romperia el blur.
+     Menos blur aca porque el displacement ya distorsiona. */
+  @supports (backdrop-filter: url("#nav-glass")) and (not (-webkit-hyphens: none)) {
+    .nav-island {
+      backdrop-filter: url("#nav-glass") blur(5px) saturate(180%) brightness(1.05);
+    }
+  }
+
+  .nav-glass-defs {
+    position: absolute;
+    width: 0;
+    height: 0;
+    pointer-events: none;
   }
 
   .nav-brand {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     text-decoration: none;
     flex-shrink: 0;
   }
+
+  /* En pantallas muy angostas la isla se queda con la mascota sola para no
+     desbordar. */
+  .nav-word {
+    display: none;
+  }
+
+  @media (min-width: 420px) {
+    .nav-word {
+      display: block;
+    }
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-shrink: 0;
+  }
+
+  .nav-demo {
+    display: none;
+    align-items: center;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    color: #EFEFEC;
+    text-decoration: none;
+    border: 1px solid rgba(239, 239, 236, 0.28);
+    border-radius: var(--radius-pill);
+    height: 38px;
+    padding-inline: 18px;
+    white-space: nowrap;
+    transition: border-color var(--duration-normal) var(--ease-default);
+  }
+
+  .nav-demo:hover {
+    border-color: rgba(239, 239, 236, 0.6);
+  }
+
+  /* La isla muestra los dos CTAs desde 560px; abajo queda solo el lleno. */
+  @media (min-width: 560px) {
+    .nav-demo {
+      display: inline-flex;
+    }
+  }
+
+  .nav-cta {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--font-body);
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--primary-foreground);
+    background-color: var(--primary);
+    border-radius: var(--radius-pill);
+    height: 38px;
+    padding-inline: 20px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color var(--duration-normal) var(--ease-default);
+  }
+
+  .nav-cta:hover {
+    background-color: var(--primary-hover);
+  }
+
+  /* --- Estado sobre el card claro (Como arrancas) ------------------------
+     Cuando el nav pisa la seccion clara al scrollear, el logo (img SVG
+     blanco) y el boton outline se vuelven oscuros para leerse. El boton
+     lleno violeta funciona sobre ambos, no cambia. Toggle por JS abajo. */
+  /* :global(img) porque los img vienen de MannyMark/Wordmark (otro scope
+     de Astro); sin global, el selector scopeado al cid del nav no los matchea. */
+  .nav-brand :global(img) {
+    transition: filter 0.25s var(--ease-default);
+  }
+
+  .nav-demo {
+    transition:
+      color 0.25s var(--ease-default),
+      border-color var(--duration-normal) var(--ease-default);
+  }
+
+  .nav--over-light .nav-brand :global(img) {
+    filter: invert(1);
+  }
+
+  .nav--over-light .nav-demo {
+    color: var(--foreground);
+    border-color: rgba(25, 23, 29, 0.3);
+  }
+
+  .nav--over-light .nav-demo:hover {
+    border-color: rgba(25, 23, 29, 0.6);
+  }
 </style>
+
+<script>
+  // El nav flota sobre todo el contenido; sobre el card claro de "Como
+  // arrancas" el logo/boton blancos se pierden. Detectamos cuando la isla
+  // pisa el card y togglear .nav--over-light (colores oscuros). rAF-throttled.
+  const nav = document.querySelector('.nav');
+  const island = document.querySelector('.nav-island');
+  const card = document.querySelector('.arrancas-card');
+
+  if (nav && island && card) {
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const i = island.getBoundingClientRect();
+      const c = card.getBoundingClientRect();
+      const over = c.top < i.bottom && c.bottom > i.top;
+      nav.classList.toggle('nav--over-light', over);
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  }
+</script>

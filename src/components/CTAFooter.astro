@@ -15,10 +15,15 @@ const year = new Date().getFullYear();
 
       <div class="cta-form-col">
         <p class="cta-sub">
-          Estamos terminando los últimos detalles. Dejá tu mail y te
-          escribimos en cuanto puedas entrar.
+          Estamos terminando los últimos detalles. Te avisamos cuando
+          puedas empezar a usarla, o coordinamos una demo en vivo.
         </p>
-        <WaitlistForm variant="dark" cta="Sumarme a la lista" formId="cta-waitlist" />
+        <WaitlistForm
+          variant="dark"
+          cta="Sumarme a la lista"
+          demoCta="Quiero una demo"
+          formId="cta-waitlist"
+        />
       </div>
     </div>
   </div>
@@ -50,9 +55,12 @@ const year = new Date().getFullYear();
 </section>
 
 <style>
+  /* Un poco mas oscuro que el resto de la pagina (--block-dark #19171D) y sin
+     grid: separa el cierre del resto. */
   .cta-block {
-    background: var(--block-dark);
+    background: #100E15;
     color: #EFEFEC;
+    border-top: 1px solid var(--grid-line);
   }
 
   .cta-section {

@@ -1,0 +1,387 @@
+- generic [active] [ref=f7e1]:
+  - banner [ref=f7e2]:
+    - generic [ref=f7e3]:
+      - link "home" [ref=f7e4] [cursor=pointer]:
+        - /url: /
+        - img "transform9 logo" [ref=f7e5]
+        - img "transform9 logo" [ref=f7e6]
+      - button "menu" [ref=f7e7] [cursor=pointer]:
+        - generic [ref=f7e8]:
+          - img "menu icon" [ref=f7e9]
+          - img "close icon" [ref=f7e10]
+  - generic [ref=f7e12]:
+    - generic:
+      - img "Unicorn Studio Scene"
+    - generic [ref=f7e14]:
+      - heading "Maximize Every Call with a Custom AI Agent" [level=1] [ref=f7e15]:
+        - generic [ref=f7e16]: Maximize
+        - generic [ref=f7e17]: Every
+        - generic [ref=f7e18]: Call
+        - generic [ref=f7e20]:
+          - generic [ref=f7e21]: with
+          - generic [ref=f7e22]: a
+        - generic [ref=f7e23]:
+          - generic [ref=f7e24]: Custom
+          - generic [ref=f7e25]: AI
+          - generic [ref=f7e26]: Agent
+      - generic [ref=f7e27]:
+        - generic [ref=f7e28]:
+          - generic [ref=f7e29]: "Who We Are:"
+          - paragraph [ref=f7e30]: Uniquely built AI voice agents for specialty physician practices that eliminate hold times, reduce call center costs, and fill physician schedules 24/7
+        - generic [ref=f7e31]:
+          - generic [ref=f7e32]: Test Our AI Agent
+          - form "Email Form" [ref=f7e35]:
+            - generic [ref=f7e36]:
+              - textbox "Your phone number" [ref=f7e37]
+              - link "Get a call" [ref=f7e38] [cursor=pointer]:
+                - /url: "#"
+    - generic [ref=f7e42]:
+      - generic [ref=f7e43]:
+        - img "The Orthopaedic Center logo" [ref=f7e44]
+        - img "Resurgens Orthopaedics logo" [ref=f7e45]
+        - img "North Florida Surgeons logo" [ref=f7e46]
+        - img "Semmes Murphey logo" [ref=f7e47]
+        - img "Andrews Sports Medicine & Orthopaedic Center logo" [ref=f7e48]
+        - img "TOC logo" [ref=f7e49]
+        - img "Florida Orthopaedic Institute logo" [ref=f7e50]
+        - img "Hughston Clinic logo" [ref=f7e51]
+        - img "US Orthopedic Partners logo" [ref=f7e52]
+        - img "United Musculoskeletal Partners logo" [ref=f7e53]
+        - img "Orthopaedic Solutions Management logo" [ref=f7e54]
+        - img "Central Dermatology Center logo" [ref=f7e55]
+      - generic [ref=f7e56]:
+        - img "The Orthopaedic Center logo" [ref=f7e57]
+        - img "Resurgens Orthopaedics logo" [ref=f7e58]
+        - img "North Florida Surgeons logo" [ref=f7e59]
+        - img "Semmes Murphey logo" [ref=f7e60]
+        - img "Andrews Sports Medicine & Orthopaedic Center logo" [ref=f7e61]
+        - img "TOC logo" [ref=f7e62]
+        - img "Florida Orthopaedic Institute logo" [ref=f7e63]
+        - img "Hughston Clinic logo" [ref=f7e64]
+        - img "US Orthopedic Partners logo" [ref=f7e65]
+        - img "United Musculoskeletal Partners logo" [ref=f7e66]
+        - img "Orthopaedic Solutions Management logo" [ref=f7e67]
+        - img "Central Dermatology Center logo" [ref=f7e68]
+    - generic [ref=f7e70]:
+      - generic [ref=f7e71]: Proven Results. Powerful Impact.
+      - generic [ref=f7e73]:
+        - generic [ref=f7e74]:
+          - generic [ref=f7e75]: "01"
+          - generic [ref=f7e76]:
+            - generic [ref=f7e77]: 2,000+
+            - generic [ref=f7e79]: Providers
+        - generic [ref=f7e83]:
+          - generic [ref=f7e84]: "02"
+          - generic [ref=f7e85]:
+            - generic [ref=f7e86]: 92%
+            - generic [ref=f7e88]: Patient Satisfaction
+        - generic [ref=f7e92]:
+          - generic [ref=f7e93]: "03"
+          - generic [ref=f7e94]:
+            - generic [ref=f7e95]: 8:1
+            - generic [ref=f7e97]: Cost Savings vs. Human Agents
+        - generic [ref=f7e101]:
+          - generic [ref=f7e102]: "04"
+          - generic [ref=f7e103]:
+            - generic [ref=f7e104]: 80%
+            - generic [ref=f7e106]: Decrease in Call Abandonment
+    - generic [ref=f7e110]:
+      - generic [ref=f7e111]:
+        - generic [ref=f7e112]: Featured Testimonials
+        - heading "Don’t Just Take Our Word for It" [level=2] [ref=f7e115]
+      - region "carousel" [ref=f7e116]:
+        - group "1 of 3" [ref=f7e118]:
+          - generic [ref=f7e119]:
+            - generic [ref=f7e120]:
+              - img "A photo of Tammy Jackson"
+              - generic [ref=f7e121]:
+                - generic [ref=f7e122]: Tammy Jackson
+                - generic [ref=f7e124]: CAO, The Orthopaedic Center
+            - generic [ref=f7e126]:
+              - paragraph [ref=f7e127]: “The Transform9 team has been one of our best vendor relationships. Their people know what they're doing, hear what we're saying, and even look out for things we don't even know to look out for. It's been a great relationship.”
+              - generic [ref=f7e128]:
+                - generic [ref=f7e129]:
+                  - generic [ref=f7e130]: 80%
+                  - generic [ref=f7e131]: decrease in call abandonment from 20% to 3% in 1 month
+                - generic [ref=f7e132]:
+                  - generic [ref=f7e133]: 90%
+                  - generic [ref=f7e134]: decrease in patient hold times
+              - img "The Orthopaedic Center logo" [ref=f7e135]
+              - generic [ref=f7e136]:
+                - generic [ref=f7e137]: "01"
+                - generic [ref=f7e138]: / 03
+        - button "previous slide" [ref=f7e140] [cursor=pointer]
+        - button "next slide" [ref=f7e141] [cursor=pointer]
+    - generic [ref=f7e142]:
+      - generic [ref=f7e144]:
+        - generic [ref=f7e145]: How It Works
+        - generic [ref=f7e147]:
+          - generic [ref=f7e148]: AI that
+          - generic [ref=f7e151]:
+            - generic [ref=f7e152]: Speaks
+            - generic [ref=f7e154]: Schedules
+            - generic [ref=f7e156]: Supports Patients
+      - generic [ref=f7e168]: Built specifically for high-volume medical practices, our platform streamlines operations, enhances patient access, and drives revenue growth.
+    - generic [ref=f7e171]:
+      - generic [ref=f7e286]:
+        - generic [ref=f7e287]:
+          - generic [ref=f7e288]: Our Products
+          - generic [ref=f7e290]:
+            - heading "Scheduling Agent" [level=2] [ref=f7e291]
+            - generic [ref=f7e292]: "#1"
+        - generic [ref=f7e294]:
+          - generic [ref=f7e295]:
+            - generic [ref=f7e296]: "01"
+            - generic [ref=f7e297]:
+              - generic [ref=f7e298]: Comprehensive Scheduling
+              - generic [ref=f7e299]: Supports scheduling, rescheduling, cancelling, and confirming all appointment types — office visits, procedures, and ancillaries — including multiple visits in a single conversation.
+          - generic [ref=f7e300]:
+            - generic [ref=f7e301]: "02"
+            - generic [ref=f7e302]:
+              - generic [ref=f7e303]: New Patient Intake With Insurance Verification
+              - generic [ref=f7e304]: Collect patient info and verify insurance before the visit—saving your staff time and reducing delays.
+          - generic [ref=f7e305]:
+            - generic [ref=f7e306]: "03"
+            - generic [ref=f7e307]:
+              - generic [ref=f7e308]: Industry Leading Scheduling Rules Engine
+              - generic [ref=f7e309]: AI follows your practice’s custom scheduling rules 100% accurately every time, reducing costly human agent training time and mistakes.
+          - generic [ref=f7e310]:
+            - generic [ref=f7e311]: "04"
+            - generic [ref=f7e312]:
+              - generic [ref=f7e313]: Fill Schedules and Maximize Revenue
+              - generic [ref=f7e314]: Automatically fill physician schedules to desired capacity, preventing missed opportunities for appointments.
+      - generic [ref=f7e316]:
+        - generic [ref=f7e317]:
+          - tablist [ref=f7e318]:
+            - tab "Patient-to-Provider Messaging Routes patient inquiries to the appropriate provider or department." [selected] [ref=f7e319] [cursor=pointer]:
+              - generic [ref=f7e320]: Patient-to-Provider Messaging
+              - generic [ref=f7e321]: Routes patient inquiries to the appropriate provider or department.
+            - tab "Prescription Refill Management" [ref=f7e322] [cursor=pointer]
+            - tab "Department-Specific Patient Cases" [ref=f7e324] [cursor=pointer]
+          - tabpanel "Patient-to-Provider Messaging Routes patient inquiries to the appropriate provider or department." [ref=f7e327]
+        - generic [ref=f7e330]:
+          - heading "Tasking Agent" [level=2] [ref=f7e331]
+          - generic [ref=f7e332]: "#2"
+      - generic [ref=f7e333]:
+        - generic [ref=f7e335]:
+          - heading "Navigator Agent" [level=2] [ref=f7e336]: NavigatorAgent
+          - generic [ref=f7e337]: "#3"
+        - generic [ref=f7e338]:
+          - tablist [ref=f7e339]:
+            - tab "Smart Call Routing Efficiently directs calls to the right department or staff—no lengthy phone tree needed." [selected] [ref=f7e340] [cursor=pointer]:
+              - generic [ref=f7e341]: Smart Call Routing
+              - generic [ref=f7e342]: Efficiently directs calls to the right department or staff—no lengthy phone tree needed.
+            - tab "Answers FAQs Answers common patient questions about locations, providers, billing, and services." [ref=f7e343] [cursor=pointer]:
+              - generic [ref=f7e344]: Answers FAQs
+              - generic [ref=f7e345]: Answers common patient questions about locations, providers, billing, and services.
+            - tab "After-Hours Support Ensures patients receive assistance even when your office is closed." [ref=f7e346] [cursor=pointer]:
+              - generic [ref=f7e347]: After-Hours Support
+              - generic [ref=f7e348]: Ensures patients receive assistance even when your office is closed.
+            - tab "The Voice of Your Brand Choose your practice's custom AI agent name and from 4,000+ unique voice options" [ref=f7e349] [cursor=pointer]:
+              - generic [ref=f7e350]: The Voice of Your Brand
+              - generic [ref=f7e351]: Choose your practice's custom AI agent name and from 4,000+ unique voice options
+          - tabpanel "Smart Call Routing Efficiently directs calls to the right department or staff—no lengthy phone tree needed." [ref=f7e353]
+      - generic [ref=f7e356]:
+        - generic [ref=f7e357]:
+          - generic [ref=f7e358]:
+            - heading "Outreach Agent" [level=2] [ref=f7e359]: OutreachAgent
+            - generic [ref=f7e360]: "#4"
+          - generic [ref=f7e361]: Proactive Patient Engagement & Follow-Ups
+        - generic [ref=f7e362]:
+          - generic [ref=f7e363]:
+            - generic [ref=f7e364]:
+              - generic [ref=f7e365]: Patient Recall & Surveys
+              - generic [ref=f7e366]: "01"
+            - generic [ref=f7e367]: Reconnect with past patients and collect feedback to improve care.
+          - generic [ref=f7e368]:
+            - generic [ref=f7e369]:
+              - generic [ref=f7e370]: Targeted Campaigns
+              - generic [ref=f7e371]: "02"
+            - generic [ref=f7e372]: Send customized messages about new services, promotions, and updates.
+          - generic [ref=f7e373]:
+            - generic [ref=f7e374]:
+              - generic [ref=f7e375]: Last-Minute Appointment Slot Fill
+              - generic [ref=f7e376]: "03"
+            - generic [ref=f7e377]: Proactively reach out to backfill cancellations and open appointment slots.
+          - generic [ref=f7e378]:
+            - generic [ref=f7e379]:
+              - generic [ref=f7e380]: Outbound Scheduling Support
+              - generic [ref=f7e381]: "04"
+            - generic [ref=f7e382]: Manage referred patient calls and recover incomplete inquiries automatically.
+          - generic [ref=f7e383]:
+            - generic [ref=f7e384]:
+              - generic [ref=f7e385]: Appointment Reminders
+              - generic [ref=f7e386]: "05"
+            - generic [ref=f7e387]: Reduce no-shows with timely appointment and prescription refill nudges.
+    - generic [ref=f7e501]:
+      - generic [ref=f7e502]:
+        - generic [ref=f7e503]: Designed for Your Specialty
+        - tablist [ref=f7e508]:
+          - tab "Orthopedics & physical therapy" [selected] [ref=f7e509]
+          - tab "Neurology" [ref=f7e511]
+          - tab "Ophthalmology & optometry" [ref=f7e513]
+          - tab "Podiatry" [ref=f7e515]
+          - tab "Gastroenterology" [ref=f7e517]
+          - tab "Dermatology" [ref=f7e519]
+          - tab "Cardiology" [ref=f7e521]
+          - tab "Dentistry & oral surgery" [ref=f7e523]
+          - tab "Urology" [ref=f7e525]
+          - tab "OB/GYN" [ref=f7e527]
+          - tab "ENT" [ref=f7e529]
+          - tab "Primary care" [ref=f7e531]
+          - tab "Pediatrics" [ref=f7e533]
+      - generic [ref=f7e535]: And other specialties
+    - generic [ref=f7e538]:
+      - generic [ref=f7e539]:
+        - heading "Built to Connect" [level=2] [ref=f7e540]
+        - generic [ref=f7e541]:
+          - generic [ref=f7e542]: Connect instantly with your EMR, phone system, and workflows—no extra overhead, no missed steps.
+          - generic [ref=f7e543]: Native Integrations
+      - generic [ref=f7e544]:
+        - generic [ref=f7e545]:
+          - generic [ref=f7e546]:
+            - link "Athena logo" [ref=f7e547] [cursor=pointer]:
+              - /url: https://marketplace.athenahealth.com/product/transform9
+              - img "Athena logo"
+            - link "nextgen logo" [ref=f7e548] [cursor=pointer]:
+              - /url: https://www.nextgen.com/solutions/marketplace/transform9
+              - img "nextgen logo"
+            - link "ModMed logo" [ref=f7e549] [cursor=pointer]:
+              - /url: https://synapsys.modmed.com/s/partner-app/a9YVV00000003lt2AA/transform9
+              - img "ModMed logo"
+            - generic [ref=f7e550]:
+              - img "Epic logo"
+            - generic [ref=f7e551]:
+              - img "Greenway Health logo"
+          - generic [ref=f7e552]:
+            - link "Athena logo" [ref=f7e553] [cursor=pointer]:
+              - /url: https://marketplace.athenahealth.com/product/transform9
+              - img "Athena logo"
+            - link "nextgen logo" [ref=f7e554] [cursor=pointer]:
+              - /url: https://www.nextgen.com/solutions/marketplace/transform9
+              - img "nextgen logo"
+            - link "ModMed logo" [ref=f7e555] [cursor=pointer]:
+              - /url: https://synapsys.modmed.com/s/partner-app/a9YVV00000003lt2AA/transform9
+              - img "ModMed logo"
+            - generic [ref=f7e556]:
+              - img "Epic logo"
+            - generic [ref=f7e557]:
+              - img "Greenway Health logo"
+        - generic [ref=f7e558]:
+          - generic [ref=f7e559]:
+            - generic [ref=f7e560]:
+              - img "Nextech logo"
+            - generic [ref=f7e561]:
+              - img "Veradigm logo"
+            - generic [ref=f7e562]:
+              - img "eClinicalWorks logo"
+            - generic [ref=f7e563]:
+              - img "systemedx logo"
+          - generic [ref=f7e564]:
+            - generic [ref=f7e565]:
+              - img "Nextech logo"
+            - generic [ref=f7e566]:
+              - img "Veradigm logo"
+            - generic [ref=f7e567]:
+              - img "eClinicalWorks logo"
+            - generic [ref=f7e568]:
+              - img "systemedx logo"
+    - generic [ref=f7e571]:
+      - generic [ref=f7e572]:
+        - heading "Secure. Compliant. Trusted." [level=2] [ref=f7e573]
+        - generic [ref=f7e574]: We meet the highest standards of HIPAA compliance in healthcare data protection—so your patient information stays safe, secure, and compliant.
+      - generic [ref=f7e575]:
+        - generic [ref=f7e576]:
+          - generic [ref=f7e577]:
+            - img "FedRAMP 20x"
+          - generic [ref=f7e578]:
+            - img "NIST 800-30 Risk Assessment"
+        - generic [ref=f7e579]:
+          - generic [ref=f7e580]:
+            - img "SOC 2 Type 2 Compliant logo"
+          - generic [ref=f7e581]:
+            - img "NIST 800-53 Moderate Controls"
+    - generic [ref=f7e696]:
+      - generic [ref=f7e697]:
+        - generic [ref=f7e698]:
+          - generic [ref=f7e699]:
+            - generic [ref=f7e700]: AI Agents
+            - generic [ref=f7e701]:
+              - generic [ref=f7e702]: Scheduling
+              - generic [ref=f7e703]: Tasking
+              - generic [ref=f7e704]: Navigator
+              - generic [ref=f7e705]: Outreach
+          - generic [ref=f7e706]:
+            - generic [ref=f7e707]: Quick Start
+            - generic [ref=f7e708]: Live in 60 Days
+        - heading "Skip the Hold Music. Forever." [level=2] [ref=f7e709]
+      - generic [ref=f7e710]:
+        - generic [ref=f7e711]:
+          - generic [ref=f7e712]: Test Our AI Agent
+          - form "Email Form" [ref=f7e715]:
+            - generic [ref=f7e716]:
+              - textbox "Your phone number" [ref=f7e717]
+              - link "Get a call" [ref=f7e718] [cursor=pointer]:
+                - /url: "#"
+        - generic [ref=f7e721]:
+          - generic [ref=f7e722]: See It in Action
+          - link "Book a Demo" [ref=f7e723] [cursor=pointer]:
+            - /url: /book-a-demo
+    - generic [ref=f7e727]:
+      - generic [ref=f7e728]:
+        - generic [ref=f7e729]: Transform9 improves access, generates savings, and increases efficiency for both your practice and your patients.
+        - generic [ref=f7e731]:
+          - generic [ref=f7e732]:
+            - generic [ref=f7e733]:
+              - generic [ref=f7e734]: Navigate
+              - generic [ref=f7e735]:
+                - link "Home" [ref=f7e736] [cursor=pointer]:
+                  - /url: /
+                - link "Compare" [ref=f7e738] [cursor=pointer]:
+                  - /url: /compare
+                - link "Blog" [ref=f7e740] [cursor=pointer]:
+                  - /url: /blog
+                - link "Case Studies" [ref=f7e742] [cursor=pointer]:
+                  - /url: /case-studies
+                - link "Careers" [ref=f7e744] [cursor=pointer]:
+                  - /url: https://apply.workable.com/transform9/
+            - generic [ref=f7e746]:
+              - generic [ref=f7e747]: Integrate
+              - generic [ref=f7e748]:
+                - link "Athenahealth" [ref=f7e749] [cursor=pointer]:
+                  - /url: https://marketplace.athenahealth.com/product/transform9
+                - link "ModMed" [ref=f7e751] [cursor=pointer]:
+                  - /url: https://synapsys.modmed.com/s/partner-app/a9YVV00000003lt2AA/transform9
+                - link "NextGen" [ref=f7e753] [cursor=pointer]:
+                  - /url: https://www.nextgen.com/solutions/marketplace/transform9
+            - generic [ref=f7e755]:
+              - generic [ref=f7e756]: Follow
+              - generic [ref=f7e757]:
+                - link "LinkedIn" [ref=f7e758] [cursor=pointer]:
+                  - /url: https://www.linkedin.com/company/transform9
+                - link "YouTube" [ref=f7e760] [cursor=pointer]:
+                  - /url: https://www.youtube.com/@Transform9
+          - generic [ref=f7e762]:
+            - link "Login" [ref=f7e763] [cursor=pointer]:
+              - /url: https://portal.transform9.com/
+            - link "Book a Demo" [ref=f7e765] [cursor=pointer]:
+              - /url: /book-a-demo
+      - generic [ref=f7e767]:
+        - generic [ref=f7e769]:
+          - generic [ref=f7e770]: Contact Us
+          - link "info@transform9.com" [ref=f7e771] [cursor=pointer]:
+            - /url: mailto:info@transform9.com
+        - generic [ref=f7e774]:
+          - generic [ref=f7e775]: Stay Updated
+          - form "Subscribe Form" [ref=f7e777]:
+            - textbox "Enter email" [ref=f7e779]
+            - button "Subscribe" [disabled] [ref=f7e781]
+  - generic [ref=f7e785]:
+    - generic [ref=f7e786]: © 2026 Transform9. All Rights Reserved.
+    - generic [ref=f7e787]:
+      - link "HIPAA" [ref=f7e788] [cursor=pointer]:
+        - /url: /hipaa
+      - link "Terms of Use" [ref=f7e789] [cursor=pointer]:
+        - /url: /terms-of-use
+      - link "Privacy Policy" [ref=f7e790] [cursor=pointer]:
+        - /url: /privacy-policy

@@ -1,117 +1,504 @@
 ---
+// Hero v5 (comp Landing_design): partido. Izquierda: titular en dos golpes
+// (el segundo, el payoff, en italica violeta) + bajada + doble CTA + microcopy
+// de riesgo. Derecha: la vista de Inicio con dos tarjetas narrativas montadas.
+const CUENTAS = [
+  { cliente: 'Café Aurora', estado: 'En producción', tone: 'info' },
+  { cliente: 'Vinoteca Peralta', estado: 'Espera aprobación', tone: 'warn' },
+  { cliente: 'Librería del Sur', estado: 'Propuesta enviada', tone: 'neutral' },
+];
 ---
 
 <section class="hero" id="producto">
-  <div class="section-wrap">
-    <p class="eyebrow hero-eyebrow">Lista de espera abierta</p>
+  <div class="section-wrap section-wrap--fluid hero-grid">
+    <div class="hero-copy">
+      <h1 class="hero-h1">
+        <span class="hero-line" data-typewriter aria-hidden="true"><span class="hero-type"
+          >Ordena cada cuenta.</span><span class="hero-caret"></span></span>
+        <span class="sr-only">Ordena cada cuenta. Coordina cada entrega.</span>
+        <span class="hero-payoff">Gana tiempo para la creatividad.</span>
+      </h1>
 
-    <h1 class="hero-h1">
-      Ordenamos la información,<br />
-      <span class="italic-accent">tu equipo hace lo suyo.</span>
-    </h1>
+      <p class="hero-sub">
+        Manny es la plataforma donde tu agencia gestiona clientes, contenido
+        y equipo, sin perder nada en el camino.
+      </p>
 
-    <p class="lead hero-lead">
-      Hoy producís contenido saltando entre cinco herramientas que no se
-      hablan. Manny conecta el brief, el calendario y las piezas en un
-      solo flujo. El contexto de cada cliente no se pierde en el camino.
-    </p>
+      <div class="hero-ctas">
+        <a href="#beta-final" class="cta-primary" data-cta="hero">
+          Súmate a la lista
+        </a>
+        <a href="#beta-final" class="cta-secondary" data-cta="hero-demo">
+          Pide una demo en vivo
+        </a>
+      </div>
 
-    <a href="#beta-final" class="hero-link">
-      Sumate a la lista
-      <span class="hero-link-arrow" aria-hidden="true">→</span>
-    </a>
+      <p class="hero-risk">
+        Sin compromiso. Cuéntanos cómo trabajas hoy y te mostramos cómo Manny
+        puede adaptarse a tu agencia.
+      </p>
+    </div>
+
+    <div
+      class="hero-visual"
+      role="img"
+      aria-label="La vista de Inicio de Manny con las cuentas de la agencia y, flotando encima, una aprobación de cliente recién llegada y un pedido a diseño enviado"
+    >
+      <div class="mini-app">
+        <div class="mini-head">
+          <span class="mini-title">Inicio</span>
+          <span class="mini-meta">Todas tus cuentas</span>
+        </div>
+        <ul class="mini-rows">
+          {CUENTAS.map((c) => (
+            <li class="mini-row">
+              <span class="mini-avatar"></span>
+              <span class="mini-client">{c.cliente}</span>
+              <span class="mini-chip" data-tone={c.tone}>
+                <span class="mini-dot"></span>
+                {c.estado}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="float-card float-approval">
+        <span class="fc-check" aria-hidden="true">✓</span>
+        <span class="fc-main">
+          <span class="fc-title">Valeria (cliente)</span>
+          <span class="fc-body">Aprobó Story · lunes 13</span>
+        </span>
+      </div>
+
+      <div class="float-card float-order">
+        <span class="fc-avatar" aria-hidden="true"></span>
+        <span class="fc-main">
+          <span class="fc-title">Pedido a diseño</span>
+          <span class="fc-body">Marcos · freelance</span>
+        </span>
+        <span class="fc-chip">Enviado</span>
+      </div>
+    </div>
   </div>
 </section>
 
 <style>
+  /* Transparente a proposito: deja ver el grid del fondo de .page. */
   .hero {
-    padding-top: var(--space-20);
-    padding-bottom: var(--space-16);
+    color: #EFEFEC;
+    padding-block: clamp(40px, 6vh, 72px);
   }
 
+  /* En desktop el hero ocupa el alto del viewport y centra el contenido:
+     El desafio recien aparece al scrollear. El nav (isla) ocupa 90px de flujo
+     arriba (margin-top 32 + isla 58), por eso se resta. */
   @media (min-width: 1024px) {
     .hero {
-      min-height: calc(100vh - var(--nav-height));
+      min-height: calc(100vh - 90px);
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-top: 0;
-      padding-bottom: 0;
+      align-items: center;
+    }
+
+    .hero > .section-wrap {
+      width: 100%;
     }
   }
 
-  .hero-eyebrow {
-    margin-bottom: var(--space-8);
+  .hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: clamp(48px, 6vw, 88px);
+    align-items: center;
   }
 
   @media (min-width: 1024px) {
-    .hero-eyebrow {
-      margin-bottom: var(--space-10);
+    .hero-grid {
+      /* Texto un poco mas ancho que el grafico, como en el comp */
+      grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
     }
   }
+
+  /* --- Izquierda: copy -------------------------------------------------- */
 
   .hero-h1 {
-    /* Slightly tighter max font than display-h1 so 2 lines fit in container */
     font-family: var(--font-display);
-    font-size: clamp(44px, 8vw, 120px);
-    line-height: var(--leading-tight);
-    letter-spacing: var(--tracking-display);
-    font-weight: 500;
-    color: var(--foreground);
-    text-wrap: pretty;
-    margin: 0 0 var(--space-10);
+    /* 5.2vw = ~78px a 1512. Es el maximo con el que la frase larga del
+       typewriter ("Coordina cada entrega.", 640px de columna) entra en una
+       linea: a 84px se pasa. */
+    font-size: clamp(40px, 5.2vw, 96px);
+    line-height: 1.04;
+    letter-spacing: -0.01em;
+    font-weight: 400;
+    color: #FFFFFF;
+    margin: 0;
   }
 
-  @media (min-width: 1024px) {
-    .hero-h1 {
-      margin-bottom: var(--space-12);
-    }
+  .hero-line,
+  .hero-payoff {
+    display: block;
   }
 
-  .hero-lead {
-    margin: 0 0 var(--space-10);
-    max-width: 880px;
+  /* Reserva una linea de alto pase lo que pase, asi el borrado a vacio no
+     colapsa la altura (el caret la sostiene igual). */
+  .hero-line {
+    min-height: 1.04em;
   }
 
-  @media (min-width: 1024px) {
-    .hero-lead {
-      margin-bottom: var(--space-12);
-    }
+  .hero-payoff {
+    font-style: italic;
+    color: var(--primary-on-dark);
   }
 
-  .hero-link {
+  .hero-caret {
+    display: inline-block;
+    width: 3px;
+    height: 0.74em;
+    margin-left: 0.06em;
+    background-color: var(--primary-on-dark);
+    vertical-align: -0.06em;
+    animation: hero-blink 1.05s steps(1) infinite;
+  }
+
+  @keyframes hero-blink {
+    0%, 50% { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
+  }
+
+  /* Sin animacion (reduced-motion) el caret no aporta: texto estatico limpio */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-caret { display: none; }
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .hero-sub {
+    margin: var(--space-6) 0 0;
+    max-width: 30em;
+    font-family: var(--font-body);
+    font-size: var(--text-lead);
+    line-height: 1.5;
+    color: rgba(239, 239, 236, 0.72);
+  }
+
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+  }
+
+  .cta-primary,
+  .cta-secondary {
     display: inline-flex;
     align-items: center;
-    gap: 10px;
+    justify-content: center;
     font-family: var(--font-body);
-    font-size: 17px;
+    font-size: 16px;
     font-weight: 500;
-    color: var(--primary-foreground);
-    background-color: var(--primary);
-    padding: 14px 28px;
+    height: 48px;
+    padding-inline: 26px;
     border-radius: var(--radius-pill);
     text-decoration: none;
-    transition:
-      background-color var(--duration-normal) var(--ease-default),
-      transform var(--duration-normal) var(--ease-default);
-    width: max-content;
+    white-space: nowrap;
+    transition: background-color var(--duration-normal) var(--ease-default),
+      border-color var(--duration-normal) var(--ease-default);
   }
 
-  .hero-link:hover {
+  .cta-primary {
+    color: var(--primary-foreground);
+    background-color: var(--primary);
+  }
+
+  .cta-primary:hover {
     background-color: var(--primary-hover);
-    transform: translateY(-1px);
   }
 
-  .hero-link:active {
-    background-color: var(--primary-active);
-    transform: translateY(0);
+  .cta-secondary {
+    color: #EFEFEC;
+    border: 1px solid rgba(239, 239, 236, 0.28);
   }
 
-  .hero-link-arrow {
-    transition: transform var(--duration-normal) var(--ease-default);
+  .cta-secondary:hover {
+    border-color: rgba(239, 239, 236, 0.6);
   }
 
-  .hero-link:hover .hero-link-arrow {
-    transform: translateX(3px);
+  .hero-risk {
+    margin: var(--space-5) 0 0;
+    max-width: 34em;
+    font-family: var(--font-body);
+    font-size: var(--text-body-small);
+    line-height: 1.5;
+    color: rgba(239, 239, 236, 0.5);
+  }
+
+  /* --- Derecha: la vista de Inicio + tarjetas --------------------------- */
+
+  .hero-visual {
+    position: relative;
+    width: 100%;
+    justify-self: center;
+    /* Aire para que las tarjetas montadas no se recorten */
+    padding-block: var(--space-12);
+  }
+
+  @media (min-width: 1024px) {
+    .hero-visual {
+      /* Centrado en su columna (la mitad derecha), no pegado al borde: asi
+         las tarjetas montadas quedan simetricas y no se salen hacia el borde
+         de la pantalla. */
+      justify-self: center;
+      max-width: 560px;
+    }
+  }
+
+  .mini-app {
+    background-color: var(--background);
+    border-radius: 18px;
+    overflow: hidden;
+    font-family: var(--font-body);
+    box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+  }
+
+  .mini-head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+    border-bottom: 1px solid var(--neutral-200);
+  }
+
+  .mini-title {
+    font-size: var(--text-body);
+    font-weight: 700;
+    color: var(--foreground);
+  }
+
+  .mini-meta {
+    font-size: 13px;
+    color: var(--neutral-800);
+  }
+
+  .mini-rows {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .mini-row {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-5);
+  }
+
+  .mini-row + .mini-row {
+    border-top: 1px solid var(--neutral-200);
+  }
+
+  .mini-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: var(--neutral-200);
+    flex-shrink: 0;
+  }
+
+  .mini-client {
+    font-size: var(--text-body-small);
+    font-weight: 500;
+    color: var(--foreground);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
+  }
+
+  .mini-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--neutral-800);
+    border: 1px solid var(--neutral-300);
+    border-radius: var(--radius-pill);
+    padding: 3px 10px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .mini-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background-color: var(--neutral-500);
+    flex-shrink: 0;
+  }
+
+  .mini-chip[data-tone='info'] .mini-dot { background-color: var(--primary); }
+  .mini-chip[data-tone='warn'] .mini-dot { background-color: #B45309; }
+
+  /* --- Tarjetas narrativas ---------------------------------------------- */
+
+  .float-card {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    background-color: var(--background);
+    border-radius: 12px;
+    padding: var(--space-3) var(--space-4);
+    font-family: var(--font-body);
+    box-shadow: 0 4px 30px rgba(25, 23, 29, 0.15), 0 16px 40px rgba(0, 0, 0, 0.4);
+  }
+
+  .float-approval {
+    top: 0;
+    right: 0;
+  }
+
+  .float-order {
+    bottom: 0;
+    left: 0;
+  }
+
+  @media (min-width: 768px) {
+    .float-approval {
+      right: calc(-1 * var(--space-6));
+    }
+
+    .float-order {
+      left: calc(-1 * var(--space-6));
+    }
+  }
+
+  .fc-check {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: rgba(5, 150, 105, 0.12);
+    color: #047857;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .fc-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: var(--neutral-200);
+    flex-shrink: 0;
+  }
+
+  .fc-main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .fc-title {
+    font-size: 13px;
+    color: var(--neutral-800);
+  }
+
+  .fc-body {
+    font-size: var(--text-body-small);
+    font-weight: 500;
+    color: var(--foreground);
+    white-space: nowrap;
+  }
+
+  .fc-chip {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    border-radius: var(--radius-pill);
+    padding: 3px 10px;
+    margin-left: var(--space-2);
+    white-space: nowrap;
+  }
+
+  /* --- Animacion sutil: el producto vivo --------------------------------- */
+
+  /* Anillo que late en el punto "En produccion": lee como estado en vivo.
+     Un ::after que se expande y desvanece (solo transform/opacity). */
+  .mini-chip[data-tone='info'] .mini-dot {
+    position: relative;
+  }
+
+  .mini-chip[data-tone='info'] .mini-dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-color: var(--primary);
+    animation: mini-dot-pulse 2.8s var(--ease-default) infinite;
+  }
+
+  @keyframes mini-dot-pulse {
+    0% { transform: scale(1); opacity: 0.55; }
+    70%, 100% { transform: scale(2.8); opacity: 0; }
+  }
+
+  /* Flote muy leve de las tarjetas narrativas, en contrafase. */
+  .float-approval { animation: float-a 6s ease-in-out infinite; }
+  .float-order { animation: float-b 7s ease-in-out infinite; }
+
+  @keyframes float-a {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+  }
+
+  @keyframes float-b {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(4px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mini-chip[data-tone='info'] .mini-dot::after,
+    .float-approval,
+    .float-order { animation: none; }
   }
 </style>
+
+<script>
+  // Typewriter del primer renglon del H1: escribe una frase, la borra y
+  // escribe la otra, en loop. El H1 ya trae la primera frase en el HTML, asi
+  // que sin JS (o con reduced-motion) queda estatica y legible. El texto real
+  // para lectores de pantalla vive en .sr-only (este span es aria-hidden).
+  const line = document.querySelector('[data-typewriter] .hero-type');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (line && !reduce.matches) {
+    const phrases = ['Ordena cada cuenta.', 'Coordina cada entrega.'];
+    const TYPE = 62, ERASE = 30, HOLD = 2100, GAP = 420;
+    let pi = 0, ci = phrases[0].length;
+
+    const erase = () => {
+      if (ci > 0) { ci--; line.textContent = phrases[pi].slice(0, ci); setTimeout(erase, ERASE); }
+      else { pi = (pi + 1) % phrases.length; setTimeout(type, GAP); }
+    };
+    const type = () => {
+      const w = phrases[pi];
+      if (ci < w.length) { ci++; line.textContent = w.slice(0, ci); setTimeout(type, TYPE); }
+      else { setTimeout(erase, HOLD); }
+    };
+
+    // Arranca sosteniendo la frase inicial y despues la borra.
+    setTimeout(erase, HOLD);
+  }
+</script>

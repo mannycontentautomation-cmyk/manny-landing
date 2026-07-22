@@ -1,0 +1,261 @@
+---
+// El diseñador: el pedido lo arma Manny. Promesa + mockup del pedido
+// que sale armado del calendario aprobado.
+const ITEMS = [
+  { label: 'Textos finales', value: 'Caption + títulos por pieza', done: true },
+  { label: 'Formatos', value: 'Post 1:1 · Story 9:16 · Reel', done: true },
+  { label: 'Referencias', value: '3 adjuntas por la agencia', done: true },
+  { label: 'Contexto de marca', value: 'Tono, paleta y restricciones', done: true },
+];
+---
+
+<section class="benefit">
+  <div class="section-wrap benefit-grid">
+    <div
+      class="mockup"
+      role="img"
+      aria-label="Pedido a diseño armado por Manny: textos finales, formatos por canal, referencias y contexto de marca, listos uno tras otro"
+      data-animate
+    >
+      <div class="mockup-head">
+        <span class="mockup-title">Pedido a diseño</span>
+        <span class="mockup-meta">Café Aurora · calendario de julio</span>
+      </div>
+
+      <ul class="order-list">
+        {ITEMS.map((item, i) => (
+          <li class="order-item">
+            <span class="order-check" aria-hidden="true" style={`--i: ${i}`}>✓</span>
+            <span class="order-main">
+              <span class="order-label">{item.label}</span>
+              <span class="order-value">{item.value}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="order-foot">
+        <span class="order-assignee">
+          <span class="order-avatar"></span>
+          Para: Marcos · diseño freelance
+        </span>
+        <span class="order-send">Enviar pedido →</span>
+      </div>
+    </div>
+
+    <div class="benefit-copy">
+      <h2 class="display-h2 benefit-h2">
+        Todo listo para producir?
+        <span class="italic-accent">El pedido lo arma Manny.</span>
+      </h2>
+      <p class="lead benefit-lead">
+        Del calendario aprobado sale el pedido completo: textos finales,
+        formatos por canal, referencias y contexto. Le llega a tu equipo
+        listo para arrancar.
+      </p>
+    </div>
+  </div>
+</section>
+
+<style>
+  .benefit {
+    padding-block: var(--space-16);
+  }
+
+  @media (min-width: 1024px) {
+    .benefit {
+      padding-block: var(--space-24);
+    }
+  }
+
+  .benefit-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-12);
+    align-items: center;
+  }
+
+  @media (min-width: 1024px) {
+    .benefit-grid {
+      grid-template-columns: 1fr 1.1fr;
+      gap: var(--space-20);
+    }
+  }
+
+  /* En mobile el copy va antes que el mockup */
+  .benefit-copy {
+    order: -1;
+  }
+
+  @media (min-width: 1024px) {
+    .benefit-copy {
+      order: 0;
+    }
+  }
+
+  .benefit-h2 {
+    margin: 0 0 var(--space-6);
+  }
+
+  .benefit-lead {
+    margin: 0;
+    max-width: 560px;
+    color: var(--neutral-800);
+  }
+
+  /* --- Mockup: pedido a diseño ----------------------------------------- */
+
+  .mockup {
+    background-color: var(--background);
+    border: 1px solid var(--neutral-300);
+    border-radius: 12px;
+    overflow: hidden;
+    font-family: var(--font-body);
+  }
+
+  .mockup-head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-4);
+    padding: var(--space-5) var(--space-6);
+    border-bottom: 1px solid var(--neutral-200);
+  }
+
+  .mockup-title {
+    font-size: var(--text-body-large);
+    font-weight: 700;
+    color: var(--foreground);
+  }
+
+  .mockup-meta {
+    font-size: 13px;
+    color: var(--neutral-600);
+    margin-left: auto;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .order-list {
+    list-style: none;
+    margin: 0;
+    padding: var(--space-2) 0;
+  }
+
+  .order-item {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-3) var(--space-6);
+  }
+
+  .order-check {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: rgba(5, 150, 105, 0.12);
+    color: #059669;
+    font-size: 13px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* --- El pedido se arma solo: checks en secuencia + pulso del envío ---- */
+  /* Corre una vez al entrar al viewport. Sin JS los checks quedan visibles. */
+
+  .mockup.in-view .order-check {
+    animation: check-pop 350ms var(--ease-default) backwards;
+    animation-delay: calc(var(--i) * 160ms);
+  }
+
+  @keyframes check-pop {
+    0% {
+      opacity: 0;
+      transform: scale(0.4);
+    }
+    70% {
+      transform: scale(1.12);
+    }
+    100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+
+  .mockup.in-view .order-send {
+    animation: send-pulse 500ms ease-out 900ms 1;
+  }
+
+  @keyframes send-pulse {
+    0%, 100% { transform: none; }
+    50% { transform: scale(1.06); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mockup.in-view .order-check,
+    .mockup.in-view .order-send {
+      animation: none;
+    }
+  }
+
+  .order-main {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    min-width: 0;
+  }
+
+  .order-label {
+    font-size: var(--text-body-small);
+    font-weight: 500;
+    color: var(--foreground);
+  }
+
+  .order-value {
+    font-size: 13px;
+    color: var(--neutral-600);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .order-foot {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-6);
+    border-top: 1px solid var(--neutral-200);
+  }
+
+  .order-assignee {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--neutral-800);
+    min-width: 0;
+  }
+
+  .order-avatar {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: var(--neutral-200);
+    flex-shrink: 0;
+  }
+
+  .order-send {
+    margin-left: auto;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--primary-foreground);
+    background-color: var(--primary);
+    border-radius: var(--radius-pill);
+    padding: 6px 14px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+</style>

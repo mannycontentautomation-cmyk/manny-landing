@@ -1,0 +1,169 @@
+- generic [active] [ref=f1e1]:
+  - generic [ref=f1e2]:
+    - navigation "Principal" [ref=f1e3]:
+      - generic [ref=f1e4]:
+        - link "Manny, inicio" [ref=f1e5] [cursor=pointer]:
+          - /url: /
+        - link "Sumate a la lista" [ref=f1e7] [cursor=pointer]:
+          - /url: "#beta-final"
+    - main [ref=f1e8]:
+      - generic [ref=f1e10]:
+        - generic [ref=f1e11]:
+          - paragraph [ref=f1e12]: La torre de control de tu agencia
+          - heading "Ordená cada cuenta. Coordiná cada entrega. Ganá tiempo para la creatividad." [level=1] [ref=f1e13]
+          - list [ref=f1e14]:
+            - listitem [ref=f1e15]: Gestioná tus clientes, coordiná tu equipo y generá el contenido en un solo lugar
+            - listitem [ref=f1e17]: Creás el perfil de tus cuentas una única vez, Manny alimenta cada generación sin que pierdas información
+            - listitem [ref=f1e19]: Para el feedback, un solo link
+            - listitem [ref=f1e21]: Del pedido a producción, se encarga Manny
+          - generic [ref=f1e23]:
+            - link "Sumate a la lista" [ref=f1e24] [cursor=pointer]:
+              - /url: "#beta-final"
+              - text: Sumate a la lista
+              - generic [ref=f1e25]: →
+            - link "Pedí una demo en vivo" [ref=f1e26] [cursor=pointer]:
+              - /url: "#beta-final"
+          - paragraph [ref=f1e27]: Sin compromiso. Hasta una charla informal nos serviría para saber cómo ayudarte.
+        - img "La vista de Inicio de Manny con las cuentas de la agencia y, flotando encima, una aprobación de cliente recién llegada y un pedido a diseño enviado" [ref=f1e28]:
+          - generic [ref=f1e29]:
+            - generic [ref=f1e30]:
+              - generic [ref=f1e31]: Inicio
+              - generic [ref=f1e32]: Todas tus cuentas
+            - list [ref=f1e33]:
+              - listitem [ref=f1e34]:
+                - generic [ref=f1e36]: Café Aurora
+                - generic [ref=f1e37]: En producción
+              - listitem [ref=f1e39]:
+                - generic [ref=f1e41]: Vinoteca Peralta
+                - generic [ref=f1e42]: Espera aprobación
+              - listitem [ref=f1e44]:
+                - generic [ref=f1e46]: Librería del Sur
+                - generic [ref=f1e47]: Propuesta enviada
+          - generic [ref=f1e49]:
+            - generic [ref=f1e50]: ✓
+            - generic [ref=f1e51]:
+              - generic [ref=f1e52]: Valeria (cliente)
+              - generic [ref=f1e53]: Aprobó Story · lunes 13
+          - generic [ref=f1e54]:
+            - generic [ref=f1e56]:
+              - generic [ref=f1e57]: Pedido a diseño
+              - generic [ref=f1e58]: Marcos · freelance
+            - generic [ref=f1e59]: Enviado
+      - generic [ref=f1e61]:
+        - generic [ref=f1e62]:
+          - paragraph [ref=f1e63]: El desafío
+          - heading "El cuello de botella no es la creatividad. Es la coordinación." [level=2] [ref=f1e64]
+          - paragraph [ref=f1e65]: Manny centraliza la relación con tus clientes, el perfil de cada marca, la planificación y el contenido, el feedback y los pedidos a diseño en una sola plataforma. Visibilidad de punta a punta.
+        - 'img "La plataforma Manny completa: el mapa de cuentas con su navegación y, alrededor, el panel de equipo, una campaña nueva por crear, una aprobación recién llegada y la vista del cliente con sus piezas aprobadas" [ref=f1e66]':
+          - generic [ref=f1e73]:
+            - generic [ref=f1e74]:
+              - generic [ref=f1e75]: Inicio
+              - generic [ref=f1e76]: Todas tus cuentas
+            - list [ref=f1e77]:
+              - listitem [ref=f1e78]:
+                - generic [ref=f1e80]: Café Aurora
+                - generic [ref=f1e82]: En producción
+              - listitem [ref=f1e84]:
+                - generic [ref=f1e86]: Vinoteca Peralta
+                - generic [ref=f1e88]: Espera aprobación
+              - listitem [ref=f1e90]:
+                - generic [ref=f1e92]: Librería del Sur
+                - generic [ref=f1e94]: Propuesta enviada
+              - listitem [ref=f1e96]:
+                - generic [ref=f1e98]: Vivero Alsina
+                - generic [ref=f1e100]: Aprobado
+          - generic [ref=f1e102]:
+            - generic [ref=f1e103]: +
+            - text: Nueva campaña
+          - generic [ref=f1e104]: Nueva aprobación de Valeria
+          - generic [ref=f1e106]:
+            - generic [ref=f1e107]: Café Aurora
+            - generic [ref=f1e108]: Tu contenido de julio
+            - generic [ref=f1e109]:
+              - generic [ref=f1e110]: 2 aprobadas
+              - generic [ref=f1e111]: ·
+              - text: 1 comentario
+      - list [ref=f1e114]:
+        - listitem [ref=f1e115]:
+          - heading "Tu trabajo está repartido en demasiadas herramientas" [level=3] [ref=f1e120]
+          - paragraph [ref=f1e121]: Manny junta el proceso completo en una sola plataforma.
+        - listitem [ref=f1e122]:
+          - heading "La información estratégica de las cuentas está dispersa" [level=3] [ref=f1e127]
+          - paragraph [ref=f1e128]: El perfil de cada cliente guarda identidad, tono y estrategia. Se carga una vez y se afina con cada aprobación.
+        - listitem [ref=f1e129]:
+          - heading "El feedback llega por un mensaje, un mail y una llamada al mismo tiempo" [level=3] [ref=f1e133]
+          - paragraph [ref=f1e134]: Audios, chats y capturas se vuelven un solo link donde tu cliente mira, comenta y aprueba, todo queda registrado.
+        - listitem [ref=f1e135]:
+          - heading "Los pedidos a producción están siempre incompletos" [level=3] [ref=f1e139]
+          - paragraph [ref=f1e140]: "Del calendario aprobado, Manny arma los pedidos completos: textos, formatos, referencias y contexto. El diseñador arranca sin necesidad de preguntar más."
+      - generic [ref=f1e142]:
+        - generic [ref=f1e143]:
+          - paragraph [ref=f1e144]: Cómo arrancás
+          - heading "Ordená tu agencia en tres pasos." [level=2] [ref=f1e145]
+          - paragraph [ref=f1e146]: Una sola plataforma, todas las herramientas. Cargás tu primer cliente y arrancás a trabajar el mismo día.
+        - list [ref=f1e147]:
+          - listitem [ref=f1e148]:
+            - generic [ref=f1e149]:
+              - generic [ref=f1e150]: "1"
+              - generic [ref=f1e152]:
+                - generic [ref=f1e153]: Perfil · Café Aurora
+                - list [ref=f1e154]:
+                  - listitem [ref=f1e155]:
+                    - generic [ref=f1e156]: ✓
+                    - text: Identidad
+                  - listitem [ref=f1e157]:
+                    - generic [ref=f1e158]: ✓
+                    - text: Tono
+                  - listitem [ref=f1e159]:
+                    - generic [ref=f1e160]: ✓
+                    - text: Audiencia
+            - heading "Cargá el perfil del cliente" [level=3] [ref=f1e161]
+            - paragraph [ref=f1e162]: Subí el brief, las notas de reunión y los lineamientos de la marca. Manny los estructura en un perfil vivo.
+          - listitem [ref=f1e163]:
+            - generic [ref=f1e164]:
+              - generic [ref=f1e165]: "2"
+              - generic [ref=f1e167]:
+                - generic [ref=f1e168]: Calendario · julio
+                - generic [ref=f1e169]:
+                  - generic [ref=f1e170]: 12 piezas
+                  - generic [ref=f1e171]: 3 canales
+            - heading "Armá la campaña y su calendario" [level=3] [ref=f1e179]
+            - paragraph [ref=f1e180]: Manny propone direcciones a partir del perfil. Vos elegís, editás y aprobás el plan.
+          - listitem [ref=f1e181]:
+            - generic [ref=f1e182]:
+              - generic [ref=f1e183]: "3"
+              - generic [ref=f1e185]:
+                - generic [ref=f1e186]: manny.tools/c/aurora
+                - generic [ref=f1e188]: Cliente aprobó
+                - generic [ref=f1e189]: Pedido enviado a diseño
+            - heading "Compartí y producí" [level=3] [ref=f1e190]
+            - paragraph [ref=f1e191]: Tu cliente aprueba con un link y los pedidos salen armados a diseño. Todo queda registrado.
+        - link "Pedí una demo en vivo" [ref=f1e193] [cursor=pointer]:
+          - /url: "#beta-final"
+          - text: Pedí una demo en vivo
+          - generic [ref=f1e194]: →
+      - heading "Las decisiones son de tu equipo. Manny las ordena." [level=2] [ref=f1e197]
+  - generic [ref=f1e198]:
+    - generic [ref=f1e200]:
+      - heading "Te avisamos cuando esté lista." [level=2] [ref=f1e201]
+      - generic [ref=f1e202]:
+        - paragraph [ref=f1e203]: Estamos terminando los últimos detalles. Te avisamos cuando puedas empezar a usarla, o coordinamos una demo en vivo.
+        - generic [ref=f1e204]:
+          - textbox "Tu email" [ref=f1e206]:
+            - /placeholder: tu@email.com
+          - generic [ref=f1e207]:
+            - button "Sumarme a la lista" [ref=f1e208] [cursor=pointer]
+            - button "Quiero una demo" [ref=f1e209] [cursor=pointer]
+          - paragraph
+    - generic [ref=f1e211]:
+      - link "Manny, inicio" [ref=f1e212] [cursor=pointer]:
+        - /url: /
+        - img "Manny!" [ref=f1e214]
+      - link "Manny en LinkedIn" [ref=f1e215] [cursor=pointer]:
+        - /url: https://www.linkedin.com/company/somosmanny
+      - generic [ref=f1e218]: © 2026 Manny.
+  - generic [ref=f1e221]:
+    - button [ref=f1e222]
+    - button [ref=f1e228]
+    - button [ref=f1e232]
+    - button [ref=f1e237]

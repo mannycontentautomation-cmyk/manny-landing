@@ -23,13 +23,21 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Sticky nav: anchor targets need clearance so the nav doesn't cover them */
+[id] {
+  scroll-margin-top: calc(var(--nav-height) + 24px);
+}
+
 body {
   font-family: var(--font-body);
   font-size: var(--text-body);
   font-weight: 400;
   line-height: var(--leading-body);
   color: var(--foreground);
-  background-color: var(--background);
+  /* La landing v5 va toda sobre el bloque oscuro; el body acompaña para que
+     el overscroll no muestre blanco. Las tarjetas claras usan --background
+     explicito, no dependen de esto. */
+  background-color: var(--block-dark);
 }
 
 a {
@@ -68,6 +76,8 @@ svg {
   --border: #DADAD7;
   --hairline: #19171D;
   --block-dark: #19171D;
+  /* Lineas del grid del fondo oscuro; tambien el border-top del footer. */
+  --grid-line: rgba(239, 239, 236, 0.055);
 
   /* --- Typography ------------------------------------------------------ */
   --font-display: "Instrument Serif", "Funnel Display", Georgia, serif;
@@ -138,8 +148,10 @@ svg {
   --gutter-tablet: 48px;
   --gutter-desktop: 80px;
 
-  /* Nav height = padding-block (32 + 32) + logo (40) — used to size the hero to viewport */
-  --nav-height: 104px;
+  /* Nav height: 80px exactos del Figma (la primera hairline del sistema de
+     bandas cae ahi). Sticky; dimensiona el hero a viewport y el
+     scroll-margin de los anchors. */
+  --nav-height: 80px;
 
   --radius: 8px;
   --radius-pill: 999px;
@@ -175,6 +187,22 @@ svg {
 @media (min-width: 1024px) {
   .section-wrap {
     padding-inline: var(--gutter-desktop);
+  }
+}
+
+/* Contenedor sin tope de ancho: en vez de topear en 1280px y dejar margen
+   muerto en pantallas grandes, el contenido escala con el viewport.
+   5.56vw = los 84px de gutter del Figma a 1512px de ancho.
+   Si esto se adopta, reemplaza a .section-wrap en TODAS las secciones:
+   convivir las dos desalinea el hero del resto de la pagina. */
+.section-wrap--fluid {
+  max-width: none;
+  padding-inline: var(--gutter-mobile);
+}
+
+@media (min-width: 768px) {
+  .section-wrap--fluid {
+    padding-inline: 5.56vw;
   }
 }
 
