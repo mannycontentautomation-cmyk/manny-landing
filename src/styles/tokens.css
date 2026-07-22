@@ -76,6 +76,8 @@ svg {
   --border: #DADAD7;
   --hairline: #19171D;
   --block-dark: #19171D;
+  /* Lineas del grid del fondo oscuro; tambien el border-top del footer. */
+  --grid-line: rgba(239, 239, 236, 0.055);
 
   /* --- Typography ------------------------------------------------------ */
   --font-display: "Instrument Serif", "Funnel Display", Georgia, serif;
