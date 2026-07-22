@@ -239,7 +239,10 @@ const CUENTAS = [
 
   @media (min-width: 1024px) {
     .hero-visual {
-      justify-self: end;
+      /* Centrado en su columna (la mitad derecha), no pegado al borde: asi
+         las tarjetas montadas quedan simetricas y no se salen hacia el borde
+         de la pantalla. */
+      justify-self: center;
       max-width: 560px;
     }
   }
