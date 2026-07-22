@@ -342,6 +342,21 @@
   .cc-grid span.on {
     background-color: var(--primary-light);
     border: 1px solid rgba(68, 39, 255, 0.25);
+    /* Las celdas agendadas laten muy suave, escalonadas: se lee como piezas
+       programandose. */
+    animation: cell-breathe 3.6s var(--ease-default) infinite;
+  }
+
+  .cc-grid span.on:nth-child(4) { animation-delay: 0.6s; }
+  .cc-grid span.on:nth-child(6) { animation-delay: 1.2s; }
+
+  @keyframes cell-breathe {
+    0%, 100% { border-color: rgba(68, 39, 255, 0.2); }
+    50% { border-color: rgba(68, 39, 255, 0.6); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cc-grid span.on { animation: none; }
   }
 
   /* Paso 3: compartir + producir */

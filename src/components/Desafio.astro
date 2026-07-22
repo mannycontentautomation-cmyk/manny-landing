@@ -528,6 +528,26 @@ const EQUIPO = [
     border-radius: 50%;
     background-color: var(--primary);
     flex-shrink: 0;
+    position: relative;
+  }
+
+  /* Late suave: la notificacion se lee como recien llegada. */
+  .sn-dot::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background-color: var(--primary);
+    animation: sn-dot-pulse 2.8s var(--ease-default) infinite;
+  }
+
+  @keyframes sn-dot-pulse {
+    0% { transform: scale(1); opacity: 0.55; }
+    70%, 100% { transform: scale(2.8); opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sn-dot::after { animation: none; }
   }
 
   /* La vista del cliente: widget oscuro abajo a la derecha */
