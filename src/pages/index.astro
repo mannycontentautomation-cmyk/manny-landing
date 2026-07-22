@@ -26,8 +26,20 @@ import CTAFooter from '../components/CTAFooter.astro';
 <style>
   /* Toda la pagina va sobre el bloque oscuro (comp Landing_design). Las
      secciones claras (Como arrancas) son tarjetas que flotan encima, no
-     cambian el fondo base. */
+     cambian el fondo base. El grid cuadriculado del comp va con lineas
+     claras (sobre oscuro; las oscuras de la version clara eran invisibles).
+     Las secciones oscuras van transparentes para dejarlo pasar. */
   .page {
     background-color: var(--block-dark);
+    background-image:
+      linear-gradient(to right, rgba(239, 239, 236, 0.035) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(239, 239, 236, 0.035) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  @media (min-width: 1024px) {
+    .page {
+      background-size: 64px 64px;
+    }
   }
 </style>

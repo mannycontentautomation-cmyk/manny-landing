@@ -40,9 +40,11 @@ import Wordmark from './Wordmark.astro';
   .nav-island {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-5);
-    height: 56px;
-    padding: 0 10px 0 20px;
+    /* Aire entre el logo y el par de botones (el par entre si queda junto).
+       Chico en mobile, generoso en desktop. */
+    gap: clamp(28px, 7vw, 88px);
+    height: 58px;
+    padding: 0 12px 0 24px;
     border-radius: var(--radius-pill);
     background-color: rgba(100, 100, 100, 0.2);
     border: 1px solid rgba(255, 255, 255, 0.14);
