@@ -7,7 +7,7 @@
     <h2 class="principio-text">
       Las decisiones son de tu equipo.
       <br />
-      <span class="italic-accent">Manny las ordena.</span>
+      <span class="italic-accent-light">Manny las ordena.</span>
     </h2>
   </div>
 </section>
@@ -29,7 +29,9 @@
     line-height: var(--leading-h2);
     letter-spacing: var(--tracking-h2);
     font-weight: 500;
-    color: var(--foreground);
+    /* Blanco: la pagina v5 es oscura (antes usaba --foreground y quedaba
+       invisible sobre el bloque). */
+    color: #FFFFFF;
     text-wrap: balance;
     text-align: center;
     margin: 0 auto;
