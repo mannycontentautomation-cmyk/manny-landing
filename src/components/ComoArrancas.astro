@@ -9,7 +9,8 @@
 ---
 
 <section class="arrancas">
-  <div class="section-wrap">
+  <div class="section-wrap section-wrap--fluid">
+    <div class="arrancas-card">
     <header class="arrancas-head">
       <p class="arrancas-eyebrow">Cómo arrancás</p>
       <h2 class="display-h2 arrancas-h2">
@@ -38,8 +39,8 @@
         </div>
         <h3 class="paso-titulo">Cargá el perfil del cliente</h3>
         <p class="paso-cuerpo">
-          Subí el brief, las notas de reunión y los lineamientos de la
-          marca. Manny los estructura en un perfil vivo.
+          Subí las notas de reunión, los lineamientos de la marca y lo que
+          ya tengas. Manny los estructura en un perfil vivo.
         </p>
       </li>
 
@@ -94,19 +95,30 @@
         <span aria-hidden="true">→</span>
       </a>
     </div>
+    </div>
   </div>
 </section>
 
 <style>
+  /* Seccion transparente: el fondo oscuro con grid queda como margen
+     alrededor de la tarjeta clara que flota (comp Landing_design). */
   .arrancas {
-    background-color: var(--background);
-    padding-block: var(--space-24);
+    padding-block: var(--space-16);
   }
 
   @media (min-width: 1024px) {
     .arrancas {
-      padding-block: var(--space-30);
+      padding-block: var(--space-20);
     }
+  }
+
+  /* La tarjeta clara flotante: contenido sobre fondo blanco, esquinas bien
+     redondeadas, aire generoso adentro. */
+  .arrancas-card {
+    background-color: var(--background);
+    color: var(--foreground);
+    border-radius: clamp(24px, 3vw, 40px);
+    padding: clamp(40px, 6vw, 96px) clamp(24px, 4vw, 72px);
   }
 
   .arrancas-head {
