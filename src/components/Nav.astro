@@ -57,15 +57,15 @@ import Wordmark from './Wordmark.astro';
     height: 58px;
     padding: 0 12px 0 24px;
     border-radius: var(--radius-pill);
-    background-color: rgba(100, 100, 100, 0.2);
+    /* Fill mas oscuro y sin sombra (ajuste de Juan en el inspector): pill mas
+       sobrio y plano. */
+    background-color: rgba(45, 45, 45, 0.22);
     border: 1px solid rgba(255, 255, 255, 0.14);
-    /* Base cross-browser (Safari incluido): frost + saturacion. */
+    /* Base cross-browser (Safari incluido): frost + saturacion. En Chrome lo
+       pisa el @supports de abajo (glass); en Safari es lo unico que se ve, por
+       eso se mantiene. */
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     backdrop-filter: blur(20px) saturate(180%);
-    box-shadow:
-      inset 0 1px 0 0 rgba(255, 255, 255, 0.22),
-      inset 0 -1px 0 0 rgba(255, 255, 255, 0.04),
-      0 16px 50px rgba(0, 0, 0, 0.45);
     max-width: 100%;
   }
 
