@@ -10,9 +10,9 @@ Pre-launch. Lista de espera abierta en https://manny.tools. Quien quiera se pued
 
 Sin implementación ni consultores: se carga el primer cliente y se arranca el mismo día. Tres pasos:
 
-1. **Cargá el perfil del cliente.** Se suben el brief, las notas de reunión y los lineamientos de la marca; Manny los estructura en un perfil vivo.
-2. **Armá la campaña y su calendario.** Manny propone direcciones a partir del perfil; el equipo elige, edita y aprueba el plan.
-3. **Compartí y producí.** El cliente aprueba con un link y los pedidos salen armados a diseño. Todo queda registrado.
+1. **Carga el perfil del cliente.** Se suben el brief, las notas de reunión y los lineamientos de la marca; Manny los estructura en un perfil vivo.
+2. **Arma la campaña y su calendario.** Manny propone direcciones a partir del perfil; el equipo elige, edita y aprueba el plan.
+3. **Comparte y produce.** El cliente aprueba con un link y los pedidos salen armados a diseño. Todo queda registrado.
 
 ## Qué resuelve
 

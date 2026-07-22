@@ -224,7 +224,7 @@ const {
 
       if (!EMAIL_RE.test(email)) {
         status.dataset.status = 'error';
-        status.textContent = 'Email inválido. Probá de nuevo.';
+        status.textContent = 'Correo inválido. Prueba de nuevo.';
         input.focus();
         return;
       }
@@ -258,10 +258,10 @@ const {
         if (!res.ok || !data.ok) {
           if (data.error === 'invalid_email') {
             status.dataset.status = 'error';
-            status.textContent = 'Email inválido. Probá de nuevo.';
+            status.textContent = 'Correo inválido. Prueba de nuevo.';
           } else {
             status.dataset.status = 'error';
-            status.textContent = 'Algo salió mal. Probá de nuevo en un rato.';
+            status.textContent = 'Algo salió mal. Prueba de nuevo en un rato.';
           }
           return;
         }
@@ -274,12 +274,12 @@ const {
         } else {
           status.textContent = data.alreadySignedUp
             ? 'Ya estabas en la lista. Te avisamos cuando llegue tu turno.'
-            : '¡Sumado! Revisá tu mail para confirmar.';
+            : '¡Listo! Revisa tu correo para confirmar.';
         }
         input.value = '';
       } catch (_err) {
         status.dataset.status = 'error';
-        status.textContent = 'Algo salió mal. Probá de nuevo en un rato.';
+        status.textContent = 'Algo salió mal. Prueba de nuevo en un rato.';
       } finally {
         buttons.forEach((b) => (b.disabled = false));
       }

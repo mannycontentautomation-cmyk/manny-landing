@@ -14,9 +14,9 @@ const CUENTAS = [
     <div class="hero-copy">
       <h1 class="hero-h1">
         <span class="hero-line" data-typewriter aria-hidden="true"><span class="hero-type"
-          >Ordená cada cuenta.</span><span class="hero-caret"></span></span>
-        <span class="sr-only">Ordená cada cuenta. Coordiná cada entrega.</span>
-        <span class="hero-payoff">Ganá tiempo para la creatividad.</span>
+          >Ordena cada cuenta.</span><span class="hero-caret"></span></span>
+        <span class="sr-only">Ordena cada cuenta. Coordina cada entrega.</span>
+        <span class="hero-payoff">Gana tiempo para la creatividad.</span>
       </h1>
 
       <p class="hero-sub">
@@ -26,15 +26,15 @@ const CUENTAS = [
 
       <div class="hero-ctas">
         <a href="#beta-final" class="cta-primary" data-cta="hero">
-          Sumate a la lista
+          Súmate a la lista
         </a>
         <a href="#beta-final" class="cta-secondary" data-cta="hero-demo">
-          Pedí una demo en vivo
+          Pide una demo en vivo
         </a>
       </div>
 
       <p class="hero-risk">
-        Sin compromiso. Contanos cómo trabajás hoy y te mostramos cómo Manny
+        Sin compromiso. Cuéntanos cómo trabajas hoy y te mostramos cómo Manny
         puede adaptarse a tu agencia.
       </p>
     </div>
@@ -124,7 +124,7 @@ const CUENTAS = [
   .hero-h1 {
     font-family: var(--font-display);
     /* 5.2vw = ~78px a 1512. Es el maximo con el que la frase larga del
-       typewriter ("Coordiná cada entrega.", 640px de columna) entra en una
+       typewriter ("Coordina cada entrega.", 640px de columna) entra en una
        linea: a 84px se pasa. */
     font-size: clamp(40px, 5.2vw, 96px);
     line-height: 1.04;
@@ -484,7 +484,7 @@ const CUENTAS = [
   const line = document.querySelector('[data-typewriter] .hero-type');
   const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
   if (line && !reduce.matches) {
-    const phrases = ['Ordená cada cuenta.', 'Coordiná cada entrega.'];
+    const phrases = ['Ordena cada cuenta.', 'Coordina cada entrega.'];
     const TYPE = 62, ERASE = 30, HOLD = 2100, GAP = 420;
     let pi = 0, ci = phrases[0].length;
 
