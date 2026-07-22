@@ -151,7 +151,7 @@
     letter-spacing: var(--tracking-eyebrow);
     text-transform: uppercase;
     font-weight: 500;
-    color: var(--primary);
+    color: var(--neutral-800);
     margin: 0;
   }
 
@@ -212,13 +212,12 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--primary);
-    color: var(--primary-foreground);
+    background-color: var(--block-dark);
+    color: #FFFFFF;
     font-family: var(--font-body);
     font-size: 17px;
     font-weight: 600;
     border-radius: 50%;
-    box-shadow: 0 6px 18px rgba(68, 39, 255, 0.4);
   }
 
   /* La tarjeta-pantalla: misma familia que el mockup del hero. */
@@ -251,7 +250,8 @@
     width: 36px;
     height: 36px;
     border-radius: 10px;
-    background-color: var(--primary-light);
+    /* Un poco mas de tono que --primary-light para separarse del card blanco */
+    background-color: #DDDDF7;
     color: var(--primary);
     font-size: 13px;
     font-weight: 700;
@@ -336,7 +336,9 @@
     bottom: 4px;
     height: 5px;
     border-radius: 3px;
-    background-color: var(--primary);
+    /* Violeta mas suave que --primary (#4427FF, muy electrico): armoniza con
+       el ambar y el verde de los otros canales, no salta. */
+    background-color: #8D82E6;
     animation: cell-breathe 3.4s var(--ease-default) infinite;
   }
 
