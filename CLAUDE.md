@@ -93,7 +93,7 @@ Section order in `index.astro` (v4): **Nav → Hero → Desafio → Dolores → 
 
 The landing copy MUST respect these:
 
-1. **Voseo argentino always.** "elegís", "diseñás", "aprobás", "vos". Never "tú/tienes/puedes/haces". Source: `brief.md` §5 + `Docs/Comunicacion/04_VOZ_Y_TONO_EXTERNO.md`.
+1. **Español latino neutro (tuteo).** "eliges", "diseñas", "apruebas", "tú". NO voseo ("elegís/aprobás/vos") ni tonada rioplatense ("acá", "recién"). Decisión de Juan (2026-07-22) que reemplaza la regla anterior de voseo argentino. Imperativos: "Súmate", "Pide", "Carga", "Cuéntanos". El `lang` del `<html>` sigue en `es-AR` a nivel técnico pero el copy es neutro.
 
 2. **No em-dashes (—) in user-visible copy.** Juan flagged em-dash as AI-writing tic. Replace with period (split sentences) or comma. OK in aria-labels and code comments.
 
@@ -179,8 +179,8 @@ The form is wired to a real backend (since 2026-05-10):
 ## Common QA commands
 
 ```bash
-# Voseo check (placeholder "tu@email.com" is OK, otherwise should be empty)
-grep -rEn '\b(tú|tienes|puedes|haces|debes)\b' src/ --include='*.astro'
+# Voseo check: el copy es tuteo neutro, así que NO debe haber voseo (vacío)
+grep -rEni '\b(vos|elegís|diseñás|aprobás|cargás|pedí|sumate|ordená|coordiná|ganá|subí|armá|compartí|producí|contanos|trabajás|probá|revisá|acá|recién)\b' src/ --include='*.astro'
 
 # Em-dash check (none in user-visible copy; OK in code comments)
 grep -rn "—" src/components/ src/pages/ src/layouts/ --include='*.astro'
