@@ -4,69 +4,77 @@ import Wordmark from './Wordmark.astro';
 ---
 
 <nav class="nav" aria-label="Principal">
-  <div class="section-wrap section-wrap--fluid nav-inner">
+  <div class="nav-island">
     <a href="/" class="nav-brand" aria-label="Manny, inicio">
-      <MannyMark color="white" size={30} />
+      <MannyMark color="white" size={26} />
       <span class="nav-word">
-        <Wordmark color="white" height={24} />
+        <Wordmark color="white" height={22} />
       </span>
     </a>
-    <span class="nav-spacer" aria-hidden="true"></span>
-    <a href="#beta-final" class="nav-cta" data-cta="nav">Avisame</a>
-    <a href="#beta-final" class="nav-demo" data-cta="nav-demo">Pedí una demo en vivo</a>
+    <span class="nav-links">
+      <a href="#beta-final" class="nav-demo" data-cta="nav-demo">Pedí una demo en vivo</a>
+      <a href="#beta-final" class="nav-cta" data-cta="nav">Sumate a la lista</a>
+    </span>
   </div>
 </nav>
 
 <style>
-  /* Sticky y oscuro (mismo bloque que el hero y el footer). Desde la v5 el
-     hero no tiene botones: estos son los unicos CTAs sobre el fold, y por
-     eso el nav acompaña toda la pagina. La hairline inferior es la primera
-     del sistema de bandas del hero.
-     Altura = --nav-height en tokens.css. */
+  /* Isla flotante: el nav ya no es una barra full-width sino una pildora
+     centrada que flota sobre el contenido (sticky). Ocupa su lugar en el
+     flujo, asi empuja el hero hacia abajo el espacio que necesita. */
   .nav {
     position: sticky;
-    top: 0;
+    top: 16px;
     z-index: 50;
-    /* Alto exacto = --nav-height (la hairline del Figma cae en y=80). Fijado
-       y no derivado del padding: con el borde de 1px daba 81. */
-    height: var(--nav-height);
-    /* Mismo color que el hero, opaco: se lee como "sin fondo", solo la
-       linea que lo separa. Con alpha + blur daba un gris distinto al del
-       bloque. Opaco y no transparente porque es sticky: el contenido tiene
-       que pasar por detras, no verse. */
-    background-color: var(--block-dark);
-    border-bottom: 1px solid rgba(239, 239, 236, 0.12);
+    display: flex;
+    justify-content: center;
+    padding-inline: var(--space-4);
+    /* Aire arriba y abajo de la isla dentro del flujo */
+    margin-block: 16px 0;
   }
 
-  .nav-inner {
-    display: flex;
+  .nav-island {
+    display: inline-flex;
     align-items: center;
-    height: 100%;
-    gap: var(--space-4);
+    gap: var(--space-10);
+    height: 60px;
+    padding: 0 12px 0 24px;
+    border-radius: var(--radius-pill);
+    /* Semitransparente + blur: es una isla que flota sobre el contenido al
+       scrollear, no un bloque opaco. */
+    background-color: rgba(32, 30, 42, 0.72);
+    border: 1px solid rgba(239, 239, 236, 0.1);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    max-width: 100%;
   }
 
   .nav-brand {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     text-decoration: none;
     flex-shrink: 0;
   }
 
-  /* En pantallas muy angostas el wordmark + CTA no entran juntos:
-     queda la mascota sola a la izquierda y el CTA completo a la derecha. */
+  /* En pantallas muy angostas la isla se queda con la mascota sola para no
+     desbordar. */
   .nav-word {
     display: none;
   }
 
-  @media (min-width: 480px) {
+  @media (min-width: 420px) {
     .nav-word {
       display: block;
     }
   }
 
-  .nav-spacer {
-    flex: 1;
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    flex-shrink: 0;
   }
 
   .nav-demo {
@@ -77,19 +85,20 @@ import Wordmark from './Wordmark.astro';
     font-weight: 500;
     color: #EFEFEC;
     text-decoration: none;
-    border: 1px solid #FFFFFF;
-    border-radius: 28px;
+    border: 1px solid rgba(239, 239, 236, 0.28);
+    border-radius: var(--radius-pill);
     height: 38px;
-    padding-inline: 20px;
+    padding-inline: 18px;
     white-space: nowrap;
     transition: border-color var(--duration-normal) var(--ease-default);
   }
 
   .nav-demo:hover {
-    border-color: rgba(255, 255, 255, 0.6);
+    border-color: rgba(239, 239, 236, 0.6);
   }
 
-  @media (min-width: 640px) {
+  /* La isla muestra los dos CTAs desde 560px; abajo queda solo el lleno. */
+  @media (min-width: 560px) {
     .nav-demo {
       display: inline-flex;
     }
@@ -103,9 +112,9 @@ import Wordmark from './Wordmark.astro';
     font-weight: 500;
     color: var(--primary-foreground);
     background-color: var(--primary);
-    border-radius: 28px;
+    border-radius: var(--radius-pill);
     height: 38px;
-    padding-inline: 22px;
+    padding-inline: 20px;
     text-decoration: none;
     white-space: nowrap;
     transition: background-color var(--duration-normal) var(--ease-default);

@@ -1,16 +1,7 @@
 ---
-// Hero v5. Valores tomados del Figma (node 150:294, frame 1512x982):
-// bandas full-bleed separadas por hairlines en y=80 / 364 / 756, gutter de
-// 84px (5.56vw), H1 Instrument Serif Regular 100px (6.61vw) en redonda con
-// interlineado efectivo 1.05, proof points de 24px con check.
-// Los CTAs viven solo en el nav sticky.
-const BULLETS = [
-  'Clientes, equipo y contenido en un solo lugar.',
-  'Cargás el perfil una vez y no se pierde.',
-  'Para el feedback, un solo link.',
-  'Del pedido a producción, se encarga Manny.',
-];
-
+// Hero v5 (comp Landing_design): partido. Izquierda: titular en dos golpes
+// (el segundo, el payoff, en italica violeta) + bajada + doble CTA + microcopy
+// de riesgo. Derecha: la vista de Inicio con dos tarjetas narrativas montadas.
 const CUENTAS = [
   { cliente: 'Café Aurora', estado: 'En producción', tone: 'info' },
   { cliente: 'Vinoteca Peralta', estado: 'Espera aprobación', tone: 'warn' },
@@ -19,196 +10,200 @@ const CUENTAS = [
 ---
 
 <section class="hero" id="producto">
-  <!-- Banda 1: el titular, solo (284px de 982 en el Figma) -->
-  <div class="hero-band hero-band-title">
-    <div class="section-wrap section-wrap--fluid">
+  <div class="section-wrap section-wrap--fluid hero-grid">
+    <div class="hero-copy">
       <h1 class="hero-h1">
-        Ordená y coordiná la gestión.<br />
+        Ordená cada cuenta.<br />
         <span class="hero-payoff">Ganá tiempo para la creatividad.</span>
       </h1>
-    </div>
-  </div>
 
-  <!-- Banda 2: el producto (392px) -->
-  <div class="hero-band hero-band-visual">
-    <div class="section-wrap section-wrap--fluid">
-      <div
-        class="visual-row"
-        role="img"
-        aria-label="La vista de Inicio de Manny con las cuentas de la agencia y, flotando encima, una aprobación de cliente recién llegada y un pedido a diseño enviado"
-      >
-        <!-- Cluster izquierdo: el calendario -->
-        <div class="tile-cal" aria-hidden="true">
-          <span class="tile-cal-head"></span>
-          <span class="tile-cal-grid">
-            {Array.from({ length: 12 }).map(() => <span></span>)}
-          </span>
-        </div>
+      <p class="hero-sub">
+        Manny es la plataforma donde tu agencia gestiona clientes, contenido
+        y equipo, sin perder nada en el camino.
+      </p>
 
-        <div class="sat sat-cal" aria-hidden="true">
-          <span class="sat-plus">+</span>
-          Creá un calendario
-        </div>
-
-        <!-- Centro: la vista de Inicio -->
-        <div class="mini-app">
-          <div class="mini-head">
-            <span class="mini-title">Inicio</span>
-            <span class="mini-meta">Todas tus cuentas</span>
-          </div>
-          <ul class="mini-rows">
-            {CUENTAS.map((c) => (
-              <li class="mini-row">
-                <span class="mini-avatar"></span>
-                <span class="mini-client">{c.cliente}</span>
-                <span class="mini-chip" data-tone={c.tone}>
-                  <span class="mini-dot"></span>
-                  {c.estado}
-                </span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <!-- Las dos tarjetas montadas sobre el borde derecho del mockup -->
-        <div class="float-card float-approval">
-          <span class="fc-check" aria-hidden="true">✓</span>
-          <span class="fc-main">
-            <span class="fc-title">Valeria (cliente)</span>
-            <span class="fc-body">Aprobó Story · lunes 13</span>
-          </span>
-        </div>
-
-        <div class="float-card float-order">
-          <span class="fc-avatar" aria-hidden="true"></span>
-          <span class="fc-main">
-            <span class="fc-title">Pedido a diseño</span>
-            <span class="fc-body">Marcos · freelance</span>
-          </span>
-        </div>
+      <div class="hero-ctas">
+        <a href="#beta-final" class="cta-primary" data-cta="hero">
+          Sumate a la lista
+        </a>
+        <a href="#beta-final" class="cta-secondary" data-cta="hero-demo">
+          Pedí una demo en vivo
+        </a>
       </div>
-    </div>
-  </div>
 
-  <!-- Banda 3: proof points + bajada (226px) -->
-  <div class="hero-band hero-band-facts">
-    <div class="section-wrap section-wrap--fluid facts-row">
-      <ul class="hero-bullets">
-        {BULLETS.map((b) => (
-          <li>
-            <svg class="check" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M4 12.5l5 5L20 6.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-            </svg>
-            {b}
-          </li>
-        ))}
-      </ul>
-      <a href="#desafio" class="scroll-cue" aria-label="Ir a la siguiente sección">
-        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
-          <path d="M12 4v16m0 0l-6-6m6 6l6-6" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
-        </svg>
-      </a>
+      <p class="hero-risk">
+        Sin compromiso. Contanos cómo trabajás hoy y te mostramos cómo Manny
+        puede adaptarse a tu agencia.
+      </p>
+    </div>
+
+    <div
+      class="hero-visual"
+      role="img"
+      aria-label="La vista de Inicio de Manny con las cuentas de la agencia y, flotando encima, una aprobación de cliente recién llegada y un pedido a diseño enviado"
+    >
+      <div class="mini-app">
+        <div class="mini-head">
+          <span class="mini-title">Inicio</span>
+          <span class="mini-meta">Todas tus cuentas</span>
+        </div>
+        <ul class="mini-rows">
+          {CUENTAS.map((c) => (
+            <li class="mini-row">
+              <span class="mini-avatar"></span>
+              <span class="mini-client">{c.cliente}</span>
+              <span class="mini-chip" data-tone={c.tone}>
+                <span class="mini-dot"></span>
+                {c.estado}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="float-card float-approval">
+        <span class="fc-check" aria-hidden="true">✓</span>
+        <span class="fc-main">
+          <span class="fc-title">Valeria (cliente)</span>
+          <span class="fc-body">Aprobó Story · lunes 13</span>
+        </span>
+      </div>
+
+      <div class="float-card float-order">
+        <span class="fc-avatar" aria-hidden="true"></span>
+        <span class="fc-main">
+          <span class="fc-title">Pedido a diseño</span>
+          <span class="fc-body">Marcos · freelance</span>
+        </span>
+        <span class="fc-chip">Enviado</span>
+      </div>
     </div>
   </div>
 </section>
 
 <style>
-  /* El hero ocupa el viewport completo. Las bandas del titular y de los
-     proof points se dimensionan por contenido; la del producto se queda con
-     el resto, que es como se comporta en el Figma (284 / 392 / 226). */
   .hero {
     background-color: var(--block-dark);
     color: #EFEFEC;
-    min-height: calc(100vh - var(--nav-height));
+    padding-block: clamp(48px, 7vh, 104px) clamp(64px, 9vh, 140px);
+  }
+
+  .hero-grid {
     display: grid;
-    grid-template-rows: auto 1fr auto;
-    /* minmax(0,...) y no 1fr suelto: el minimo automatico de un grid item es
-       su min-content, y el mockup ensanchaba la columna en mobile. */
     grid-template-columns: minmax(0, 1fr);
-  }
-
-  /* Full-bleed: la hairline cruza toda la pantalla y es lo que estructura
-     el bloque. El contenido si respeta el contenedor fluido. */
-  .hero-band + .hero-band {
-    border-top: 1px solid rgba(239, 239, 236, 0.12);
-  }
-
-  .hero-band-title {
-    display: flex;
+    gap: clamp(48px, 6vw, 88px);
     align-items: center;
-    padding-block: clamp(32px, 5vh, 76px);
   }
 
-  .hero-band-visual {
-    display: flex;
-    align-items: center;
-    padding-block: clamp(20px, 2.8vh, 44px);
+  @media (min-width: 1024px) {
+    .hero-grid {
+      /* Texto un poco mas ancho que el grafico, como en el comp */
+      grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
+    }
   }
 
-  /* Mas aire que las otras dos: es la banda que cierra contra el borde
-     inferior del viewport y necesita no quedar pegada. */
-  .hero-band-facts {
-    display: flex;
-    align-items: center;
-    padding-block: clamp(28px, 5vh, 64px);
-  }
-
-  .hero-band > .section-wrap {
-    width: 100%;
-  }
-
-  /* --- Banda 1: el titular --------------------------------------------- */
+  /* --- Izquierda: copy -------------------------------------------------- */
 
   .hero-h1 {
     font-family: var(--font-display);
-    /* 6.61vw = los 100px del Figma a 1512. El min() con vh lo ata tambien
-       a la altura: en pantallas anchas y bajas el titular crecia por ancho
-       y empujaba la banda de abajo fuera del viewport.
-       10.2vh = esos mismos 100px sobre los 982 de alto del Figma. */
-    font-size: clamp(32px, min(6.61vw, 10.2vh), 172px);
-    /* En el Figma cada linea es un parrafo absoluto con line-height 93 pero
-       separados 105px: el interlineado efectivo es 1.05, no 0.93. A 0.93 se
-       pisan las descendentes de la serif. */
-    line-height: 1.05;
-    letter-spacing: 0;
+    /* ~68px a 1512; escala con el viewport sin tope real */
+    font-size: clamp(40px, 4.5vw, 92px);
+    line-height: 1.04;
+    letter-spacing: -0.01em;
     font-weight: 400;
     color: #FFFFFF;
     margin: 0;
-    text-wrap: pretty;
+    text-wrap: balance;
   }
 
-  /* Redonda, no italica: el Figma marca not-italic. */
   .hero-payoff {
-    color: #A79FFF;
+    font-style: italic;
+    color: var(--primary-on-dark);
   }
 
-  /* --- Banda 2: el producto -------------------------------------------- */
+  .hero-sub {
+    margin: var(--space-6) 0 0;
+    max-width: 30em;
+    font-family: var(--font-body);
+    font-size: var(--text-lead);
+    line-height: 1.5;
+    color: rgba(239, 239, 236, 0.72);
+  }
 
-  .visual-row {
-    position: relative;
+  .hero-ctas {
     display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+  }
+
+  .cta-primary,
+  .cta-secondary {
+    display: inline-flex;
+    align-items: center;
     justify-content: center;
-    /* Aire para que las tarjetas montadas no tapen una fila del mockup */
-    padding-block: clamp(20px, 3vh, 48px);
+    font-family: var(--font-body);
+    font-size: 16px;
+    font-weight: 500;
+    height: 48px;
+    padding-inline: 26px;
+    border-radius: var(--radius-pill);
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color var(--duration-normal) var(--ease-default),
+      border-color var(--duration-normal) var(--ease-default);
+  }
+
+  .cta-primary {
+    color: var(--primary-foreground);
+    background-color: var(--primary);
+  }
+
+  .cta-primary:hover {
+    background-color: var(--primary-hover);
+  }
+
+  .cta-secondary {
+    color: #EFEFEC;
+    border: 1px solid rgba(239, 239, 236, 0.28);
+  }
+
+  .cta-secondary:hover {
+    border-color: rgba(239, 239, 236, 0.6);
+  }
+
+  .hero-risk {
+    margin: var(--space-5) 0 0;
+    max-width: 34em;
+    font-family: var(--font-body);
+    font-size: var(--text-body-small);
+    line-height: 1.5;
+    color: rgba(239, 239, 236, 0.5);
+  }
+
+  /* --- Derecha: la vista de Inicio + tarjetas --------------------------- */
+
+  .hero-visual {
+    position: relative;
+    width: 100%;
+    justify-self: center;
+    /* Aire para que las tarjetas montadas no se recorten */
+    padding-block: var(--space-12);
+  }
+
+  @media (min-width: 1024px) {
+    .hero-visual {
+      justify-self: end;
+      max-width: 560px;
+    }
   }
 
   .mini-app {
     background-color: var(--background);
-    border-radius: 20px;
+    border-radius: 18px;
     overflow: hidden;
     font-family: var(--font-body);
     box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
-    width: 100%;
-    /* En mobile ocupa el ancho util; desde 1024 vale el 45% del Figma
-       (604 de 1344 de contenido). Sin min-width en px: a 320 se desborda. */
-    max-width: 100%;
-    min-width: 0;
-  }
-
-  @media (min-width: 1024px) {
-    .mini-app {
-      max-width: 45%;
-    }
   }
 
   .mini-head {
@@ -227,7 +222,6 @@ const CUENTAS = [
 
   .mini-meta {
     font-size: 13px;
-    /* neutral-600 sobre blanco da 3.74:1, por debajo de AA */
     color: var(--neutral-800);
   }
 
@@ -241,7 +235,7 @@ const CUENTAS = [
     display: flex;
     align-items: center;
     gap: var(--space-3);
-    padding: var(--space-3) var(--space-5);
+    padding: var(--space-4) var(--space-5);
   }
 
   .mini-row + .mini-row {
@@ -249,8 +243,8 @@ const CUENTAS = [
   }
 
   .mini-avatar {
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     background-color: var(--neutral-200);
     flex-shrink: 0;
@@ -263,8 +257,6 @@ const CUENTAS = [
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    /* Sin esto el flex item no baja de su ancho de contenido, el ellipsis
-       nunca entra y la fila ensancha la columna en mobile. */
     min-width: 0;
   }
 
@@ -294,129 +286,37 @@ const CUENTAS = [
   .mini-chip[data-tone='info'] .mini-dot { background-color: var(--primary); }
   .mini-chip[data-tone='warn'] .mini-dot { background-color: #B45309; }
 
-  /* En pantallas de menos de 1000px de alto el mockup se comprime, asi el
-     hero entra entero sin tener que recortarle aire a las bandas. */
-  @media (max-height: 1000px) {
-    .mini-row { padding-block: var(--space-2); }
-    .mini-head { padding-block: var(--space-3); }
-  }
-
-  /* --- Piezas satelite -------------------------------------------------- */
-
-  .tile-cal,
-  .sat,
-  .float-card {
-    display: none;
-  }
-
-  .sat {
-    align-items: center;
-    gap: var(--space-2);
-    font-family: var(--font-body);
-    font-size: 15px;
-    font-weight: 500;
-    border-radius: var(--radius-pill);
-    padding: 4px 18px 4px 4px;
-    white-space: nowrap;
-    height: 38px;
-  }
-
-  .sat-cal {
-    background-color: #E7E7E7;
-    border: 1px solid #CCCCCC;
-    color: var(--foreground);
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
-  }
-
-  .sat-plus {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background-color: var(--primary);
-    color: var(--primary-foreground);
-    font-size: 16px;
-    line-height: 1;
-    flex-shrink: 0;
-  }
-
-  .tile-cal {
-    flex-direction: column;
-    gap: 10px;
-    background-color: #A79FFF;
-    border-radius: 20px;
-    padding: 16px;
-    width: 13.4%;
-    aspect-ratio: 180 / 202;
-  }
-
-  .tile-cal-head {
-    display: block;
-    height: 8px;
-    width: 60%;
-    border-radius: 4px;
-    background-color: rgba(25, 23, 29, 0.25);
-  }
-
-  .tile-cal-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 6px;
-    flex: 1;
-  }
-
-  .tile-cal-grid span {
-    border-radius: 4px;
-    background-color: rgba(255, 255, 255, 0.55);
-  }
+  /* --- Tarjetas narrativas ---------------------------------------------- */
 
   .float-card {
+    position: absolute;
+    display: flex;
     align-items: center;
     gap: var(--space-3);
     background-color: var(--background);
-    border-radius: 14px;
+    border-radius: 12px;
     padding: var(--space-3) var(--space-4);
     font-family: var(--font-body);
     box-shadow: 0 4px 30px rgba(25, 23, 29, 0.15), 0 16px 40px rgba(0, 0, 0, 0.4);
   }
 
-  /* La composicion flotante necesita aire. Debajo de 1024px queda el mockup
-     solo, que es el dato; los satelites se ocultan. */
-  @media (min-width: 1024px) {
-    .tile-cal,
-    .sat,
-    .float-card {
-      display: flex;
-      position: absolute;
-    }
+  .float-approval {
+    top: 0;
+    right: 0;
+  }
 
-    /* Posiciones en % del ancho de contenido, tomadas del Figma */
-    .tile-cal {
-      left: 14.1%;
-      top: 12%;
-    }
+  .float-order {
+    bottom: 0;
+    left: 0;
+  }
 
-    .sat-cal {
-      left: 6.6%;
-      top: 52%;
-    }
-
-    /* El Figma las pone en 69.8%, montadas 78px sobre el bloque central.
-       Ahi el bloque es un placeholder vacio; aca abajo hay un chip de
-       estado con texto. Anclamos al borde derecho del mockup (centrado y
-       45% de ancho => termina en 72.5%) con una mordida FIJA de 12px: por
-       porcentaje la mordida crecia con el ancho y volvia a cortar el chip,
-       que vive 20px adentro del borde. */
+  @media (min-width: 768px) {
     .float-approval {
-      left: calc(72.5% - 12px);
-      top: 14%;
+      right: calc(-1 * var(--space-6));
     }
 
     .float-order {
-      left: calc(72.5% - 12px);
-      top: 52%;
+      left: calc(-1 * var(--space-6));
     }
   }
 
@@ -458,71 +358,14 @@ const CUENTAS = [
     white-space: nowrap;
   }
 
-  /* --- Banda 3: proof points ------------------------------------------- */
-
-  .facts-row {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: var(--space-8);
-  }
-
-  .hero-bullets {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-
-  .hero-bullets li {
-    display: flex;
-    align-items: center;
-    gap: 21px;
-    font-family: var(--font-body);
-    /* 24px del Figma, con interlineado de 40px */
-    font-size: clamp(16px, 1.6vw, 24px);
-    line-height: 40px;
-    color: #EFEFEC;
-  }
-
-  .check {
-    width: 24px;
-    height: 24px;
-    flex-shrink: 0;
-    color: #EFEFEC;
-  }
-
-  .scroll-cue {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    width: 54px;
-    height: 54px;
-    border-radius: 50%;
-    background-color: #FFFFFF;
-    color: var(--foreground);
-    text-decoration: none;
-    flex-shrink: 0;
-    transition: transform var(--duration-normal) var(--ease-default);
-  }
-
-  .scroll-cue svg {
-    width: 22px;
-    height: 22px;
-  }
-
-  .scroll-cue:hover {
-    transform: translateY(3px);
-  }
-
-  @media (min-width: 768px) {
-    .scroll-cue {
-      display: inline-flex;
-    }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .scroll-cue:hover {
-      transform: none;
-    }
+  .fc-chip {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--primary);
+    border: 1px solid var(--primary);
+    border-radius: var(--radius-pill);
+    padding: 3px 10px;
+    margin-left: var(--space-2);
+    white-space: nowrap;
   }
 </style>
