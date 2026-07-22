@@ -159,4 +159,62 @@ import Wordmark from './Wordmark.astro';
   .nav-cta:hover {
     background-color: var(--primary-hover);
   }
+
+  /* --- Estado sobre el card claro (Como arrancas) ------------------------
+     Cuando el nav pisa la seccion clara al scrollear, el logo (img SVG
+     blanco) y el boton outline se vuelven oscuros para leerse. El boton
+     lleno violeta funciona sobre ambos, no cambia. Toggle por JS abajo. */
+  /* :global(img) porque los img vienen de MannyMark/Wordmark (otro scope
+     de Astro); sin global, el selector scopeado al cid del nav no los matchea. */
+  .nav-brand :global(img) {
+    transition: filter 0.25s var(--ease-default);
+  }
+
+  .nav-demo {
+    transition:
+      color 0.25s var(--ease-default),
+      border-color var(--duration-normal) var(--ease-default);
+  }
+
+  .nav--over-light .nav-brand :global(img) {
+    filter: invert(1);
+  }
+
+  .nav--over-light .nav-demo {
+    color: var(--foreground);
+    border-color: rgba(25, 23, 29, 0.3);
+  }
+
+  .nav--over-light .nav-demo:hover {
+    border-color: rgba(25, 23, 29, 0.6);
+  }
 </style>
+
+<script>
+  // El nav flota sobre todo el contenido; sobre el card claro de "Como
+  // arrancas" el logo/boton blancos se pierden. Detectamos cuando la isla
+  // pisa el card y togglear .nav--over-light (colores oscuros). rAF-throttled.
+  const nav = document.querySelector('.nav');
+  const island = document.querySelector('.nav-island');
+  const card = document.querySelector('.arrancas-card');
+
+  if (nav && island && card) {
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const i = island.getBoundingClientRect();
+      const c = card.getBoundingClientRect();
+      const over = c.top < i.bottom && c.bottom > i.top;
+      nav.classList.toggle('nav--over-light', over);
+    };
+    const onScroll = () => {
+      if (!ticking) {
+        ticking = true;
+        requestAnimationFrame(update);
+      }
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+    update();
+  }
+</script>
