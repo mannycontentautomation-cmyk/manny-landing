@@ -231,10 +231,13 @@
     border: 1px solid var(--neutral-300);
     border-radius: 16px;
     box-shadow: 0 14px 34px rgba(25, 23, 29, 0.08);
-    padding: 20px;
-    margin-top: 22px;
+    padding: 24px 20px 20px;
+    /* El numero solapa el borde superior (~16px adentro, mitad afuera): se
+       lee como nodo pegado a la tarjeta, no flotando cerquita. */
+    margin-top: 4px;
     margin-bottom: var(--space-7);
-    min-height: 216px;
+    /* Alto fijo = las 3 quedan iguales (la mas alta es la de perfil, 226). */
+    height: 240px;
     display: flex;
     flex-direction: column;
     gap: 14px;
