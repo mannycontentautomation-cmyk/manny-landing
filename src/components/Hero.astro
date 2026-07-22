@@ -13,7 +13,9 @@ const CUENTAS = [
   <div class="section-wrap section-wrap--fluid hero-grid">
     <div class="hero-copy">
       <h1 class="hero-h1">
-        Ordená cada cuenta.<br />
+        <span class="hero-line" data-typewriter aria-hidden="true"><span class="hero-type"
+          >Ordená cada cuenta.</span><span class="hero-caret"></span></span>
+        <span class="sr-only">Ordená cada cuenta. Coordiná cada entrega.</span>
         <span class="hero-payoff">Ganá tiempo para la creatividad.</span>
       </h1>
 
@@ -106,19 +108,63 @@ const CUENTAS = [
 
   .hero-h1 {
     font-family: var(--font-display);
-    /* ~68px a 1512; escala con el viewport sin tope real */
-    font-size: clamp(40px, 4.5vw, 92px);
+    /* 5.2vw = ~78px a 1512. Es el maximo con el que la frase larga del
+       typewriter ("Coordiná cada entrega.", 640px de columna) entra en una
+       linea: a 84px se pasa. */
+    font-size: clamp(40px, 5.2vw, 96px);
     line-height: 1.04;
     letter-spacing: -0.01em;
     font-weight: 400;
     color: #FFFFFF;
     margin: 0;
-    text-wrap: balance;
+  }
+
+  .hero-line,
+  .hero-payoff {
+    display: block;
+  }
+
+  /* Reserva una linea de alto pase lo que pase, asi el borrado a vacio no
+     colapsa la altura (el caret la sostiene igual). */
+  .hero-line {
+    min-height: 1.04em;
   }
 
   .hero-payoff {
     font-style: italic;
     color: var(--primary-on-dark);
+  }
+
+  .hero-caret {
+    display: inline-block;
+    width: 3px;
+    height: 0.74em;
+    margin-left: 0.06em;
+    background-color: var(--primary-on-dark);
+    vertical-align: -0.06em;
+    animation: hero-blink 1.05s steps(1) infinite;
+  }
+
+  @keyframes hero-blink {
+    0%, 50% { opacity: 1; }
+    50.01%, 100% { opacity: 0; }
+  }
+
+  /* Sin animacion (reduced-motion) el caret no aporta: texto estatico limpio */
+  @media (prefers-reduced-motion: reduce) {
+    .hero-caret { display: none; }
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
   }
 
   .hero-sub {
@@ -369,3 +415,30 @@ const CUENTAS = [
     white-space: nowrap;
   }
 </style>
+
+<script>
+  // Typewriter del primer renglon del H1: escribe una frase, la borra y
+  // escribe la otra, en loop. El H1 ya trae la primera frase en el HTML, asi
+  // que sin JS (o con reduced-motion) queda estatica y legible. El texto real
+  // para lectores de pantalla vive en .sr-only (este span es aria-hidden).
+  const line = document.querySelector('[data-typewriter] .hero-type');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+  if (line && !reduce.matches) {
+    const phrases = ['Ordená cada cuenta.', 'Coordiná cada entrega.'];
+    const TYPE = 62, ERASE = 30, HOLD = 2100, GAP = 420;
+    let pi = 0, ci = phrases[0].length;
+
+    const erase = () => {
+      if (ci > 0) { ci--; line.textContent = phrases[pi].slice(0, ci); setTimeout(erase, ERASE); }
+      else { pi = (pi + 1) % phrases.length; setTimeout(type, GAP); }
+    };
+    const type = () => {
+      const w = phrases[pi];
+      if (ci < w.length) { ci++; line.textContent = w.slice(0, ci); setTimeout(type, TYPE); }
+      else { setTimeout(erase, HOLD); }
+    };
+
+    // Arranca sosteniendo la frase inicial y despues la borra.
+    setTimeout(erase, HOLD);
+  }
+</script>

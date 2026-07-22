@@ -10,7 +10,7 @@ import CTAFooter from '../components/CTAFooter.astro';
 ---
 
 <BaseLayout>
-  <div class="page grid-bg">
+  <div class="page">
     <Nav />
     <main>
       <Hero />
@@ -24,7 +24,10 @@ import CTAFooter from '../components/CTAFooter.astro';
 </BaseLayout>
 
 <style>
+  /* Toda la pagina va sobre el bloque oscuro (comp Landing_design). Las
+     secciones claras (Como arrancas) son tarjetas que flotan encima, no
+     cambian el fondo base. */
   .page {
-    background-color: var(--background);
+    background-color: var(--block-dark);
   }
 </style>
