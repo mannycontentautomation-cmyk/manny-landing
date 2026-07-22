@@ -24,18 +24,20 @@
 
     <ol class="pasos">
       <li class="paso">
-        <div class="laptop" aria-hidden="true">
-          <span class="paso-num">1</span>
-          <div class="screen">
-            <div class="card card-perfil">
-              <span class="cp-head">Perfil · Café Aurora</span>
-              <ul class="cp-checks">
-                <li><span class="cp-check">✓</span> Identidad</li>
-                <li><span class="cp-check">✓</span> Tono</li>
-                <li><span class="cp-check">✓</span> Audiencia</li>
-              </ul>
-            </div>
+        <span class="paso-num" aria-hidden="true">1</span>
+        <div class="paso-mock" aria-hidden="true">
+          <div class="mk-head">
+            <span class="mk-avatar">CA</span>
+            <span class="mk-titles">
+              <span class="mk-name">Café Aurora</span>
+              <span class="mk-sub">Perfil del cliente</span>
+            </span>
           </div>
+          <ul class="mk-attrs">
+            <li><span class="mk-check">✓</span><span class="mk-attr-k">Identidad</span><span class="mk-attr-v">Cálida</span></li>
+            <li><span class="mk-check">✓</span><span class="mk-attr-k">Tono</span><span class="mk-attr-v">Cercano</span></li>
+            <li><span class="mk-check">✓</span><span class="mk-attr-k">Audiencia</span><span class="mk-attr-v">25 a 40</span></li>
+          </ul>
         </div>
         <h3 class="paso-titulo">Cargá el perfil del cliente</h3>
         <p class="paso-cuerpo">
@@ -45,20 +47,29 @@
       </li>
 
       <li class="paso">
-        <div class="laptop" aria-hidden="true">
-          <span class="paso-num">2</span>
-          <div class="screen">
-            <div class="card card-cal">
-              <span class="cc-head">Calendario · julio</span>
-              <div class="cc-meta">
-                <span class="cc-pill">12 piezas</span>
-                <span class="cc-pill">3 canales</span>
-              </div>
-              <div class="cc-grid">
-                <span></span><span class="on"></span><span></span>
-                <span class="on"></span><span></span><span class="on"></span>
-              </div>
-            </div>
+        <span class="paso-num" aria-hidden="true">2</span>
+        <div class="paso-mock" aria-hidden="true">
+          <div class="mk-head">
+            <span class="mk-titles">
+              <span class="mk-name">Calendario · Julio</span>
+              <span class="mk-sub">12 piezas · 3 canales</span>
+            </span>
+          </div>
+          <div class="cal-grid">
+            <span class="cal-cell"></span>
+            <span class="cal-cell has"><i></i></span>
+            <span class="cal-cell"></span>
+            <span class="cal-cell has has-b"><i></i></span>
+            <span class="cal-cell"></span>
+            <span class="cal-cell"></span>
+            <span class="cal-cell has"><i></i></span>
+            <span class="cal-cell"></span>
+            <span class="cal-cell has has-c"><i></i></span>
+            <span class="cal-cell"></span>
+            <span class="cal-cell has"><i></i></span>
+            <span class="cal-cell"></span>
+            <span class="cal-cell has has-b"><i></i></span>
+            <span class="cal-cell"></span>
           </div>
         </div>
         <h3 class="paso-titulo">Armá la campaña y su calendario</h3>
@@ -69,17 +80,21 @@
       </li>
 
       <li class="paso">
-        <div class="laptop" aria-hidden="true">
-          <span class="paso-num">3</span>
-          <div class="screen">
-            <div class="card card-share">
-              <span class="cs-row">
-                <span class="cs-link">manny.tools/c/aurora</span>
-              </span>
-              <span class="cs-chip cs-ok">Cliente aprobó</span>
-              <span class="cs-chip cs-sent">Pedido enviado a diseño</span>
-            </div>
+        <span class="paso-num" aria-hidden="true">3</span>
+        <div class="paso-mock" aria-hidden="true">
+          <div class="mk-link">
+            <span class="mk-link-txt">manny.tools/c/aurora</span>
+            <span class="mk-link-copy">Copiar</span>
           </div>
+          <div class="mk-approve">
+            <span class="mk-avatar mk-avatar-v">V</span>
+            <span class="mk-titles">
+              <span class="mk-name">Valeria aprobó</span>
+              <span class="mk-sub">3 piezas · hoy 14:32</span>
+            </span>
+            <span class="mk-check mk-check-lg">✓</span>
+          </div>
+          <span class="mk-order">Pedido a diseño enviado</span>
         </div>
         <h3 class="paso-titulo">Compartí y producí</h3>
         <p class="paso-cuerpo">
@@ -155,56 +170,56 @@
     text-wrap: pretty;
   }
 
-  /* --- Pasos ------------------------------------------------------------- */
+  /* --- Pasos: tarjetas-pantalla del producto ---------------------------- */
 
-  /* La columna sube a 2 y luego a 3 recién cuando cada columna puede
-     contener la laptop de tamaño fijo (264px) sin encogerla. Así las tres
-     laptops quedan idénticas en todos los formatos. */
   .pasos {
     list-style: none;
     margin: 0 0 var(--space-16);
     padding: 0;
     display: grid;
     grid-template-columns: 1fr;
-    gap: var(--space-14);
-  }
-
-  @media (min-width: 760px) {
-    .pasos {
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-12) var(--space-10);
-    }
-  }
-
-  @media (min-width: 1140px) {
-    .pasos {
-      grid-template-columns: repeat(3, 1fr);
-      gap: var(--space-8);
-    }
-  }
-
-  /* Tamaño fijo del bloque (laptop + textos), centrado en su columna. */
-  .paso {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    max-width: 296px;
+    gap: var(--space-12);
+    max-width: 340px;
     margin-inline: auto;
   }
 
-  /* Laptop wireframe: solo contorno, liviana. Ancho fijo = idéntica siempre. */
-  .laptop {
-    position: relative;
-    width: 100%;
-    margin-bottom: var(--space-8);
-    padding: 0 var(--space-4) var(--space-5);
+  @media (min-width: 880px) {
+    .pasos {
+      position: relative;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--space-10);
+      max-width: none;
+    }
+
+    /* Hilo que conecta 1 -> 2 -> 3: linea punteada a la altura de los numeros,
+       detras de las tarjetas (solo se ve en los gaps). */
+    .pasos::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 16%;
+      right: 16%;
+      border-top: 2px dashed var(--neutral-300);
+      z-index: 0;
+    }
   }
 
+  .paso {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+  }
+
+  /* Numero como nodo del stepper: centrado arriba, sobre el hilo. */
   .paso-num {
     position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 2;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 3;
     width: 40px;
     height: 40px;
     display: inline-flex;
@@ -214,83 +229,37 @@
     color: var(--primary-foreground);
     font-family: var(--font-display);
     font-size: 22px;
-    font-weight: 500;
-    border-radius: 8px;
+    border-radius: 11px;
+    box-shadow: 0 6px 18px rgba(68, 39, 255, 0.4);
   }
 
-  .screen {
+  /* La tarjeta-pantalla: misma familia que el mockup del hero. */
+  .paso-mock {
     position: relative;
-    margin-top: var(--space-6);
-    border: 1.5px solid var(--neutral-300);
-    border-radius: 12px 12px 0 0;
-    background-color: #FAFAF8;
-    /* Alto fijo (no aspect-ratio) para que las tres pantallas sean iguales
-       sin importar el ancho de columna. Apaisada (~1.4:1) para leer como
-       laptop; la tarjeta cae centrada y flota adentro. */
-    height: 184px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-  }
-
-  /* Base de la laptop */
-  .laptop::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 10px;
-    border: 1.5px solid var(--neutral-300);
-    border-radius: 0 0 10px 10px;
-    background-color: #F0F0EC;
-  }
-
-  /* Mini-tarjetas: ancho fijo, flotan centradas dentro de la pantalla. */
-  .card {
-    width: 200px;
+    text-align: left;
     background-color: var(--background);
     border: 1px solid var(--neutral-200);
-    border-radius: 10px;
-    box-shadow: 0 8px 24px rgba(25, 23, 29, 0.08);
-    padding: var(--space-4);
+    border-radius: 16px;
+    box-shadow: 0 14px 34px rgba(25, 23, 29, 0.1);
+    padding: 20px;
+    margin-top: 22px;
+    margin-bottom: var(--space-7);
+    min-height: 216px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
     font-family: var(--font-body);
   }
 
-  /* Paso 1: perfil con checks */
-  .cp-head {
-    display: block;
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--foreground);
-    margin-bottom: var(--space-3);
-  }
+  /* Header comun (avatar + titulos) */
+  .mk-head { display: flex; align-items: center; gap: 10px; }
 
-  .cp-checks {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .cp-checks li {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 13px;
-    color: var(--neutral-800);
-  }
-
-  .cp-check {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background-color: rgba(5, 150, 105, 0.12);
-    color: #059669;
+  .mk-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+    background-color: var(--primary-light);
+    color: var(--primary);
     font-size: 13px;
     font-weight: 700;
     display: inline-flex;
@@ -299,107 +268,142 @@
     flex-shrink: 0;
   }
 
-  /* Paso 2: calendario */
-  .cc-head {
-    display: block;
-    font-size: 13px;
-    font-weight: 700;
+  .mk-avatar-v { border-radius: 50%; }
+
+  .mk-titles { display: flex; flex-direction: column; min-width: 0; }
+
+  .mk-name {
+    font-size: 14px;
+    font-weight: 600;
     color: var(--foreground);
-    margin-bottom: var(--space-3);
-  }
-
-  .cc-meta {
-    display: flex;
-    gap: 6px;
-    margin-bottom: var(--space-3);
-  }
-
-  .cc-pill {
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--primary);
-    background-color: var(--primary-light);
-    border-radius: var(--radius-pill);
-    padding: 3px 10px;
-    white-space: nowrap;
-  }
-
-  /* Slots anchos, 2 filas x 3 columnas: leen como espacios de contenido
-     del calendario. Altura fija (con aspect-ratio se estiraban al ancho
-     y desbordaban la laptop). */
-  .cc-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 6px;
-  }
-
-  .cc-grid span {
-    height: 30px;
-    border-radius: 6px;
-    background-color: var(--neutral-200);
-  }
-
-  .cc-grid span.on {
-    background-color: var(--primary-light);
-    border: 1px solid rgba(68, 39, 255, 0.25);
-    /* Las celdas agendadas laten muy suave, escalonadas: se lee como piezas
-       programandose. */
-    animation: cell-breathe 3.6s var(--ease-default) infinite;
-  }
-
-  .cc-grid span.on:nth-child(4) { animation-delay: 0.6s; }
-  .cc-grid span.on:nth-child(6) { animation-delay: 1.2s; }
-
-  @keyframes cell-breathe {
-    0%, 100% { border-color: rgba(68, 39, 255, 0.2); }
-    50% { border-color: rgba(68, 39, 255, 0.6); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .cc-grid span.on { animation: none; }
-  }
-
-  /* Paso 3: compartir + producir */
-  .card-share {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .cs-row {
-    display: flex;
-  }
-
-  .cs-link {
-    font-size: 13px;
-    color: var(--neutral-600);
-    background-color: var(--neutral-200);
-    border-radius: 6px;
-    padding: 6px 10px;
-    width: 100%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
 
-  .cs-chip {
+  .mk-sub { font-size: 13px; color: var(--neutral-800); }
+
+  .mk-check {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: rgba(5, 150, 105, 0.12);
+    color: #047857;
+    font-size: 12px;
+    font-weight: 700;
     display: inline-flex;
     align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  /* Paso 1: atributos del perfil */
+  .mk-attrs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .mk-attrs li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    padding: 8px 10px;
+    border-radius: 8px;
+    background-color: #FAFAF8;
+  }
+
+  .mk-attr-k { font-weight: 500; color: var(--foreground); }
+  .mk-attr-v { margin-left: auto; color: var(--neutral-800); }
+
+  /* Paso 2: calendario real (grilla de dias, sin letras <13px) */
+  .cal-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+  }
+
+  .cal-cell {
+    aspect-ratio: 1;
+    border-radius: 5px;
+    background-color: #FAFAF8;
+    border: 1px solid var(--neutral-200);
+    position: relative;
+  }
+
+  /* Barra de contenido = pieza agendada. Late suave, escalonada. */
+  .cal-cell.has i {
+    position: absolute;
+    left: 4px;
+    right: 4px;
+    bottom: 4px;
+    height: 5px;
+    border-radius: 3px;
+    background-color: var(--primary);
+    animation: cell-breathe 3.4s var(--ease-default) infinite;
+  }
+
+  .cal-cell.has-b i { background-color: #B45309; }
+  .cal-cell.has-c i { background-color: #047857; }
+  .cal-cell.has:nth-child(4) i { animation-delay: 0.5s; }
+  .cal-cell.has:nth-child(9) i { animation-delay: 1s; }
+  .cal-cell.has:nth-child(13) i { animation-delay: 1.5s; }
+
+  @keyframes cell-breathe {
+    0%, 100% { opacity: 0.6; }
+    50% { opacity: 1; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cal-cell.has i { animation: none; opacity: 1; }
+  }
+
+  /* Paso 3: vista del cliente (link + aprobacion + pedido) */
+  .mk-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: #FAFAF8;
+    border: 1px solid var(--neutral-200);
+    border-radius: 9px;
+    padding: 9px 10px;
+  }
+
+  .mk-link-txt {
+    flex: 1;
+    min-width: 0;
+    font-size: 13px;
+    color: var(--neutral-800);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .mk-link-copy { font-size: 13px; font-weight: 500; color: var(--primary); flex-shrink: 0; }
+
+  .mk-approve { display: flex; align-items: center; gap: 10px; }
+
+  .mk-avatar-v { background-color: rgba(5, 150, 105, 0.12); color: #047857; }
+
+  .mk-check-lg {
+    width: 22px;
+    height: 22px;
+    margin-left: auto;
+    font-size: 13px;
+  }
+
+  .mk-order {
+    align-self: flex-start;
     font-size: 13px;
     font-weight: 500;
-    border-radius: var(--radius-pill);
-    padding: 4px 10px;
-    width: max-content;
-  }
-
-  .cs-ok {
-    color: #059669;
-    border: 1px solid rgba(5, 150, 105, 0.3);
-  }
-
-  .cs-sent {
     color: var(--primary);
     border: 1px solid rgba(68, 39, 255, 0.3);
+    border-radius: var(--radius-pill);
+    padding: 5px 12px;
   }
 
   .paso-titulo {
