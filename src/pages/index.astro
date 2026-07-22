@@ -30,6 +30,9 @@ import CTAFooter from '../components/CTAFooter.astro';
      claras (sobre oscuro; las oscuras de la version clara eran invisibles).
      Las secciones oscuras van transparentes para dejarlo pasar. */
   .page {
+    /* flow-root contiene el margin-top del nav: sin esto ese margen colapsa
+       hacia afuera y empuja .page (con el grid) 32px para abajo. */
+    display: flow-root;
     background-color: var(--block-dark);
     background-image:
       linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
