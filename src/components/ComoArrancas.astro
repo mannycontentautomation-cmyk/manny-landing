@@ -185,22 +185,9 @@
 
   @media (min-width: 880px) {
     .pasos {
-      position: relative;
       grid-template-columns: repeat(3, 1fr);
       gap: var(--space-10);
       max-width: none;
-    }
-
-    /* Hilo que conecta 1 -> 2 -> 3: linea punteada a la altura de los numeros,
-       detras de las tarjetas (solo se ve en los gaps). */
-    .pasos::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 16%;
-      right: 16%;
-      border-top: 2px dashed var(--neutral-300);
-      z-index: 0;
     }
   }
 
@@ -213,7 +200,7 @@
     text-align: center;
   }
 
-  /* Numero como nodo del stepper: centrado arriba, sobre el hilo. */
+  /* Numero como nodo del stepper: circulo, tipografia sans, centrado arriba. */
   .paso-num {
     position: absolute;
     top: -20px;
@@ -227,20 +214,23 @@
     justify-content: center;
     background-color: var(--primary);
     color: var(--primary-foreground);
-    font-family: var(--font-display);
-    font-size: 22px;
-    border-radius: 11px;
+    font-family: var(--font-body);
+    font-size: 17px;
+    font-weight: 600;
+    border-radius: 50%;
     box-shadow: 0 6px 18px rgba(68, 39, 255, 0.4);
   }
 
   /* La tarjeta-pantalla: misma familia que el mockup del hero. */
+  /* Borde mas marcado: sobre la tarjeta clara padre (blanca) las tarjetas
+     blancas se perdian; el borde les da contraste. */
   .paso-mock {
     position: relative;
     text-align: left;
     background-color: var(--background);
-    border: 1px solid var(--neutral-200);
+    border: 1px solid var(--neutral-300);
     border-radius: 16px;
-    box-shadow: 0 14px 34px rgba(25, 23, 29, 0.1);
+    box-shadow: 0 14px 34px rgba(25, 23, 29, 0.08);
     padding: 20px;
     margin-top: 22px;
     margin-bottom: var(--space-7);
@@ -314,7 +304,7 @@
     font-size: 13px;
     padding: 8px 10px;
     border-radius: 8px;
-    background-color: #FAFAF8;
+    background-color: #F4F4F1;
   }
 
   .mk-attr-k { font-weight: 500; color: var(--foreground); }
@@ -330,8 +320,8 @@
   .cal-cell {
     aspect-ratio: 1;
     border-radius: 5px;
-    background-color: #FAFAF8;
-    border: 1px solid var(--neutral-200);
+    background-color: #F4F4F1;
+    border: 1px solid var(--neutral-300);
     position: relative;
   }
 
@@ -367,8 +357,8 @@
     display: flex;
     align-items: center;
     gap: 8px;
-    background-color: #FAFAF8;
-    border: 1px solid var(--neutral-200);
+    background-color: #F4F4F1;
+    border: 1px solid var(--neutral-300);
     border-radius: 9px;
     padding: 9px 10px;
   }
