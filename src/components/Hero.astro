@@ -87,7 +87,22 @@ const CUENTAS = [
   /* Transparente a proposito: deja ver el grid del fondo de .page. */
   .hero {
     color: #EFEFEC;
-    padding-block: clamp(48px, 7vh, 104px) clamp(64px, 9vh, 140px);
+    padding-block: clamp(40px, 6vh, 72px);
+  }
+
+  /* En desktop el hero ocupa el alto del viewport y centra el contenido:
+     El desafio recien aparece al scrollear. El nav (isla) ocupa 90px de flujo
+     arriba (margin-top 32 + isla 58), por eso se resta. */
+  @media (min-width: 1024px) {
+    .hero {
+      min-height: calc(100vh - 90px);
+      display: flex;
+      align-items: center;
+    }
+
+    .hero > .section-wrap {
+      width: 100%;
+    }
   }
 
   .hero-grid {
