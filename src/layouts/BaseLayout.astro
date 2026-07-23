@@ -1,5 +1,6 @@
 ---
 import '../styles/tokens.css';
+import Analytics from '@vercel/analytics/astro';
 
 interface Props {
   title?: string;
@@ -78,14 +79,10 @@ const jsonLd = {
       href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap"
     />
 
-    {
-      /* Vercel Web Analytics: solo en el build de producción. Requiere
-         habilitar Web Analytics en el dashboard de Vercel (proyecto
-         manny-landing) para que /_vercel/insights/script.js exista. */
-      import.meta.env.PROD && (
-        <script is:inline defer src="/_vercel/insights/script.js" />
-      )
-    }
+    {/* Vercel Web Analytics: el componente oficial detecta producción solo
+        (no-op en dev) y carga el script de insights. Requiere tener Web
+        Analytics habilitado en el dashboard de Vercel (proyecto manny-landing). */}
+    <Analytics />
   </head>
   <body>
     <slot />
