@@ -39,14 +39,7 @@ src/
     ├── CTAFooter.astro        ← bloque oscuro (#beta-final): H2 + WaitlistForm + footer integrado (LinkedIn icon, sin Privacy/Terms/Contact). Sin mascota/peek (removidos en v4)
     ├── WaitlistForm.astro     ← email pill + DOS botones submit: "Sumarme a la lista" (data-intent="waitlist") + "Quiero una demo" (data-intent="demo"). El submitter decide el intent (e.submitter.dataset.intent), sin checkbox. Variantes light/dark, submit vanilla JS. POST manda `intent` + `source` = `formId:via` (via ∈ hero|nav|direct, de sessionStorage `manny-cta`)
     ├── Wordmark.astro         ← SVG-based "manny!" wordmark (color prop)
-    ├── MannyMark.astro        ← SVG-based mark (color prop)
-    │
-    │  ── SIN USAR (sobras de v4, borrables): ──
-    ├── Highlight.astro        ← reframe absorbido por Desafio
-    ├── VistaCentral.astro     ← "Todo, de un vistazo" absorbido por Desafio
-    ├── ContextoOmnicanal.astro← benefit blocks v3
-    ├── RelacionCliente.astro  ← pantalla de aprobación del cliente (v3)
-    └── Disenador.astro        ← pedido a diseño (v3)
+    └── MannyMark.astro        ← SVG-based mark (color prop)
 
 public/
 ├── favicon-32.png             ← 32×32 brand favicon (mascota Manny)
@@ -63,13 +56,13 @@ api/
 └── waitlist.ts                ← Vercel function: POST email → insert best-effort en Supabase + aviso interno + contacto Resend + confirmación
 ```
 
-Section order in `index.astro`: **Nav → Hero → Desafio → Dolores → ComoArrancas → Principio → CTAFooter**. Las 5 componentes marcadas "SIN USAR" arriba siguen en el repo pero NO se importan; se pueden borrar cuando se quiera limpiar (ver Pending TODOs). El viejo "proceso en 4 tiempos" (HowItWorks) fue removido a propósito — no traerlo de vuelta.
+Section order in `index.astro`: **Nav → Hero → Desafio → Dolores → ComoArrancas → Principio → CTAFooter**. (Las sobras v3/v4 sin usar — Highlight, VistaCentral, ContextoOmnicanal, RelacionCliente, Disenador — se borraron el 2026-07-23.) El viejo "proceso en 4 tiempos" (HowItWorks) fue removido a propósito — no traerlo de vuelta.
 
 **Nav CTAs espejan el hero**: outline "Pedí una demo" (`data-cta="nav-demo"`) + filled "Sumate a la lista" (`data-cta="nav"`). No hay chip de status.
 
 **WaitlistForm dual intent**: email input + DOS botones submit. El submitter define si es `waitlist` o `demo` (leído via `e.submitter.dataset.intent`), sin checkbox. Los CTAs demo de hero/nav/ComoArrancas solo anclan a `#beta-final` con `data-cta` para atribución — el visitante elige el camino real en el footer.
 
-**Product mockups son HTML/CSS dentro de los componentes** (Desafio, ComoArrancas, y los 3 sin usar), low-fi según el wireframe etapa-1 (`manny-platform/Docs/mockups/wireframe-etapa-1.dc.html`). El producto real todavía no existe: cuando exista, se cambian por capturas reales sin tocar estructura. El texto de los mockups sigue las reglas de voz (tuteo neutro, 13px min); nombres de cliente ficticios (Café Aurora, Vinoteca Peralta, Librería del Sur, Vivero Alsina).
+**Product mockups son HTML/CSS dentro de los componentes** (Desafio, ComoArrancas), low-fi según el wireframe etapa-1 (`manny-platform/Docs/mockups/wireframe-etapa-1.dc.html`). El producto real todavía no existe: cuando exista, se cambian por capturas reales sin tocar estructura. El texto de los mockups sigue las reglas de voz (tuteo neutro, 13px min); nombres de cliente ficticios (Café Aurora, Vinoteca Peralta, Librería del Sur, Vivero Alsina).
 
 ## Layout patterns
 
@@ -159,8 +152,6 @@ The form is wired to a real backend (since 2026-05-10; hardened 2026-07-23):
 - **Arquitectura**: Vercel function suelta en `/api/*.ts`, NO un endpoint de Astro. Mantiene Astro como puro SSG. ⚠️ Los flujos de mail no se pueden testear localmente (las keys viven en Vercel): verificar en deploy. **Ambos flujos (waitlist + demo) testeados en prod OK el 2026-07-23.**
 
 ## Pending TODOs
-
-- **Borrar las 5 componentes sin usar** (Highlight, VistaCentral, ContextoOmnicanal, RelacionCliente, Disenador) una vez que se confirme que nada las reclama. Siguen en el repo por seguridad tras el pase v4→v5.
 
 - **Re-scrapear la OG**: la imagen nueva (oscura editorial) necesita forzar cache en [LinkedIn Post Inspector](https://www.linkedin.com/post-inspector/) / Facebook Sharing Debugger, sino se ve la vieja.
 

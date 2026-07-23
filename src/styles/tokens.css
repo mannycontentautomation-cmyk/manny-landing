@@ -222,16 +222,6 @@ svg {
 
 /* --- Typography helpers ------------------------------------------------ */
 
-.display-h1 {
-  font-family: var(--font-display);
-  font-size: var(--text-h1);
-  line-height: var(--leading-tight);
-  letter-spacing: var(--tracking-display);
-  font-weight: 500;
-  color: var(--foreground);
-  text-wrap: pretty;
-}
-
 .display-h2 {
   font-family: var(--font-display);
   font-size: var(--text-h2);
