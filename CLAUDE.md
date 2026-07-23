@@ -203,9 +203,15 @@ grep -rEn 'font-size:\s*1[012]px' src/ --include='*.astro' --include='*.css'
 grep -rn "lote" src/ --include='*.astro'
 ```
 
-## Reference docs (NOT in repo)
+## Reference docs (repo aparte)
 
-The strategic source of truth lives in `Docs/` (gitignored, on Juan's machine at `/Users/juanpaz/Documents/Juan stuff/manny/manny-landing/Docs/`).
+The strategic source of truth vive en el repo **`github.com/mannycontentautomation-cmyk/manny-docs`** (clonable con la credencial del llavero, la misma cuenta que usa `origin`):
+
+```bash
+git clone --depth 1 https://github.com/mannycontentautomation-cmyk/manny-docs.git
+```
+
+Los docs de copy están en `Docs/Comunicacion/`. Para cualquier decisión de posicionamiento/voz, clonar y leer en vez de asumir. **Dos trampas de copy que salen de ahí** (aplican a toda superficie): (1) Manny NO es herramienta de diseño (el diseño lo hace la agencia; Manny ordena el pedido a diseño); (2) "la información en un solo lugar" está marcada como verdad a medias (el valor es que el contexto *viaje y se use*, no que se guarde). Mensaje raíz: *"El cuello de botella no es la creatividad. Es la coordinación."* Categoría: *"la torre de control de la agencia de contenido."*
 
 Most useful for copy decisions:
 - `Docs/Comunicacion/01_POSICIONAMIENTO.md` — positioning, audience, category framing
@@ -213,6 +219,8 @@ Most useful for copy decisions:
 - `Docs/Comunicacion/04_VOZ_Y_TONO_EXTERNO.md` — voice rules per channel
 - `Docs/Comunicacion/07_COMPETENCIA_Y_DIFERENCIACION.md` — how to position vs competitors
 
-Design handoff (separate folder, also not in repo): comp Figma `Landing_design` (`i3ZYmyBqNw7W7rrMc0sd8b`). El handoff editorial viejo (Landing.jsx prototype, tokens.css, SVG assets) vive en `/Users/juanpaz/Downloads/design_handoff_landing/`; los SVG ya están en `public/assets/`.
+Design handoff: comp Figma `Landing_design` (`i3ZYmyBqNw7W7rrMc0sd8b`). El handoff editorial viejo (Landing.jsx prototype, tokens.css, SVG assets) vivía en la máquina de Juan; los SVG ya están en `public/assets/`.
+
+**OG image**: se genera a mano (no hay script en el repo). Template HTML que matchea el look oscuro editorial (grid, logo blanco mark+word, Instrument Serif blanco + italic `#A89EFF`, Instrument Sans para audiencia) renderizado a 1200×630 con Playwright. Copy actual: *"El sistema que ordena el trabajo de todos tus clientes."* + *"Para agencias creativas, estudios y freelancers."* Al cambiarla, re-scrapear cache en LinkedIn Post Inspector / FB Debugger.
 
 When `brief.md` and `Docs/Comunicacion/` disagree, prefer the docs (they're more recent). When current implementation and either disagree, the implementation reflects Juan's most recent decisions — see CLAUDE memory entries for context.
