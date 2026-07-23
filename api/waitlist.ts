@@ -173,55 +173,72 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
   const userAgent = (req.headers['user-agent'] ?? '').toString().slice(0, 512);
 
-  // Aviso interno cuando alguien pide demo: es el dato que queremos ver
-  // llegar. Se manda aunque el email ya estuviera en la lista.
-  const notifyTeamOfDemo = async () => {
-    if (intent !== 'demo') return;
-    try {
-      await resend.emails.send({
-        from: RESEND_FROM_EMAIL,
-        to: TEAM_INBOX,
-        subject: `Pedido de demo en vivo: ${email}`,
-        text: `${email} pidió una demo en vivo desde la landing.\n\nsource: ${source}\nuser-agent: ${userAgent}`,
-      });
-    } catch (err) {
-      console.error('[waitlist] demo notification failed', err);
-    }
-  };
-
+  // Guardado en Supabase best-effort: la DB del free tier se pausa sola tras
+  // ~7 días sin uso, y una DB caída NO debe romper el form. Si el insert falla
+  // seguimos: el aviso interno + el contacto en Resend son el registro durable.
+  let dbStatus: 'inserted' | 'duplicate' | 'failed' = 'failed';
   const { error: insertError } = await supabase
     .from('waitlist')
     .insert({ email, source, user_agent: userAgent });
 
-  if (insertError) {
-    if (insertError.code === '23505') {
-      await notifyTeamOfDemo();
-      return res.status(200).json({ ok: true, alreadySignedUp: true });
-    }
-    console.error('[waitlist] supabase insert error', insertError);
-    return res.status(500).json({ error: 'storage_error' });
+  if (!insertError) {
+    dbStatus = 'inserted';
+  } else if (insertError.code === '23505') {
+    dbStatus = 'duplicate'; // violación del unique en email: ya estaba
+  } else {
+    console.error('[waitlist] supabase insert error (no bloqueante)', insertError);
   }
 
-  await notifyTeamOfDemo();
+  const alreadySignedUp = dbStatus === 'duplicate';
 
+  // Aviso interno en TODA alta (no solo demo): es el registro a prueba de
+  // pausas. Si la DB no guardó, este mail es el único rastro de la persona.
+  const notifyTeam = async () => {
+    const label = intent === 'demo' ? 'Pedido de demo en vivo' : 'Nueva alta en la lista';
+    const action = intent === 'demo' ? 'pidió una demo en vivo' : 'se sumó a la lista';
+    const dbLine =
+      dbStatus === 'failed'
+        ? '\n\n⚠️ La DB no guardó esta alta (Supabase pausado o caído). Este mail es el único registro.'
+        : dbStatus === 'duplicate'
+          ? '\n\n(Ya figuraba en la lista.)'
+          : '';
+    try {
+      await resend.emails.send({
+        from: RESEND_FROM_EMAIL,
+        to: TEAM_INBOX,
+        subject: `${label}: ${email}`,
+        text: `${email} ${action} desde la landing.\n\nsource: ${source}\nuser-agent: ${userAgent}${dbLine}`,
+      });
+    } catch (err) {
+      console.error('[waitlist] team notification failed', err);
+    }
+  };
+
+  await notifyTeam();
+
+  // Segunda copia durable de la lista, independiente de Supabase.
   try {
     await resend.contacts.create({ email, unsubscribed: false });
   } catch (err) {
     console.error('[waitlist] resend contact create failed', err);
   }
 
-  try {
-    const { subject, html, text } = confirmationEmail(intent);
-    await resend.emails.send({
-      from: RESEND_FROM_EMAIL,
-      to: email,
-      subject,
-      html,
-      text,
-    });
-  } catch (err) {
-    console.error('[waitlist] resend email send failed', err);
+  // Confirmación al visitante. Si la DB confirmó que era duplicado no la
+  // reenviamos; si la DB estaba caída no lo sabemos, así que la mandamos.
+  if (!alreadySignedUp) {
+    try {
+      const { subject, html, text } = confirmationEmail(intent);
+      await resend.emails.send({
+        from: RESEND_FROM_EMAIL,
+        to: email,
+        subject,
+        html,
+        text,
+      });
+    } catch (err) {
+      console.error('[waitlist] resend email send failed', err);
+    }
   }
 
-  return res.status(200).json({ ok: true });
+  return res.status(200).json({ ok: true, alreadySignedUp });
 }
